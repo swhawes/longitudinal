@@ -40,5 +40,22 @@ export default defineNuxtConfig({
         braceStyle: '1tbs'
       }
     }
+  },
+  content: {
+    highlight: {
+      langs: [
+        'json',
+        'js',
+        'ts',
+        'html',
+        'css',
+        'vue',
+        'shell',
+        'mdc',
+        'md',
+        'yaml',
+        'r' // Adding R language support
+      ]
+    }
   }
 })
