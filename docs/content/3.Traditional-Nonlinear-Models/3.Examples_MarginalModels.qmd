@@ -1,0 +1,154 @@
+---
+title: "Marginal Models"
+author: "Biostatistics Working Group"
+---
+
+```{r}
+#| echo: FALSE # The content of this code block will not be shown when rendered
+#| output: FALSE # Output from this code block will not be shown when rendered
+
+# This code configures knitr code chunk options
+
+knitr::opts_chunk$set(echo = T, message=F, warning=F, error=F, output=T,
+                      comment=NA, cache=T, code_folding=T,
+                      R.options=list(width=220, digits = 3),
+                      fig.align='center', 
+                      out.width='75%', fig.asp=.75)
+```
+
+```{r}
+#| echo: FALSE # The content of this code block will not be shown when rendered
+#| output: FALSE # Output from this code block will not be shown when rendered
+#| cache: FALSE
+
+# This code loads the data to be used for the example
+
+library(tidyverse)
+
+# Set the data path
+data_path <- "/Users/shawes/ABCD/data/rds/abcd_5.0_rds/core-rds-5.0/non-imaging_excluding_nt_5.0.rds"
+
+# Read the data
+df <- readRDS(data_path)
+
+# Create and mutate the dataframe
+df_long <- df %>%
+    select(src_subject_id, eventname, anthroheightcalc) %>%
+    filter(eventname %in% c("baseline_year_1_arm_1", "1_year_follow_up_y_arm_1", "2_year_follow_up_y_arm_1", "3_year_follow_up_y_arm_1")) %>%
+    drop_na(anthroheightcalc) %>%
+    arrange(src_subject_id, eventname) %>%
+    mutate(
+        src_subject_id = factor(src_subject_id),
+        eventname = factor(eventname, levels = c("baseline_year_1_arm_1", "1_year_follow_up_y_arm_1", "2_year_follow_up_y_arm_1", "3_year_follow_up_y_arm_1"), labels = c("Baseline", "Year_1", "Year_2", "Year_3")),
+        anthroheightcalc = round(as.numeric(anthroheightcalc), 2)
+    ) %>%
+    rename(
+        id = src_subject_id,
+        event = eventname,
+        height = anthroheightcalc
+    )
+
+df_long <- df_long %>%
+    group_by(id) %>%
+    filter(all(c("Baseline", "Year_1", "Year_2", "Year_3") %in% event)) %>%
+    ungroup()
+
+```
+
+## Overview
+Marginal models, also known as population-averaged models, are used in the analysis of longitudinal data where the focus is on the overall population effect rather than individual-specific effects. These models account for the correlation between repeated measures within subjects by using generalized estimating equations (GEE) to provide robust standard errors and efficient parameter estimates.
+
+This example will examine height across 3 annual measurement occasions in a sample of youth taking part in the ABCD Study. The primary aim is to characterize the average growth pattern in height over time at the population level. Marginal models will be employed to estimate the overall mean height at each time point, while accounting for the correlation of repeated measurements within individuals, thus providing a comprehensive understanding of height changes across the entire sample.
+
+## Preliminary Setup
+
+### Load R libraries
+```{r}
+
+library(tidyverse)    # Collection of R packages for data science
+library(lme4)         # Linear mixed-effects models
+library(geepack)      # Generalized Estimating Equations (GEE) analysis
+library(report)       # Easy reporting of regression analyses
+library(broom)        # Tidy and augment statistical models output
+library(gridExtra)    # Arrange multiple grid-based plots on a page
+library(easystats)    #
+library(gtsummary)    #
+library(marginaleffects) #
+```
+
+### Descriptives
+```{r}
+
+descriptives_table <- df_long %>%
+    select(event, height) %>%
+    mutate(event = factor(event)) %>%
+    tbl_summary(
+        by = event,
+        missing = "no",
+        label = list(height ~ "Height"),
+        statistic = list(all_continuous() ~ "{mean} ({sd})", all_categorical() ~ "{p}%"),
+    ) %>%
+    modify_header(all_stat_cols() ~ "**{level}**<br>N = {n}") %>%
+    bold_labels() %>%
+    italicize_levels() %>%
+    modify_spanning_header(all_stat_cols() ~ "**Assessment Wave**")
+theme_gtsummary_compact()
+
+descriptives_table
+
+```
+
+## Results
+### Compute Marginal Model Analysis
+This code fits a Marginal Model to predict 'Height' across 3 annual visits, focusing on the overall population-level effect. The model output is provided below, along with a summary of results. This approach accounts for the correlation between repeated measurements within individuals using generalized estimating equations (GEE), providing robust standard errors and efficient parameter estimates for the average height at each time point.
+
+```{r}
+
+df_long <- df_long %>%
+  filter(!is.na(height) & !is.na(event) & !is.na(id))
+
+# Fitting the longitudinal marginal model
+model <- geeglm(height ~ event, data = df_long, id = id, family = gaussian(), corstr = "exchangeable")
+
+summary(model)
+
+```
+
+These results show a significant increase in height across the years, with an estimated increase of approximately 2.41 inches in Year 1 and 5.20 inches by Year 2 compared to the baseline, as indicated by the fixed effects estimates. The correlation structure of the repeated measurements is modeled using an exchangeable correlation matrix, which suggests that the measurements are equally correlated within individuals. The significant Wald statistics and p-values (< 2e-16) for each year indicate strong evidence of height changes over time in the population.
+
+### Model Plots
+```{r}
+
+# Calculate mean height and confidence intervals for each time point
+summary_data <- df_long %>%
+  group_by(event) %>%
+  summarize(
+    mean_height = mean(height, na.rm = TRUE),
+    ci_lower = mean_height - qt(0.975, df = n() - 1) * sd(height, na.rm = TRUE) / sqrt(n()),
+    ci_upper = mean_height + qt(0.975, df = n() - 1) * sd(height, na.rm = TRUE) / sqrt(n())
+  )
+
+# Generate the plot
+ggplot(summary_data, aes(x = event, y = mean_height)) +
+  geom_line(color = "blue", size = 1) +
+  geom_point(color = "blue", size = 3) +
+  geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2, color = "blue") +
+  labs(
+    title = "Mean Height Across Time Points with Confidence Intervals",
+    x = "Time Point",
+    y = "Mean Height (inches)"
+  ) +
+  theme_minimal()
+
+```
+This plot illustrates the mean height of participants across the three annual measurement occasions, along with 95% confidence intervals. The blue line and points represent the average height at each time point, while the error bars show the range within which we are 95% confident the true mean height lies.
+
+The plot reveals a clear increasing trend in height over time, with mean height values rising at each subsequent measurement occasion. The confidence intervals provide a sense of the variability and precision of these mean estimates, indicating that the observed increase in height is statistically significant. This visualization highlights the overall growth pattern in the sample, capturing the population-level trends effectively.
+
+## Wrapping Up
+The marginal model analysis revealed a significant increase in children's height measured over 3 annual assessments. The mean intercept value showed an average initial height of 55.12 inches, with year-to-year growth increments of approximately 2.41 inches in Year 1 and 5.20 inches by Year 2 compared to the baseline.
+
+The marginal model framework, using generalized estimating equations (GEE), effectively captured the population-averaged trends while accounting for the correlation of repeated measurements within individuals. This approach demonstrated its utility in handling clustered data from repeated measurements on the same subjects. The exchangeable correlation structure indicated that the measurements were equally correlated within individuals, and the significant Wald statistics provided strong evidence of height changes over time.
+
+Overall, the marginal model approach is particularly useful in developmental studies as it estimates common parameters across all individuals, offering a clear understanding of population-level trends in longitudinal data. This method is valuable for examining average growth patterns while accounting for the correlation in repeated measurements.
+

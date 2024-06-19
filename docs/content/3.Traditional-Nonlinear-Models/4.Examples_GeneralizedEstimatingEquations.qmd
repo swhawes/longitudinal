@@ -1,0 +1,155 @@
+---
+title: "Generalized Estimating Equations"
+author: "Biostatistics Working Group"
+---
+
+```{r}
+#| echo: FALSE # The content of this code block will not be shown when rendered
+#| output: FALSE # Output from this code block will not be shown when rendered
+
+# This code configures knitr code chunk options
+
+knitr::opts_chunk$set(echo = T, message=F, warning=F, error=F, output=T,
+                      comment=NA, cache=T, code_folding=T,
+                      R.options=list(width=220, digits = 3),
+                      fig.align='center', 
+                      out.width='75%', fig.asp=.75)
+```
+
+```{r}
+#| echo: FALSE # The content of this code block will not be shown when rendered
+#| output: FALSE # Output from this code block will not be shown when rendered
+#| cache: FALSE
+
+# This code loads the data to be used for the example
+
+library(tidyverse)
+
+# Set the data path
+data_path <- "/Users/shawes/ABCD/data/rds/abcd_5.0_rds/core-rds-5.0/non-imaging_excluding_nt_5.0.rds"
+
+# Read the data
+df <- readRDS(data_path)
+
+# Create and mutate the dataframe
+df_long <- df %>%
+    select(src_subject_id, eventname, anthroheightcalc) %>%
+    filter(eventname %in% c("baseline_year_1_arm_1", "1_year_follow_up_y_arm_1", "2_year_follow_up_y_arm_1", "3_year_follow_up_y_arm_1")) %>%
+    drop_na(anthroheightcalc) %>%
+    arrange(src_subject_id, eventname) %>%
+    mutate(
+        src_subject_id = factor(src_subject_id),
+        eventname = factor(eventname, levels = c("baseline_year_1_arm_1", "1_year_follow_up_y_arm_1", "2_year_follow_up_y_arm_1", "3_year_follow_up_y_arm_1"), labels = c("Baseline", "Year_1", "Year_2", "Year_3")),
+        anthroheightcalc = round(as.numeric(anthroheightcalc), 2)
+    ) %>%
+    rename(
+        id = src_subject_id,
+        event = eventname,
+        height = anthroheightcalc
+    )
+
+df_long <- df_long %>%
+    group_by(id) %>%
+    filter(all(c("Baseline", "Year_1", "Year_2", "Year_3") %in% event)) %>%
+    ungroup()
+
+```
+
+## Overview
+
+Generalized Estimating Equations (GEE) are an extension of generalized linear models used for analyzing longitudinal and other correlated response data. GEEs provide a method for estimating the parameters of a generalized linear model with and are particularly useful when dealing with repeated measurements or clustered data, offering robust standard errors that account for within-subject correlations.
+
+This example will examine height across 3 annual measurement occasions in a sample of youth taking part in the ABCD Study. The primary aim is to characterize the average growth pattern in height over time at the population level. GEEs will be employed to estimate the mean height at each time point, accounting for the correlation of repeated measurements within individuals. This approach will help us understand how height changes over time while providing robust estimates that account for the inherent correlation in the repeated measures data.
+
+## Preliminary Setup
+### Load R libraries
+```{r}
+
+library(tidyverse)    # Collection of R packages for data science
+library(rstatix)      # Pipe-friendly framework for basic statistical tests
+library(geepack)      # Generalized Estimating Equations (GEE) analysis
+library(gtsummary) # Publication-ready tables
+
+```
+
+### Descriptives
+```{r}
+
+descriptives_table <- df_long %>%
+    select(event, height) %>%
+    mutate(event = factor(event)) %>%
+    tbl_summary(
+        by = event,
+        missing = "no",
+        label = list(height ~ "Height"),
+        statistic = list(all_continuous() ~ "{mean} ({sd})", all_categorical() ~ "{p}%"),
+    ) %>%
+    modify_header(all_stat_cols() ~ "**{level}**<br>N = {n}") %>%
+    bold_labels() %>%
+    italicize_levels() %>%
+    modify_spanning_header(all_stat_cols() ~ "**Assessment Wave**")
+theme_gtsummary_compact()
+
+descriptives_table
+
+```
+
+## Results
+### Compute Generalized Estimating Equations Analysis
+This code fits a Generalized Estimating Equations (GEE) model to predict 'Height' across 3 annual visits, accounting for within-subject correlation of repeated measurements. The model output is provided below, along with a summary of results. This approach uses GEEs to estimate the population-averaged effects, providing robust standard errors and accommodating the correlation structure of the repeated height measurements.
+
+```{r}
+
+model <- geeglm(height ~ event, data = df_long, id = id, family = gaussian(), corstr = "exchangeable")
+
+summary(model)
+```
+
+These results indicate a significant increase in height across the years, with an increase of approximately 2.41 inches in Year 1 and 5.20 inches by Year 2 compared to the baseline, as evidenced by the fixed effects estimates. The exchangeable correlation structure suggests a consistent correlation between repeated measurements within individuals, with an estimated correlation parameter (alpha) of 0.681. The significant Wald statistics and p-values (< 2e-16) for each year indicate strong evidence of height changes over time in the population.
+
+### Model Plots
+```{r}
+
+# Fit the GEE model
+model <- geeglm(height ~ event, data = df_long, id = id, family = gaussian(), corstr = "exchangeable")
+
+# Extract the predicted means and standard errors
+predicted_values <- data.frame(
+  event = unique(df_long$event),
+  mean_height = predict(model, newdata = data.frame(event = unique(df_long$event)), type = "response"),
+  se = sqrt(diag(vcov(model)))
+)
+
+# Calculate confidence intervals
+predicted_values <- predicted_values %>%
+  mutate(
+    ci_lower = mean_height - 1.96 * se,
+    ci_upper = mean_height + 1.96 * se
+  )
+
+# Generate the plot
+ggplot(predicted_values, aes(x = event, y = mean_height)) +
+  geom_line(color = "blue", linewidth = 1) +
+  geom_point(color = "blue", size = 3) +
+  geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2, color = "blue") +
+  labs(
+    title = "Mean Height Across Time Points with Confidence Intervals (GEE)",
+    x = "Time Point",
+    y = "Mean Height (inches)"
+  ) +
+  theme_minimal()
+
+```
+
+This plot illustrates the mean height of participants across three annual measurement occasions, as estimated by the generalized estimating equations (GEE) model. The blue line and points represent the estimated mean height at each time point, while the error bars show the 95% confidence intervals around these estimates.
+
+The plot reveals a clear increasing trend in height over time, with mean height values rising at each subsequent measurement occasion. The confidence intervals provide a sense of the variability and precision of these mean estimates, indicating that the observed increase in height is statistically significant. This visualization highlights the overall growth pattern in the sample, capturing the population-averaged trends effectively.
+
+## Wrapping Up
+
+The marginal model analysis using Generalized Estimating Equations (GEE) revealed a significant increase in children's height measured over 3 annual assessments. The mean intercept value showed an average initial height of 55.12 inches. The fixed effects estimates indicated year-to-year growth increments of approximately 2.41 inches in Year 1 and 5.20 inches by Year 2 compared to the baseline.
+
+The GEE framework employed in this example captured the population-averaged trends while accounting for the correlation of repeated measurements within individuals. The exchangeable correlation structure suggested that measurements were consistently correlated within individuals, with an estimated correlation parameter (alpha) of 0.681. The significant Wald statistics and p-values (< 2e-16) provided strong evidence of height changes over time.
+
+The marginal model approach is particularly useful in developmental studies as it estimates common parameters across all individuals, offering a clear understanding of population-level trends in longitudinal data. This method is valuable for examining average growth patterns while accounting for the correlation in repeated measurements, providing insights into the overall changes in height over time.
+

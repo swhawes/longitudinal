@@ -1,0 +1,173 @@
+
+---
+title: "Generalized Linear Mixed Effects Models"
+author: "Biostatistics Working Group"
+---
+
+```{r}
+#| echo: FALSE # The content of this code block will not be shown when rendered
+#| output: FALSE # Output from this code block will not be shown when rendered
+
+# This code configures knitr code chunk options
+
+knitr::opts_chunk$set(echo = T, message=F, warning=F, error=F, output=T,
+                      comment=NA, cache=T, code_folding=T,
+                      R.options=list(width=220, digits = 3),
+                      fig.align='center', 
+                      out.width='75%', fig.asp=.75)
+```
+
+```{r}
+#| echo: FALSE # The content of this code block will not be shown when rendered
+#| output: FALSE # Output from this code block will not be shown when rendered
+#| cache: FALSE
+
+# This code loads the data to be used for the example
+
+library(tidyverse)
+
+# Set the data path
+data_path <- "/Users/shawes/ABCD/data/rds/abcd_5.0_rds/core-rds-5.0/non-imaging_excluding_nt_5.0.rds"
+
+# Read the data
+df <- readRDS(data_path)
+
+# Create and mutate the dataframe
+df_long <- df %>%
+    select(src_subject_id, eventname, ehi_y_ss_scoreb) %>%
+    filter(eventname %in% c("baseline_year_1_arm_1", "1_year_follow_up_y_arm_1", "2_year_follow_up_y_arm_1", "3_year_follow_up_y_arm_1")) %>%
+    #drop_na(anthroheightcalc) %>%
+    arrange(src_subject_id, eventname) %>%
+    mutate(
+        src_subject_id = factor(src_subject_id),
+        eventname = factor(eventname, levels = c("baseline_year_1_arm_1", "1_year_follow_up_y_arm_1", "2_year_follow_up_y_arm_1", "3_year_follow_up_y_arm_1"), labels = c("Baseline", "Year_1", "Year_2", "Year_3")),
+        ehi_y_ss_scoreb = as.numeric(as.character(ehi_y_ss_scoreb)) # Ensure numeric before transformation
+  ) %>%
+  mutate(
+    ehi_y_ss_scoreb = case_when(
+      ehi_y_ss_scoreb == 1 ~ 1,
+      ehi_y_ss_scoreb %in% c(2, 3) ~ 2,
+      TRUE ~ NA_real_   # Maintain NAs as they are
+    )
+  ) %>%
+    rename(
+        id = src_subject_id,
+        event = eventname,
+        handedness = ehi_y_ss_scoreb
+    )
+
+df_long <- df_long %>%
+    group_by(id) %>%
+    filter(all(c("Baseline", "Year_1", "Year_2", "Year_3") %in% event)) %>%
+    ungroup()
+
+```
+
+## Overview
+Generalized Linear Mixed Models (GLMMs) extend generalized linear models to include both fixed and random effects, allowing for the analysis of non-normal response variables and accounting for the correlation within clustered or repeated measures data. GLMMs are particularly useful when dealing with hierarchical data structures, offering a flexible framework to model various types of response distributions.
+
+This example will examine height across 3 annual measurement occasions in a sample of youth taking part in the ABCD Study. The primary aim is to characterize the growth pattern in height over time, while accounting for the repeated measures within individuals. GLMMs will be used to estimate both the overall population effects (fixed effects) and individual-specific deviations (random effects) from the population mean, providing a detailed understanding of height changes over time with the ability to model different types of response distributions.
+
+## Preliminary Setup
+### Load R libraries
+```{r}
+
+library(tidyverse)    # Collection of R packages for data science
+library(rstatix)      # Pipe-friendly framework for basic statistical tests
+library(lme4)         # Linear mixed-effects models
+library(gtsummary) # Publication-ready tables
+
+```
+
+### Descriptives
+```{r}
+
+descriptives_table <- df_long %>%
+    select(event, handedness) %>%
+    mutate(event = factor(event)) %>%
+    tbl_summary(
+        by = event,
+        missing = "no",
+        label = list(handedness ~ "Handedness"),
+        statistic = list(all_continuous() ~ "{mean} ({sd})", all_categorical() ~ "{p}%"),
+    ) %>%
+    modify_header(all_stat_cols() ~ "**{level}**<br>N = {n}") %>%
+    bold_labels() %>%
+    italicize_levels() %>%
+    modify_spanning_header(all_stat_cols() ~ "**Assessment Wave**")
+theme_gtsummary_compact()
+
+descriptives_table
+
+```
+
+## Results
+### Compute Generalized Linear Mixed Models
+This code fits a Generalized Linear Mixed Model (GLMM) to predict 'Height' across 3 annual visits, incorporating both fixed effects for overall population trends and random effects to account for individual-level variability. The model output is provided below, along with a summary of results. This model accounts for the hierarchical structure of the data, with random intercepts capturing individual deviations from the population mean height trajectory.
+
+```{r}
+
+# # Fit the GLMM model
+# model <- lmer(handedness ~ 1 + event + (1 | id), data = df_long, REML = TRUE)
+# 
+# # Extract fixed effects
+# fixed_effects <- fixef(model)
+# 
+# summary(model)
+# summary(fixed_effects)
+
+
+```
+
+These results show an increasing trajectory of height across the years, with an increase of approximately 2.42 inches in Year 1 and 4.93 inches by Year 2 compared to the baseline, as evidenced by the fixed effects estimates. The random intercepts effect suggests some between-subject variability in participants' height values at baseline, with a standard deviation of about 3.08 inches. The model's residuals are mostly well-behaved, although the range suggests a few extreme values or outliers.
+
+### Model Plots
+```{r}
+
+# # Prepare data frame for plotting
+# df_long$predicted_height <- predict(model, re.form = NA) # Overall fixed effect predictions
+# 
+# # Calculate individual intercept adjustments
+# df_long$individual_intercept <- predict(model, re.form = ~ (1 | id)) - fixed_effects[1]
+# 
+# # Combine fixed effects and random effects predictions
+# df_long$combined_predicted_height <- df_long$predicted_height + df_long$individual_intercept
+# 
+# # Generate the plot
+# ggplot(df_long, aes(x = event, y = height)) +
+#   geom_point(alpha = 0.3) +
+#   geom_line(aes(y = combined_predicted_height, group = id), color = "grey", alpha = 0.5) +
+#   geom_line(aes(y = predicted_height, group = 1), color = "blue", size = 1.5) +
+#   labs(
+#     title = "Predicted vs. Observed Heights with GLMM",
+#     x = "Event",
+#     y = "Height (inches)"
+#   ) +
+#   theme_minimal()
+
+
+```
+
+This plot illustrates the predicted versus observed heights across three annual measurement occasions, as estimated by the Generalized Linear Mixed Model (GLMM). The scatter plot shows actual height measurements for each individual, highlighting variability among participants. The grey lines represent individual predicted heights, accounting for both fixed effects and random intercepts, while the blue line shows the population-level trend.
+
+The plot reveals a clear increasing trend in height over time, with predicted height values rising at each measurement occasion. The grey lines indicate substantial individual variability, whereas the blue line captures the overall trend. This visualization effectively highlights both the population-averaged growth pattern and individual differences in height changes over time, demonstrating the GLMM's ability to model these dynamics.
+
+## Wrapping Up
+The marginal model analysis using Generalized Linear Mixed Effects Models (GLMM) revealed a significant increasing pattern of change in children's height measured over 3 annual assessments. The mean intercept value showed an average initial height of 55.29 inches (sd = 3.08), with evidence of individual variability around this estimate. The fixed effects estimates indicated year-to-year growth increments of approximately 2.42 inches in Year 1, 4.93 inches in Year 2, and 7.06 inches in Year 3 compared to the baseline.
+
+The GLMM framework used in this example effectively accounted for both fixed effects, which estimate common parameters across all individuals, and random effects, which capture unique variations among individuals. This approach demonstrated its utility in handling clustered or correlated data arising from repeated measurements on the same subjects. The random intercepts effect suggested some between-subject variability in participants' height values at baseline, with a standard deviation of about 3.08 inches.
+
+More generally, the GLMM approach is particularly useful in developmental studies as it allows for a more precise understanding of both group-level trends and individual-specific trajectories in longitudinal data. By accommodating individual differences in initial height and varying growth patterns over time, this method provides a comprehensive view of the dynamics of height changes in children.
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,145 @@
+---
+title: "Signed-Rank Test"
+author: "Biostatistics Working Group"
+---
+
+```{r}
+#| echo: FALSE # The content of this code block will not be rendered
+#| output: FALSE # Output from this code block will not be rendered
+
+# This code configures knitr code chunk options
+
+knitr::opts_chunk$set(
+    echo = T, message = F, warning = F, error = F, output = T,
+    comment = NA, cache = T, code_folding = T,
+    R.options = list(width = 220, digits = 3),
+    fig.align = "center",
+    out.width = "75%", fig.asp = .75
+)
+```
+
+```{r}
+#| echo: FALSE # The content of this code block will not be shown when rendered
+#| output: FALSE # Output from this code block will not be shown when rendered
+#| cache: FALSE
+
+# This code loads the data to be used for the example
+
+library(tidyverse)
+
+# Set the data path
+data_path <- "/Users/shawes/ABCD/data/rds/abcd_5.0_rds/core-rds-5.0/non-imaging_excluding_nt_5.0.rds"
+
+# Read the data
+df <- readRDS(data_path)
+
+# Create and mutate the dataframe
+df_long <- df %>%
+    select(src_subject_id, eventname, anthroheightcalc) %>%
+    filter(eventname %in% c("baseline_year_1_arm_1", "1_year_follow_up_y_arm_1", "2_year_follow_up_y_arm_1", "3_year_follow_up_y_arm_1")) %>%
+    drop_na(anthroheightcalc) %>%
+    arrange(src_subject_id, eventname) %>%
+    mutate(
+        src_subject_id = factor(src_subject_id),
+        eventname = factor(eventname, levels = c("baseline_year_1_arm_1", "1_year_follow_up_y_arm_1", "2_year_follow_up_y_arm_1", "3_year_follow_up_y_arm_1"), labels = c("Baseline", "Year_1", "Year_2", "Year_3")),
+        anthroheightcalc = round(as.numeric(anthroheightcalc), 2)
+    ) %>%
+    rename(
+        id = src_subject_id,
+        event = eventname,
+        height = anthroheightcalc
+    )
+
+df_long <- df_long %>%
+    group_by(id) %>%
+    filter(all(c("Baseline", "Year_1", "Year_2", "Year_3") %in% event)) %>%
+    ungroup()
+
+```
+
+## Overview
+The Signed Rank-Sum test is a non-parametric method used to compare paired samples or repeated measures. Unlike traditional parametric tests, it does not assume normality and is particularly useful when dealing with skewed distributions or ordinal data. This method extends the Wilcoxon signed rank-sum test to handle multiple measurements over time, making it suitable for longitudinal data analysis.
+
+This example will examine changes in height across 3 annual measurement occasions in a sample of youth taking part in the ABCD Study. The primary aim is to determine whether there are significant changes in height over time, while accounting for observations that are clustered within youth over time. The signed rank-sum test will help us identify whether height levels have significantly increased or decreased across the three time points without making parametric assumptions about the data distribution.
+
+## Preliminary Setup
+### Load Packages
+```{r}
+
+library(tidyverse) # Collection of R packages for data science
+library(gtsummary) # Publication-ready tables
+library(rstatix) # Statistical Tests in tidy format
+library(easystats) # 
+library(lme4) # Linear mixed-effects models
+```
+
+### Descriptives
+```{r}
+
+descriptives_table <- df_long %>%
+    select(event, height) %>%
+    mutate(event = factor(event)) %>%
+    tbl_summary(
+        by = event,
+        missing = "no",
+        label = list(height ~ "Height"),
+        statistic = list(all_continuous() ~ "{mean} ({sd})", all_categorical() ~ "{p}%"),
+    ) %>%
+    modify_header(all_stat_cols() ~ "**{level}**<br>N = {n}") %>%
+    bold_labels() %>%
+    italicize_levels() %>%
+    modify_spanning_header(all_stat_cols() ~ "**Assessment Wave**")
+theme_gtsummary_compact()
+
+descriptives_table
+
+```
+
+## Results 
+### Compute Signed Rank Test
+This code performs a Signed Rank-Sum Test to compare 'Height' across 3 annual visits, focusing on the changes in height over time. The output of the test is provided below, along with a summary of results. This non-parametric test accounts for the paired nature of the observations and determines whether there are significant changes in height across the three time points without assuming a specific distribution for the data.
+
+```{r}
+# Reshape data from long to wide format
+df_wide <- df_long %>%
+    pivot_wider(
+        id_cols = c(id),
+        names_from = event,
+        values_from = height,
+        names_prefix = "Height_"
+    )
+
+df_wide$Height_Baseline <- as.numeric(as.character(df_wide$Height_Baseline))
+df_wide$Height_Year_1 <- as.numeric(as.character(df_wide$Height_Year_1))
+
+df_wide_complete <- na.omit(df_wide[, c("Height_Baseline", "Height_Year_1")])
+
+model <- wilcox.test(df_wide_complete$Height_Baseline, df_wide_complete$Height_Year_1, paired = TRUE)
+
+report(wilcox.test(df_wide_complete$Height_Baseline, df_wide_complete$Height_Year_1))
+
+```
+These results indicate a significant increase in height from baseline to Year 1, as evidenced by the Wilcoxon signed rank-sum test. The test statistic (W = 2.41e+06) and the negative rank biserial correlation (r = -0.39) suggest a large effect size, with the p-value (< .001) confirming the statistical significance of the observed changes. This analysis shows that participants' heights have significantly increased from baseline to Year 1.
+
+### Model Plots
+```{r}
+
+ggplot(df_long, aes(x = event, y = height, group = id)) +
+  geom_line(aes(group = id), alpha = 0.3, color = "grey") +  # Individual trajectories
+  geom_boxplot() +  # Boxplot for summary statistics
+  labs(title = "Comparison of Height Measurements Across Time Points",
+       x = "Time Point", y = "Height (inches)") +
+  theme_minimal() +
+  theme(legend.position = "none")  # Hide legend, if not necessary
+
+```
+This plot illustrates the change in participants' height across 3 annual measurement occasions using a combination of individual trajectories and boxplots. The grey lines represent individual participants' height trajectories, demonstrating the variability among participants at each time point. The boxplots summarize the distribution of height measurements at each time point, highlighting the median, interquartile range, and potential outliers.
+
+The plot reveals significant changes in height over time, with the median height increasing across the three measurement occasions. The individual trajectories show that while most participants experience an increase in height, the rate of growth varies. This visualization helps to identify trends and patterns in height changes, as well as the variability in growth among participants. The boxplots provide a clear summary of the central tendency and spread of height measurements at each time point, indicating that the overall height distribution shifts upwards over time.
+
+## Wrapping Up
+The signed rank-sum test analysis revealed significant changes in children's height measured over 3 annual assessments. The Wilcoxon rank sum test with continuity correction between baseline and Year 1 indicated a significant increase in height (W = 2.41e+06, p < .001; r (rank biserial) = -0.39, 95% CI [-0.42, -0.37]). These results suggest a large effect size, with the p-value confirming the statistical significance of the observed changes. Participants' heights significantly increased from baseline to Year 1. This non-parametric method was particularly useful for handling the paired nature of the data and did not assume normality, making it suitable for skewed distributions often encountered in growth measurements.
+
+The signed rank-sum test provided insights into overall changes in height without requiring parametric assumptions, demonstrating its utility in analyzing longitudinal data. This approach is valuable in developmental studies as it robustly detects significant changes over time, even with non-normal data distributions. By focusing on rank differences, the test highlights meaningful changes within individuals, offering a straightforward yet powerful method to examine growth patterns across repeated measurements.
+
+

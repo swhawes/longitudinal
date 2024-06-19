@@ -1,0 +1,188 @@
+---
+title: "Autoregressive Crosslagged Panel Models"
+author: "Biostatistics Working Group"
+---
+
+```{r}
+#| echo: FALSE # The content of this code block will not be shown when rendered
+#| output: FALSE # Output from this code block will not be shown when rendered
+
+# This code configures knitr code chunk options
+
+knitr::opts_chunk$set(
+    echo = T, message = F, warning = F, error = F, output = T,
+    comment = NA, cache = T, code_folding = T,
+    R.options = list(width = 220, digits = 3),
+    fig.align = "center",
+    out.width = "75%", fig.asp = .75
+)
+```
+
+```{r}
+#| echo: FALSE # The content of this code block will not be shown when rendered
+#| output: FALSE # Output from this code block will not be shown when rendered
+#| cache: FALSE
+
+# This code loads the data to be used for the example
+
+library(tidyverse)
+
+# Set the data path
+data_path <- "/Users/shawes/ABCD/data/rds/abcd_5.0_rds/core-rds-5.0/non-imaging_excluding_nt_5.0.rds"
+
+# Read the data
+df <- readRDS(data_path)
+
+# Create and mutate the dataframe
+df_long <- df %>%
+    select(src_subject_id, eventname, anthroheightcalc, anthroweightcalc) %>%
+    filter(eventname %in% c("baseline_year_1_arm_1", "1_year_follow_up_y_arm_1", "2_year_follow_up_y_arm_1", "3_year_follow_up_y_arm_1")) %>%
+    drop_na(anthroheightcalc, anthroweightcalc) %>%
+    arrange(src_subject_id, eventname) %>%
+    mutate(
+        src_subject_id = factor(src_subject_id),
+        eventname = factor(eventname, levels = c("baseline_year_1_arm_1", "1_year_follow_up_y_arm_1", "2_year_follow_up_y_arm_1", "3_year_follow_up_y_arm_1"), labels = c("Baseline", "Year_1", "Year_2", "Year_3")),
+        anthroheightcalc = round(as.numeric(anthroheightcalc), 2),
+        anthroweightcalc = round(as.numeric(anthroweightcalc), 2)
+    ) %>%
+    rename(
+        id = src_subject_id,
+        event = eventname,
+        height = anthroheightcalc,
+        weight = anthroweightcalc
+    )
+
+df_long <- df_long %>%
+    group_by(id) %>%
+    filter(all(c("Baseline", "Year_1", "Year_2", "Year_3") %in% event)) %>%
+    ungroup()
+
+```
+
+## Overview
+Autoregressive Cross-Lagged Panel Analysis (ARCL) is a statistical technique used to examine the reciprocal relationships between variables over time. This method incorporates both autoregressive paths, which account for the stability of each variable across time points, and cross-lagged paths, which assess the influence of one variable on another over subsequent time points.
+
+This example will examine the height and weight across 3 annual measurement occasions in a sample of youth taking part in the ABCD Study. The primary aim is to explore the reciprocal relationships between height and weight at different time points, analyzing how height at one time point predicts weight at future time points (and vice-versa). ARCL will be used to model both the stability of height and weight over time (autoregressive paths) and the potential cross-lagged influences between consecutive measurements of these two constructs.
+
+## Preliminary Setup
+### Load R libraries
+```{r}
+
+library(tidyverse) # Collection of R packages for data science
+library(gtsummary) # Publication-ready tables
+library(rstatix) # Statistical Tests in tidy format
+library(lavaan) # Structural Equation Modeling in R
+library(semPlot) #
+
+```
+
+### Descriptives
+```{r}
+descriptives_table <- df_long %>%
+    select(event, height, weight) %>%
+    mutate(event = factor(event)) %>%
+    tbl_summary(
+        by = event,
+        missing = "no",
+        label = list(height ~ "Height", weight ~ "Weight"),
+        statistic = list(all_continuous() ~ "{mean} ({sd}) )", all_categorical() ~ "{p}%"),
+    ) %>%
+    modify_header(all_stat_cols() ~ "**{level}**<br>N = {n}") %>%
+    bold_labels() %>%
+    italicize_levels() %>%
+    modify_spanning_header(all_stat_cols() ~ "**Assessment Wave**")
+theme_gtsummary_compact()
+
+descriptives_table
+```
+
+## Results
+### Compute Autoregressive Crosslagged Panel Analysis
+This code performs an Autoregressive Cross-Lagged Panel Analysis (ARCL) to examine the reciprocal relationships between 'Height' and 'Weight' measurements across 3 annual visits. The model output is provided below, along with a summary of results. This approach models both the stability of height and weight over time (autoregressive paths) and the potential cross-lagged effects between these constructs.
+
+```{r}
+
+# Reshape data from long to wide format
+df_wide <- df_long %>%
+    pivot_wider(
+        id_cols = c(id),
+        names_from = event,
+        values_from = c(height, weight),
+        names_sep = "_"
+    )
+
+df_wide <- na.omit(df_wide)
+
+model <- "
+  # Autoregressive paths
+  weight_Year_3 ~ a2 * weight_Year_2
+  weight_Year_2 ~ a1 * weight_Year_1
+  weight_Year_1 ~ a2 * weight_Baseline
+  height_Year_3 ~ a2 * height_Year_2
+  height_Year_2 ~ a1 * height_Year_1
+  height_Year_1 ~ a2 * height_Baseline
+
+# Cross-lagged paths
+height_Year_3 ~ b1 * weight_Year_2
+height_Year_2 ~ b1 * weight_Year_1
+height_Year_1 ~ b2 * weight_Baseline
+weight_Year_3 ~ b1 * height_Year_2
+weight_Year_2 ~ b1 * height_Year_1
+weight_Year_1 ~ b2 * height_Baseline
+"
+
+# Fit the model to your data (replace 'your_data' with the name of your data frame)
+fit <- sem(model, data = df_wide)
+
+# View the results
+summary(fit)
+
+```
+
+These results show significant autoregressive effects for both height and weight, indicating that measurements at each time point strongly predict subsequent measurements (e.g., height at Year 2 significantly predicts height at Year 3 with an estimate of 1.05, p < .001). The cross-lagged effects indicate a small but significant negative influence of weight on height at later time points (e.g., weight at Year 2 negatively affects height at Year 3 with an estimate of -0.007, p < .001). The covariances between height and weight at Year 3 are also significant, suggesting a relationship between these variables at the final time point.
+
+### Model Plots
+```{r}
+
+# Fit and plot the model with adjusted label positions and curved edges
+# Assume 'fit' is your fitted SEM model
+semPlotObj <- semPaths(
+    fit,
+    whatLabels = "est", # Show estimated coefficients
+    edge.label.cex = 0.6, # Smaller font size for edge labels
+    layout = "tree",
+    rotation = 2,
+    edge.label.position = 0.75, # Moves labels closer to the destination node
+    edge.curve = 0.3, # Increase curvature to separate labels from the path
+)
+
+# Adding a title using base R graphics functions
+title(main = "Autoregressive Cross-Lagged Panel Model for Height and Weight")
+
+# Redraw the plot with potentially adjusted parameters for better visibility
+print(semPlotObj)
+
+```
+
+This plot illustrates the autoregressive cross-lagged panel model for height and weight across 3 annual measurement occasions. The model includes both autoregressive paths (predicting a variable from its previous time point) and cross-lagged paths (predicting a variable from the other variable at a previous time point).
+
+The autoregressive paths show that height and weight at each time point strongly predict their respective values at subsequent time points. For example, height at Year 2 significantly predicts height at Year 3. These paths are indicated by curved lines connecting each time point for height and weight, with coefficients showing the strength of these predictions.
+
+The cross-lagged paths reveal how height and weight influence each other over time. For instance, weight at Year 2 negatively affects height at Year 3, as indicated by the coefficients on the curved paths connecting weight at one time point to height at the next.
+
+The overall model highlights the strong stability of height and weight over time (autoregressive effects) and the modest influence of weight on height and vice versa (cross-lagged effects). This plot helps visualize the dynamic interplay between height and weight, providing insights into how these variables evolve together over time.
+
+## Wrapping Up
+The autoregressive cross-lagged panel model analysis revealed significant relationships between children's height and weight measured over 3 annual assessments. The model showed strong autoregressive effects, indicating that height and weight measurements at each time point strongly predict their subsequent measurements. For example, height at Year 2 significantly predicts height at Year 3 with an estimate of 1.05 (p < .001).
+
+Additionally, the cross-lagged effects revealed a small but significant negative influence of weight on height at later time points. Specifically, weight at Year 2 negatively affects height at Year 3 with an estimate of -0.007 (p < .001). The significant covariances between height and weight at Year 3 suggest a relationship between these variables at the final time point.
+
+The autoregressive cross-lagged panel model framework used in this example demonstrated its utility in capturing both the stability of measurements over time and the dynamic interplay between height and weight. This approach is particularly useful in developmental studies, as it allows for the examination of reciprocal influences between variables over time, providing a comprehensive understanding of the growth trajectories and their interdependencies.
+
+More generally, this method is valuable for understanding both individual-specific trajectories and the relationships between multiple developmental indicators in longitudinal data. By accounting for the autoregressive and cross-lagged effects, this model offers a nuanced perspective on how different aspects of growth interact and influence each other over time.
+
+
+  
+
+
+
