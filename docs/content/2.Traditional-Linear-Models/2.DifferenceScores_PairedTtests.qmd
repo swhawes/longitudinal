@@ -3,7 +3,15 @@ title: "Difference Scores: Paired Samples T-test"
 author: "Biostatistics Working Group"
 ---
 
-```r
+
+
+```r [TestBlock1.r]
+  testing
+```
+
+
+
+```r [TestBlock2.r]
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
 

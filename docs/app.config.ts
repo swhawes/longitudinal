@@ -1,6 +1,6 @@
 export default defineAppConfig({
   ui: {
-    primary: 'green',
+    primary: '',
     gray: 'slate',
     footer: {
       bottom: {
@@ -10,7 +10,7 @@ export default defineAppConfig({
     }
   },
   seo: {
-    siteName: 'Nuxt UI Pro - Docs template'
+    siteName: 'Longitudinal Analysis - Examples and templates'
   },
   header: {
     logo: {
