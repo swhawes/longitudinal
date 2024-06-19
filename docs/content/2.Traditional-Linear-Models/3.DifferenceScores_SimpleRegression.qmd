@@ -3,7 +3,7 @@ title: "Difference Scores: Simple Regression"
 author: "Biostatistics Working Group"
 ---
 
-```{r}
+```r
 #| echo: false # The content of this code block will not be shown when rendered
 #| output: false # Output from this code block will not be shown when rendered
 
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r}
+```r
 #| echo: false # The content of this code block will not be shown when rendered
 #| output: false # Output from this code block will not be shown when rendered
 #| cache: FALSE
@@ -65,7 +65,7 @@ This example will examine height values obtained across 2 annual measurement occ
 
 ## Preliminary Setup
 ### Load R libraries
-```{r}
+```r
 
 library(tidyverse) # Collection of R packages for data science
 library(gtsummary) # Publication-ready tables
@@ -74,7 +74,7 @@ library(rstatix) # Statistical Tests in tidy format
 ```
 
 ### Descriptives
-```{r}
+```r
 
 descriptives_table <- df_long %>%
     select(event, handedness, height) %>%
@@ -100,7 +100,7 @@ descriptives_table
 ### Compute Difference Score
 This code computes a difference score by subtracting participant's height at baseline from height at the 1-year follow-up. Next, a simple regression analysis is conducted to determine whether handedness predicts the difference in height values between the two timepoints.
 
-```{r}
+```r
 
 # Reshape data from long to wide format
 df_wide <- df_long %>%
@@ -132,7 +132,7 @@ The summary statistics provide insights into participant's height across two ann
 
 ### Conduct regression on Difference Score
 A simple regression analyses is conducted to examine whether a grouping variable (handedness) predicts the difference score value.
-```{r}
+```r
 
 # Run the regression
 model <- lm(height_diff ~ handedness, data = df_wide)
@@ -145,7 +145,7 @@ summary(model)
 The results from the simple regression analysis suggest handedness does not significantly predict change in height. The intercept, estimated at 2.35 with a standard error of .02, indicates the average height difference for right-handed individuals is approximately 2.35 units, with this effect differing by only .03 inches (p=.69) for left-handed individuals
 
 ### Model Plots
-```{r}
+```r
 
 # Visualize the difference scores across different levels of handedness
 

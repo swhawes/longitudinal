@@ -3,7 +3,7 @@ title: "Signed-Rank Test"
 author: "Biostatistics Working Group"
 ---
 
-```{r}
+```r
 #| echo: FALSE # The content of this code block will not be rendered
 #| output: FALSE # Output from this code block will not be rendered
 
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r}
+```r
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
 #| cache: FALSE
@@ -64,7 +64,7 @@ This example will examine changes in height across 3 annual measurement occasion
 
 ## Preliminary Setup
 ### Load Packages
-```{r}
+```r
 
 library(tidyverse) # Collection of R packages for data science
 library(gtsummary) # Publication-ready tables
@@ -74,7 +74,7 @@ library(lme4) # Linear mixed-effects models
 ```
 
 ### Descriptives
-```{r}
+```r
 
 descriptives_table <- df_long %>%
     select(event, height) %>%
@@ -99,7 +99,7 @@ descriptives_table
 ### Compute Signed Rank Test
 This code performs a Signed Rank-Sum Test to compare 'Height' across 3 annual visits, focusing on the changes in height over time. The output of the test is provided below, along with a summary of results. This non-parametric test accounts for the paired nature of the observations and determines whether there are significant changes in height across the three time points without assuming a specific distribution for the data.
 
-```{r}
+```r
 # Reshape data from long to wide format
 df_wide <- df_long %>%
     pivot_wider(
@@ -122,7 +122,7 @@ report(wilcox.test(df_wide_complete$Height_Baseline, df_wide_complete$Height_Yea
 These results indicate a significant increase in height from baseline to Year 1, as evidenced by the Wilcoxon signed rank-sum test. The test statistic (W = 2.41e+06) and the negative rank biserial correlation (r = -0.39) suggest a large effect size, with the p-value (< .001) confirming the statistical significance of the observed changes. This analysis shows that participants' heights have significantly increased from baseline to Year 1.
 
 ### Model Plots
-```{r}
+```r
 
 ggplot(df_long, aes(x = event, y = height, group = id)) +
   geom_line(aes(group = id), alpha = 0.3, color = "grey") +  # Individual trajectories

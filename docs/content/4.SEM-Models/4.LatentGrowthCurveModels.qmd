@@ -3,7 +3,7 @@ title: "Latent Growth Curve Models"
 author: "Biostatistics Working Group"
 ---
 
-```{r}
+```r
 #| echo: FALSE # The content of this code block will not be rendered
 #| output: FALSE # Output from this code block will not be rendered
 
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r}
+```r
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
 #| cache: FALSE
@@ -65,7 +65,7 @@ This example investigates a growth trajectory of participant's height, measured 
 
 ## Preliminary Setup
 ### Load Packages
-```{r}
+```r
 
 library(tidyverse) # Collection of R packages for data science
 library(gtsummary) # Publication-ready tables
@@ -75,7 +75,7 @@ library(lavaan) # Structural Equation Modeling in R
 ```
 
 ### Descriptives
-```{r}
+```r
 
 descriptives_table <- df_long %>%
     select(event, height) %>%
@@ -100,7 +100,7 @@ descriptives_table
 ### Compute Latent Growth Curve Model
 The code below is used to compute a growth curve model to investigate changes in height across four annual assessments. This statistical approach provides insights into how much individuals vary around the average trajectory and the consistency of their growth patterns across time. This model estimates an overall intercept, representing the initial status, and a slope that captures the rate of growth across time points. 
 
-```{r}
+```r
 
 # Reshape data from long to wide format
 df_wide <- df_long %>%
@@ -135,7 +135,7 @@ summary(fit)
 The results from the latent growth curve analysis show an increasing pattern of mean change in participant's height across assessments (slope = 2.491, p<.001). In addition, the model identified significant variability in both the intercept (estimate = 9.39, se=.33, p<.001), which represents initial height and the slope (estimate = .31, se=.04, p<.001), which measures growth over time. This indicates substantial differences in starting heights and growth rates among individuals. The covariance between the intercept and slope was not statistically significant (estimate = -.11, p = .18), suggesting initial height does not influence the rate of growth.
 
 ### Model Plots
-```{r}
+```r
 
 # Plotting the height data over time from the df_long dataframe
 ggplot(df_long, aes(x = event, y = height, group = id)) +
