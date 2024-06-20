@@ -22,9 +22,9 @@ export default defineAppConfig({
     colorMode: true,
     links: [{
       'icon': 'i-simple-icons-github',
-      'to': 'https://github.com/nuxt-ui-pro/docs',
+      'to': 'https://github.com/OpenDevSci/LongDev-ABCD',
       'target': '_blank',
-      'aria-label': 'Docs template on GitHub'
+      'aria-label': 'Docs on GitHub'
     }]
   },
   footer: {
@@ -51,21 +51,16 @@ export default defineAppConfig({
     title: 'Table of Contents',
     bottom: {
       title: 'Community',
-      edit: 'https://github.com/nuxt-ui-pro/docs/edit/main/content',
+      edit: 'https://github.com/OpenDevSci/LongDev-ABCD/discussions',
       links: [{
         icon: 'i-heroicons-star',
         label: 'Star on GitHub',
-        to: 'https://github.com/nuxt/ui',
+        to: 'https://github.com/OpenDevSci/LongDev-ABCD',
         target: '_blank'
       }, {
         icon: 'i-heroicons-book-open',
-        label: 'Nuxt UI Pro docs',
-        to: 'https://ui.nuxt.com/pro/guide',
-        target: '_blank'
-      }, {
-        icon: 'i-simple-icons-nuxtdotjs',
-        label: 'Purchase a license',
-        to: 'https://ui.nuxt.com/pro/purchase',
+        label: 'Project docs',
+        to: 'https://github.com/OpenDevSci/LongDev-ABCD/docs',
         target: '_blank'
       }]
     }
