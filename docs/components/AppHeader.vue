@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { NavItem } from '@nuxt/content/dist/runtime/types'
+import type { NavItem } from "@nuxt/content/dist/runtime/types";
 
-const navigation = inject<NavItem[]>('navigation', [])
+const navigation = inject<NavItem[]>("navigation", []);
 
-const { header } = useAppConfig()
+const { header } = useAppConfig();
 </script>
 
 <template>
@@ -13,18 +13,11 @@ const { header } = useAppConfig()
         <UColorModeImage v-bind="{ class: 'h-6 w-auto', ...header?.logo }" />
       </template>
       <template v-else>
-        Nuxtz UI Pro <UBadge
-          label="Docs"
-          variant="subtle"
-          class="mb-0.5"
-        />
+        Nuxtz UI Pro <UBadge label="Docs" variant="subtle" class="mb-0.5" />
       </template>
     </template>
 
-    <template
-      v-if="header?.search"
-      #center
-    >
+    <template v-if="header?.search" #center>
       <UContentSearchButton class="hidden lg:flex" />
     </template>
 

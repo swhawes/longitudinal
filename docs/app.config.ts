@@ -4,7 +4,7 @@ export default defineAppConfig({
     gray: 'slate',
     footer: {
       bottom: {
-        left: 'text-sm text-gray-500 dark:text-gray-400',
+        left: 'text-sm text-gray-500 dark:text-red-400',
         wrapper: 'border-t border-gray-200 dark:border-gray-800'
       }
     }
@@ -31,25 +31,20 @@ export default defineAppConfig({
     credits: 'Copyright © 2023',
     colorMode: false,
     links: [{
-      'icon': 'i-simple-icons-nuxtdotjs',
-      'to': 'https://nuxt.com',
+      'icon': 'i-simple-icons-github',
+      'to': 'https://github.com/OpenDevSci/LongDev-ABCD',
       'target': '_blank',
-      'aria-label': 'Nuxt Website'
+      'aria-label': 'Longitudinal.dev on GitHub'
     }, {
       'icon': 'i-simple-icons-discord',
-      'to': 'https://discord.com/invite/ps2h6QT',
+      'to': 'https://discord.com/',
       'target': '_blank',
-      'aria-label': 'Nuxt UI on Discord'
+      'aria-label': 'Longitudinal.dev on Discord'
     }, {
-      'icon': 'i-simple-icons-x',
-      'to': 'https://x.com/nuxt_js',
+      'icon': 'i-simple-icons-slack',
+      'to': 'https://slack.com/',
       'target': '_blank',
-      'aria-label': 'Nuxt on X'
-    }, {
-      'icon': 'i-simple-icons-github',
-      'to': 'https://github.com/nuxt/ui',
-      'target': '_blank',
-      'aria-label': 'Nuxt UI on GitHub'
+      'aria-label': 'Longitudinal.dev on Discord'
     }]
   },
   toc: {
