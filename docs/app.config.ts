@@ -4,7 +4,7 @@ export default defineAppConfig({
     gray: 'slate',
     footer: {
       bottom: {
-        left: 'text-sm text-gray-500 dark:text-red-400',
+        left: 'text-sm text-gray-500 dark:text-gray-500',
         wrapper: 'border-t border-gray-200 dark:border-gray-800'
       }
     }
