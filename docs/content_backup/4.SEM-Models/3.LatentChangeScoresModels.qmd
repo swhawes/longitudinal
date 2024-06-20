@@ -3,7 +3,7 @@ title: "Latent Change Score Models"
 author: "Biostatistics Working Group"
 ---
 
-```r  [codeBlock.r]
+```r
 #| echo: FALSE # The content of this code block will not be rendered
 #| output: FALSE # Output from this code block will not be rendered
 
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```r  [codeBlock.r]
+```r
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
 #| cache: FALSE
@@ -64,7 +64,7 @@ This example will explore changes in height from baseline to 3 subsequent annual
 
 ## Preliminary Setup
 ### Load Packages
-```r  [codeBlock.r]
+```r
 
 library(tidyverse) # Collection of R packages for data science
 library(gtsummary) # Publication-ready tables
@@ -76,7 +76,7 @@ library(kableExtra) # Table formatting
 ```
 
 ### Descriptives
-```r  [codeBlock.r]
+```r
 
 descriptives_table <- df_long %>%
     select(event, height) %>%
@@ -100,7 +100,7 @@ descriptives_table
 ## Results 
 ### Compute Latent Change Score Model
 The code below is used to compute a latent change score analysis to investigate changes in height across four annual assessments. This statistical approach models growth factors, including constant and proportional changes, and how they vary between individuals. It also evaluates the stability of growth patterns over time, giving a more nuanced understanding of developmental trajectories and the amount of change between each time point.
-```r  [codeBlock.r]
+```r
 
 # Reshape data from long to wide format
 df_wide <- df_long %>%
@@ -156,7 +156,7 @@ kable(param_bi_lcsm_01, digits = 3)
 The results of the latent change score model (LCSM) for height indicated increasing patterns of growth. The fitted model included a constant change factor of .52, reflecting a uniform base growth factor across all individuals consistently over time. The proportional change factor of -.27 illustrates a negative relationship, indicating that higher initial heights might result in lesser incremental growth. The phi estimate .43 shows autoregressive effects of the change scores, where the direction and magnitude of past growth significantly predict subsequent changes. 
 
 ### Model Plots
-```r  [codeBlock.r]
+```r
 
 # Path diagram plot of model results
 plot_lcsm(
@@ -170,7 +170,7 @@ plot_lcsm(
 ```
 
 This path diagram represents the structural relationships specified in the LCSM by simplifying the model structure into a more intuitive graphical format. The diagram highlights connections and dependencies among the variables, as well as the model's estimated parameters.
-```r  [codeBlock.r]
+```r
 # Trajectory Plots
 plot <- plot_trajectories(
     data = df_wide,

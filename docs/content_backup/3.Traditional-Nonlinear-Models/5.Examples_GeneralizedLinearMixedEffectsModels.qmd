@@ -4,7 +4,7 @@ title: "Generalized Linear Mixed Effects Models"
 author: "Biostatistics Working Group"
 ---
 
-```r  [codeBlock.r]
+```r
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
 
@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = T, message=F, warning=F, error=F, output=T,
                       out.width='75%', fig.asp=.75)
 ```
 
-```r  [codeBlock.r]
+```r
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
 #| cache: FALSE
@@ -70,7 +70,7 @@ This example will examine height across 3 annual measurement occasions in a samp
 
 ## Preliminary Setup
 ### Load R libraries
-```r  [codeBlock.r]
+```r
 
 library(tidyverse)    # Collection of R packages for data science
 library(rstatix)      # Pipe-friendly framework for basic statistical tests
@@ -80,7 +80,7 @@ library(gtsummary) # Publication-ready tables
 ```
 
 ### Descriptives
-```r  [codeBlock.r]
+```r
 
 descriptives_table <- df_long %>%
     select(event, handedness) %>%
@@ -105,7 +105,7 @@ descriptives_table
 ### Compute Generalized Linear Mixed Models
 This code fits a Generalized Linear Mixed Model (GLMM) to predict 'Height' across 3 annual visits, incorporating both fixed effects for overall population trends and random effects to account for individual-level variability. The model output is provided below, along with a summary of results. This model accounts for the hierarchical structure of the data, with random intercepts capturing individual deviations from the population mean height trajectory.
 
-```r  [codeBlock.r]
+```r
 
 # # Fit the GLMM model
 # model <- lmer(handedness ~ 1 + event + (1 | id), data = df_long, REML = TRUE)
@@ -122,7 +122,7 @@ This code fits a Generalized Linear Mixed Model (GLMM) to predict 'Height' acros
 These results show an increasing trajectory of height across the years, with an increase of approximately 2.42 inches in Year 1 and 4.93 inches by Year 2 compared to the baseline, as evidenced by the fixed effects estimates. The random intercepts effect suggests some between-subject variability in participants' height values at baseline, with a standard deviation of about 3.08 inches. The model's residuals are mostly well-behaved, although the range suggests a few extreme values or outliers.
 
 ### Model Plots
-```r  [codeBlock.r]
+```r
 
 # # Prepare data frame for plotting
 # df_long$predicted_height <- predict(model, re.form = NA) # Overall fixed effect predictions

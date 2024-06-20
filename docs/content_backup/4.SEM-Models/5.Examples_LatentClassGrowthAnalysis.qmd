@@ -3,7 +3,7 @@ title: "Latent Class Growth Analysis"
 author: "Biostatistics Working Group"
 ---
 
-```r  [codeBlock.r]
+```r
 #| echo: FALSE # The content of this code block will not be rendered
 #| output: FALSE # Output from this code block will not be rendered
 
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```r  [codeBlock.r]
+```r
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
 #| cache: FALSE
@@ -65,7 +65,7 @@ This example focuses on exploring the developmental trajectories of height acros
 
 ## Preliminary Setup
 ### Load Packages
-```r  [codeBlock.r]
+```r
 
 library(tidyverse) # Collection of R packages for data science
 library(tidySEM) # Structural equation modeling in R
@@ -76,7 +76,7 @@ library(rstatix) # Statistical Tests in tidy format
 ```
 
 ### Descriptives
-```r  [codeBlock.r]
+```r
 
 descriptives_table <- df_long %>%
     select(event, height) %>%
@@ -104,7 +104,7 @@ Latent Class Growth Analysis (LCGA) is utilized to identify distinct subgroups w
 The resulting latent class growth model helps delineate classes that show distinct growth patterns. Each class's trajectory can be characterized by its initial status (intercept), rate of growth (slope), and pattern changes over time (step and shape), providing a nuanced understanding of how height progresses differently across subgroups. This analysis is particularly valuable in understanding heterogeneity in developmental outcomes.
 
 **STEP 1: Compute LCGA**
-```r  [codeBlock.r]
+```r
 
 df_wide <- df_long %>%
     pivot_wider(
@@ -176,7 +176,7 @@ knitr::kable(wald_tests, digits = 2, caption = "Wald tests")
 The results from the latent class growth analysis indicate a substantial improvement in model fit as the number of classes increases from one to three, as evidenced by lower Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC) values. Specifically, the three-class model shows a log-likelihood (LL) of -28081.19, with an entropy of 0.80, suggesting a good classification accuracy. Notably, each class exhibits distinct growth parameters: the first class shows a mean intercept (i) of 59.45 and slope (s) of 2.29, indicating steady growth; while the third class has a notably lower mean intercept of 51.76 but a comparable slope of 2.36, reflecting similar growth rates from different starting points. The variances across time points also differ significantly between classes, highlighting variability in growth patterns across the sample.
 
 ### Model Plots
-```r  [codeBlock.r]
+```r
 # Assuming rng_height and lambda are defined previously in your script
 brks <- seq(0, 1, length.out = 5) # Breaks in the rescaled 0-1 range
 

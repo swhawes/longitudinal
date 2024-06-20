@@ -3,7 +3,7 @@ title: "Marginal Models"
 author: "Biostatistics Working Group"
 ---
 
-```r  [codeBlock.r]
+```r
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
 
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = T, message=F, warning=F, error=F, output=T,
                       out.width='75%', fig.asp=.75)
 ```
 
-```r  [codeBlock.r]
+```r
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
 #| cache: FALSE
@@ -63,7 +63,7 @@ This example will examine height across 3 annual measurement occasions in a samp
 ## Preliminary Setup
 
 ### Load R libraries
-```r  [codeBlock.r]
+```r
 
 library(tidyverse)    # Collection of R packages for data science
 library(lme4)         # Linear mixed-effects models
@@ -77,7 +77,7 @@ library(marginaleffects) #
 ```
 
 ### Descriptives
-```r  [codeBlock.r]
+```r
 
 descriptives_table <- df_long %>%
     select(event, height) %>%
@@ -102,7 +102,7 @@ descriptives_table
 ### Compute Marginal Model Analysis
 This code fits a Marginal Model to predict 'Height' across 3 annual visits, focusing on the overall population-level effect. The model output is provided below, along with a summary of results. This approach accounts for the correlation between repeated measurements within individuals using generalized estimating equations (GEE), providing robust standard errors and efficient parameter estimates for the average height at each time point.
 
-```r  [codeBlock.r]
+```r
 
 df_long <- df_long %>%
   filter(!is.na(height) & !is.na(event) & !is.na(id))
@@ -117,7 +117,7 @@ summary(model)
 These results show a significant increase in height across the years, with an estimated increase of approximately 2.41 inches in Year 1 and 5.20 inches by Year 2 compared to the baseline, as indicated by the fixed effects estimates. The correlation structure of the repeated measurements is modeled using an exchangeable correlation matrix, which suggests that the measurements are equally correlated within individuals. The significant Wald statistics and p-values (< 2e-16) for each year indicate strong evidence of height changes over time in the population.
 
 ### Model Plots
-```r  [codeBlock.r]
+```r
 
 # Calculate mean height and confidence intervals for each time point
 summary_data <- df_long %>%

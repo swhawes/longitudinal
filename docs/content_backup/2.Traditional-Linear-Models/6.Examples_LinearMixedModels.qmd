@@ -3,7 +3,7 @@ title: "Linear Mixed Models: Random Intercept and Slope"
 author: "Biostatistics Working Group"
 ---
 
-```r  [codeBlock.r]
+```r
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
 
@@ -62,7 +62,7 @@ This example will examine trajectories of height obtained across 3 annual measur
 
 ## Preliminary Setup
 ### Load Packages
-```r  [codeBlock.r]
+```r
 
 library(tidyverse) # Collection of R packages for data science
 library(gtsummary) # Publication-ready tables
@@ -71,7 +71,7 @@ library(lme4) # Linear mixed-effects models
 ```
 
 ### Descriptives
-```r  [codeBlock.r]
+```r
 
 descriptives_table <- df_long %>%
     select(event, age, height) %>%
@@ -98,7 +98,7 @@ This code fits a random-intercept and random-slope LMM to predict 'Height' acros
 
 This model accounts for individual variability in height by including a random intercept and sllope for each subject (id). The output indicates that the model was fit using the REML (Restricted Maximum Likelihood) criterion. 
 
-```r  [codeBlock.r]
+```r
 
 df_long <- na.omit(df_long)
 
@@ -123,7 +123,7 @@ These results show an increasing trajectory of height across the years, with an 
 ### Model Plots
 The following set of plots are used to facilitate model diagnostics. The first is a histogram showcasing the distribution of random intercepts for individual subjects, indicating variations in height not explained by the fixed effects. The second depicts residuals versus fitted values, helping assess the model's fit and potential heteroscedasticity. The third contrasts observed and predicted height values across different time points, offering a side-by-side evaluation of the model's predictions against actual observations.
 
-```r  [codeBlock.r]
+```r
 
 # 1. Extract the random effects
 random_effects <- ranef(model)[[1]]
@@ -141,7 +141,7 @@ print(hist_plot)
 
 ```
 
-```r  [codeBlock.r]
+```r
 
 # Extract fixed effects
 fixed_effects <- fixef(model)

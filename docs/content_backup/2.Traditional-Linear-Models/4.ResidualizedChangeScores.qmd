@@ -3,7 +3,7 @@ title: "Residualized Change Scores"
 author: "Biostatistics Working Group"
 ---
 
-```r  [codeBlock.r]
+```r
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
 
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```r  [codeBlock.r]
+```r
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
 #| cache: FALSE
@@ -65,7 +65,7 @@ This example will examine whether handedness predicts changes in height from bas
 
 ## Preliminary Setup
 ### Load Packages
-```r  [codeBlock.r]
+```r
 
 library(tidyverse) # Collection of R packages for data science
 library(gtsummary) # Publication-ready tables
@@ -74,7 +74,7 @@ library(lme4) # Linear mixed-effects models
 ```
 
 ### Descriptives
-```r  [codeBlock.r]
+```r
 
 descriptives_table <- df_long %>%
     select(event, handedness, height) %>%
@@ -100,7 +100,7 @@ descriptives_table
 ### Compute Multiple Regression Model
 The code below is used to compute a residualized change score by first adjusting participants' height at the 1-year follow-up for their baseline height through a regression analysis. The residuals from this model represent the adjusted height changes that are not explained by their initial measurements. Subsequently, these residualized change scores are used in a simple regression analysis to explore whether handedness predicts the changes in height between the two timepoints. This approach helps to isolate any effect of handedness on height growth, independent of the baseline height values.
 
-```r  [codeBlock.r]
+```r
 
 # Reshape data from long to wide format
 df_wide <- df_long %>%
@@ -126,7 +126,7 @@ summary(model_residualized_change)
 The results from the residualized change score analysis suggest that while individual differences in growth occurs, handedness does not appear to be a determining factor. The model intercept, close to zero (-0.005), is consistent with the expectation that if there is no effect for handedness, there would be no change when adjusting for baseline heights. Further, examination of the model residuals (range = -53.90 to 65.53, se = 2.32) and the negligible r-squared value indicates that handedness does not explain a substantive portion of the variance in residualized height changes.
 
 ### Model Plots
-```r  [codeBlock.r]
+```r
 
 par(mfrow = c(2, 2)) # Set up a 2x2 plotting area
 plot(model_baseline) # Generate diagnostic plots

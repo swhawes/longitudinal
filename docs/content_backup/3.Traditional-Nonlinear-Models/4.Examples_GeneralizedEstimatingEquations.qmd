@@ -3,7 +3,7 @@ title: "Generalized Estimating Equations"
 author: "Biostatistics Working Group"
 ---
 
-```r  [codeBlock.r]
+```r
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
 
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = T, message=F, warning=F, error=F, output=T,
                       out.width='75%', fig.asp=.75)
 ```
 
-```r  [codeBlock.r]
+```r
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
 #| cache: FALSE
@@ -63,7 +63,7 @@ This example will examine height across 3 annual measurement occasions in a samp
 
 ## Preliminary Setup
 ### Load R libraries
-```r  [codeBlock.r]
+```r
 
 library(tidyverse)    # Collection of R packages for data science
 library(rstatix)      # Pipe-friendly framework for basic statistical tests
@@ -73,7 +73,7 @@ library(gtsummary) # Publication-ready tables
 ```
 
 ### Descriptives
-```r  [codeBlock.r]
+```r
 
 descriptives_table <- df_long %>%
     select(event, height) %>%
@@ -98,7 +98,7 @@ descriptives_table
 ### Compute Generalized Estimating Equations Analysis
 This code fits a Generalized Estimating Equations (GEE) model to predict 'Height' across 3 annual visits, accounting for within-subject correlation of repeated measurements. The model output is provided below, along with a summary of results. This approach uses GEEs to estimate the population-averaged effects, providing robust standard errors and accommodating the correlation structure of the repeated height measurements.
 
-```r  [codeBlock.r]
+```r
 
 model <- geeglm(height ~ event, data = df_long, id = id, family = gaussian(), corstr = "exchangeable")
 
@@ -108,7 +108,7 @@ summary(model)
 These results indicate a significant increase in height across the years, with an increase of approximately 2.41 inches in Year 1 and 5.20 inches by Year 2 compared to the baseline, as evidenced by the fixed effects estimates. The exchangeable correlation structure suggests a consistent correlation between repeated measurements within individuals, with an estimated correlation parameter (alpha) of 0.681. The significant Wald statistics and p-values (< 2e-16) for each year indicate strong evidence of height changes over time in the population.
 
 ### Model Plots
-```r  [codeBlock.r]
+```r
 
 # Fit the GEE model
 model <- geeglm(height ~ event, data = df_long, id = id, family = gaussian(), corstr = "exchangeable")

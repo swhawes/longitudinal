@@ -3,7 +3,7 @@ title: "Linear Mixed Models: Random Intercept"
 author: "Biostatistics Working Group"
 ---
 
-```r  [codeBlock.r]
+```r
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
 
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```r  [codeBlock.r]
+```r
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
 #| cache: FALSE
@@ -59,7 +59,7 @@ This example will examine trajectories of height obtained across 3 annual measur
 
 ## Preliminary Setup
 ### Load Packages
-```r  [codeBlock.r]
+```r
 
 library(tidyverse) # Collection of R packages for data science
 library(gtsummary) # Publication-ready tables
@@ -68,7 +68,7 @@ library(lme4) # Linear mixed-effects models
 ```
 
 ### Descriptives
-```r  [codeBlock.r]
+```r
 
 descriptives_table <- df_long %>%
     select(event, height) %>%
@@ -95,7 +95,7 @@ This code fits a radom-intercept LMM to predict 'Height' across 3 annual visits,
 
 This model accounts for individual variability in height by including a random intercept for each subject (id). The output indicates that the model was fit using the REML (Restricted Maximum Likelihood) criterion. 
 
-```r  [codeBlock.r]
+```r
 
 model <- lmer(height ~ 1 + event + (1 | id), data = df_long, REML = T)
 
@@ -108,7 +108,7 @@ confint(model, level = 0.95, method = "Wald")
 These results show an increasing trajectory of height across the years, with an increase of approximately 2.36 inches in Year 1 and 5.02 inches by Year 2 compared to the baseline, as evidenced by the fixed effects estimates. The random intercepts effect suggests some between-subject variability in particpant's height values at baseline, with a standard deviation of about 3.03 inches. The model's residuals are mostly well-behaved, although the range suggests a few extreme values or outliers.
 
 ### Model Plots
-```r  [codeBlock.r]
+```r
 
 # Extract fixed effects
 fixed_effects <- fixef(model)
