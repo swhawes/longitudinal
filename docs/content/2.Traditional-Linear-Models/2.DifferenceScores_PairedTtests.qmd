@@ -73,6 +73,7 @@ df_long <- df %>%
 ## Overview
 Difference scores can be used to assess change in a variable across two timepoints. The value of the variable at the first timepoint is substracted from the value at the second timepoint. A one-sample t-test can then be applied to determine whether the mean change is significantly different from zero.
 
+
 This example will examine height values obtained across 2 annual measurement occasions in a sample of youth taking part in the ABCD Study. The primary aim is to determine whether height values in the sample, on average, increase across the two timempoints. A difference score will be calculated between participant's height values collected at baseline and again at the 1-year follow-up. Next, a one-sample t-test will be used to test whether the difference score is statistically different than a null hypothesis of zero change. Finally, a visual inspection is further conducted via a scatterplot to graphically represent the relationship between participant's height across assessments.
 
 ## Preliminary Setup
