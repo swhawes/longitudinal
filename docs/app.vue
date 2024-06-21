@@ -10,19 +10,17 @@ import type {
 
 const { seo } = useAppConfig()
 
-const { data: navigation } = await useAsyncData('navigation', () => fetchContentNavigation())
+const { data: navigation } = await useAsyncData('navigation', () =>
+  fetchContentNavigation()
+)
 const { data: files } = useLazyFetch<ParsedContent[]>('/api/search.json', {
   default: () => [],
   server: false
 })
 
 useHead({
-  meta: [
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' }
-  ],
-  link: [
-    { rel: 'icon', href: '/favicon.ico' }
-  ],
+  meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
+  link: [{ rel: 'icon', href: '/favicon.ico' }],
   htmlAttrs: {
     lang: 'en'
   }
@@ -70,9 +68,60 @@ function myChartOnReady(plotlyHTMLElement: NuxtPlotlyHTMLElement) {
     })
   })
 }
+const people = [
+  {
+    id: 1,
+    name: 'Lindsay Walton',
+    title: 'Front-end Developer',
+    email: 'lindsay.walton@example.com',
+    role: 'Member'
+  },
+  {
+    id: 2,
+    name: 'Courtney Henry',
+    title: 'Designer',
+    email: 'courtney.henry@example.com',
+    role: 'Admin'
+  },
+  {
+    id: 3,
+    name: 'Tom Cook',
+    title: 'Director of Product',
+    email: 'tom.cook@example.com',
+    role: 'Member'
+  },
+  {
+    id: 4,
+    name: 'Whitney Francis',
+    title: 'Copywriter',
+    email: 'whitney.francis@example.com',
+    role: 'Admin'
+  },
+  {
+    id: 5,
+    name: 'Leonard Krasner',
+    title: 'Senior Designer',
+    email: 'leonard.krasner@example.com',
+    role: 'Owner'
+  },
+  {
+    id: 6,
+    name: 'Floyd Miles',
+    title: 'Principal Designer',
+    email: 'floyd.miles@example.com',
+    role: 'Member'
+  }
+]
 </script>
 
 <template>
+  <div>top row div app.vue</div>
+  <div>
+    <UButton>Button</UButton>
+  </div>
+  <div>
+    <UTable :rows="people" />
+  </div>
   <div>
     <!-- Close the opening <div> tag here -->
     <h1>nuxt-plotly module playground!</h1>
