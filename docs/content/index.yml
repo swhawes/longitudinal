@@ -22,13 +22,37 @@ hero:
       to: https://github.com/OpenDevSci/LongDev-ABCD
       target: _blank
   code: |
-    ```bash [Terminal]
-    npx nuxi init -t github:nuxt-ui-pro/docs
+    ```r [sampleRCodez.r]
+    # Load necessary libraries
+    library(ggplot2)
+    library(dplyr)
+
+    # Load the mtcars dataset
+    data(mtcars)
+    # Summarize the data
+    summary(mtcars)
+
+    # Create a scatter plot with a regression line
+    ggplot(mtcars, aes(x = wt, y = mpg)) +
+    geom_point(color = "blue", size = 3) +
+    geom_smooth(method = "lm", color = "red", se = FALSE) +
+    labs(title = "Relationship between Car Weight and MPG",
+    x = "Weight (1000 lbs)",
+    y = "Miles per Gallon",
+    caption = "Data from the 1974 Motor Trend US magazine") +
+    theme_minimal()
+    # Fit a linear model
+    model <- lm(mpg ~ wt, data = mtcars)
+
+    # Display model summary
+    summary(model)
+
+    testss
     ```
 features:
-  title: "A longitudinal research hub"
+  title: "Explore Content"
   links:
-    - label: "Explore Nuxt UI Pro"
+    - label: "Discover xxxxx"
       icon: "i-simple-icons-nuxtdotjs"
       trailingIcon: "i-heroicons-arrow-right-20-solid"
       color: "gray"
@@ -36,8 +60,8 @@ features:
       target: "_blank"
       size: lg
   items:
-    - title: "Nuxt 3"
-      description: "Powered by Nuxt 3 for optimal performances and SEO."
+    - title: "Add content"
+      description: "add content here"
       icon: "i-simple-icons-nuxtdotjs"
       to: "https://github.com/OpenDevSci/LongDev-ABCD"
       target: "_blank"
@@ -46,8 +70,8 @@ features:
       icon: "i-simple-icons-markdown"
       to: "https://github.com/OpenDevSci/LongDev-ABCD"
       target: "_blank"
-    - title: "Nuxt UI"
-      description: "Offers a very large set of full customizable components."
+    - title: "Add content"
+      description: "add content here"
       icon: "i-heroicons-sparkles-20-solid"
       to: "https://github.com/OpenDevSci/LongDev-ABCD"
       target: "_blank"
@@ -56,8 +80,8 @@ features:
       icon: "i-simple-icons-typescript"
       to: "https://github.com/OpenDevSci/LongDev-ABCD"
       target: "_blank"
-    - title: "Nuxt Studio"
-      description: "Supported by Nuxt Studio for fast updates and previews."
+    - title: "Add content"
+      description: "add content here"
       icon: "i-simple-icons-nuxtdotjs"
       to: "https://github.com/OpenDevSci/LongDev-ABCD"
       target: "_blank"

@@ -9,7 +9,8 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxthq/studio',
     'nuxt-og-image',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    ['nuxt-plotly', { inject: true }]
   ],
   hooks: {
     // Define `@nuxt/ui` components as global to use them in `.md` (feel free to add those you need)
@@ -58,6 +59,11 @@ export default defineNuxtConfig({
         'yaml',
         'r' // Adding R language support
       ]
+    }
+  },
+  vite: {
+    optimizeDeps: {
+      include: ['plotly.js-dist-min']
     }
   }
 })
