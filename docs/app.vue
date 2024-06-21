@@ -1,13 +1,6 @@
 <script setup lang="ts">
 import type { ParsedContent } from '@nuxt/content/dist/runtime/types'
 
-import type {
-  NuxtPlotlyConfig,
-  NuxtPlotlyData,
-  NuxtPlotlyLayout,
-  NuxtPlotlyHTMLElement
-} from 'nuxt-plotly'
-
 const { seo } = useAppConfig()
 
 const { data: navigation } = await useAsyncData('navigation', () =>

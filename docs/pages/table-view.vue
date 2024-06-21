@@ -10,5 +10,5 @@
 <script setup lang="ts">
 // import { ref } from "vue";
 
-import { people } from "~/data/peopleData";
+import { people } from '~/data/peopleData'
 </script>
