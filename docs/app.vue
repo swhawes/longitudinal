@@ -71,11 +71,7 @@ function myChartOnReady(plotlyHTMLElement: NuxtPlotlyHTMLElement) {
 </script>
 
 <template>
-  <div>top row div app.vue</div>
   <div>Longitudinal Data Science</div>
-  <div>
-    <UButton>Button</UButton>
-  </div>
   <div>
     <!-- Close the opening <div> tag here -->
     <h1>nuxt-plotly module playground!</h1>
