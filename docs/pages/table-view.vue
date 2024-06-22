@@ -20,6 +20,5 @@
 import { ref } from 'vue'
 import { people, columns } from '~/data/peopleData'
 
-// Define selectedColumns as a reactive reference to an empty array initially.
 const selectedColumns = ref([])
 </script>
