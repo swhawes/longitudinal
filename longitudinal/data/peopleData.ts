@@ -1,19 +1,30 @@
-export const columns = [{
-  key: 'id',
-  label: 'ID'
-}, {
-  key: 'name',
-  label: 'Name'
-}, {
-  key: 'title',
-  label: 'Title'
-}, {
-  key: 'email',
-  label: 'Email'
-}, {
-  key: 'role',
-  label: 'Role'
-}]
+export const columns: { id: number, key: string, label: string }[] = [
+  {
+    id: 0,
+    key: 'id',
+    label: 'ID'
+  },
+  {
+    id: 0,
+    key: 'name',
+    label: 'Name'
+  },
+  {
+    id: 0,
+    key: 'title',
+    label: 'Title'
+  },
+  {
+    id: 0,
+    key: 'email',
+    label: 'Email'
+  },
+  {
+    id: 0,
+    key: 'role',
+    label: 'Role'
+  }
+]
 
 export const selectedColumns = ref([...columns])
 

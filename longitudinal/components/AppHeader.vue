@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NavItem } from "@nuxt/content/dist/runtime/types";
+import AppSubheader from "./AppSubheader.vue"; // Import the new Subheader component
 
 const navigation = inject<NavItem[]>("navigation", []);
 
@@ -43,4 +44,6 @@ const { header } = useAppConfig();
       <UNavigationTree :links="mapContentNavigation(navigation)" />
     </template>
   </UHeader>
+  <!-- Use the Subheader Component -->
+  <AppSubheader />
 </template>

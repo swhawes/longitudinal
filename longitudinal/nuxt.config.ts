@@ -65,5 +65,8 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include: ['plotly.js-dist-min']
     }
-  }
+  },
+  css: [
+    '@fortawesome/fontawesome-free/css/all.min.css' // Add Font Awesome CSS
+  ]
 })
