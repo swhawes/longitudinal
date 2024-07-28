@@ -2,7 +2,7 @@ title: "Longitudinal.dev"
 description: Longitudinal.dev is a collection of xxxxxxx.
 navigation: false
 hero:
-  title: "An Open Source Longitudinal Data Scienc Platform"
+  title: "A Longitudinal<br>Data Science<br>Platform"
   description: "Documentation, Examples, Templates, and Apps"
   orientation: horizontal
   headline:
@@ -19,7 +19,7 @@ hero:
       icon: i-simple-icons-github
       size: lg
       color: gray
-      to: https://github.com/OpenDevSci/LongDev-ABCD
+      to: https://github.com/OpenDevSci/LongDev-ABCD"
       target: _blank
   code: |
     ```r [sampleRCodez.r]
@@ -49,6 +49,7 @@ hero:
 
     testss
     ```
+  titleClasses: "text-center mx-auto w-4/5"
 features:
   title: "Explore Content"
   links:
