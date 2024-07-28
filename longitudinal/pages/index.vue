@@ -1,87 +1,62 @@
 <script setup lang="ts">
-import ExploreSection from "~/components/ExploreSection.vue";
-import CoursesSection from "~/components/CoursesSection.vue";
-
-const { data: page } = await useAsyncData("index", () =>
-  queryContent("/").findOne()
-);
+const { data: page } = await useAsyncData('index', () => queryContent('/').findOne())
 
 useSeoMeta({
-  titleTemplate: "",
+  titleTemplate: '',
   title: page.value.title,
   ogTitle: page.value.title,
   description: page.value.description,
-  ogDescription: page.value.description,
-});
+  ogDescription: page.value.description
+})
+
+import ExploreSection from '~/components/ExploreSection.vue'
+import CoursesSection from '~/components/CoursesSection.vue'
+import TopicsSection from '~/components/TopicsSection.vue'
 
 const articles = [
-  {
-    title: "Data Structure and Algorithms",
-    link: "https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/?ref=home-articlecards",
-    background: "linear-gradient(180deg, #4CAF97 0%, #51C6AB 100%)",
-  },
-  {
-    title: "Practice DSA",
-    link: "https://www.geeksforgeeks.org/explore?page=1&sortBy=submissions&ref=home-articlecards",
-    background: "linear-gradient(180deg, #5A5EB7 0%, #7075EA 100%)",
-  },
-  {
-    title: "AI ML & Data Science",
-    link: "https://www.geeksforgeeks.org/ai-ml-ds/?ref=home-articlecards",
-    background: "linear-gradient(180deg, #AF6160 0%, #CA8A89 100%)",
-  },
-  {
-    title: "Web Development",
-    link: "https://www.geeksforgeeks.org/web-development/?ref=home-articlecards",
-    background: "linear-gradient(180deg, #674A98 0%, #A594C3 100%)",
-  },
-  {
-    title: "Python",
-    link: "https://www.geeksforgeeks.org/python-programming-language/?ref=home-articlecards",
-    background: "linear-gradient(180deg, #25879C 0%, #54C3DB 100%)",
-  },
-  {
-    title: "Machine Learning",
-    link: "https://www.geeksforgeeks.org/machine-learning/?ref=home-articlecards",
-    background: "linear-gradient(180deg, #4572B6 0%, #789EDA 100%)",
-  },
-  {
-    title: "System Design",
-    link: "https://www.geeksforgeeks.org/system-design-tutorial/?ref=home-articlecards",
-    background: "linear-gradient(180deg, #CC733E 0%, #EAA378 100%)",
-  },
-  {
-    title: "DevOps",
-    link: "https://www.geeksforgeeks.org/devops-tutorial/?ref=home-articlecards",
-    background: "linear-gradient(180deg, #F1637C 0%, #E399A6 100%)",
-  },
-];
+  { title: 'Data Structure and Algorithms', link: 'https://www.geeksforgeeks.org/learn-data-structures-and-algorithms-dsa-tutorial/?ref=home-articlecards', background: 'linear-gradient(180deg, #4CAF97 0%, #51C6AB 100%)' },
+  { title: 'Practice DSA', link: 'https://www.geeksforgeeks.org/explore?page=1&sortBy=submissions&ref=home-articlecards', background: 'linear-gradient(180deg, #5A5EB7 0%, #7075EA 100%)' },
+  { title: 'AI ML & Data Science', link: 'https://www.geeksforgeeks.org/ai-ml-ds/?ref=home-articlecards', background: 'linear-gradient(180deg, #AF6160 0%, #CA8A89 100%)' },
+  { title: 'Web Development', link: 'https://www.geeksforgeeks.org/web-development/?ref=home-articlecards', background: 'linear-gradient(180deg, #674A98 0%, #A594C3 100%)' },
+  { title: 'Python', link: 'https://www.geeksforgeeks.org/python-programming-language/?ref=home-articlecards', background: 'linear-gradient(180deg, #25879C 0%, #54C3DB 100%)' },
+  { title: 'Machine Learning', link: 'https://www.geeksforgeeks.org/machine-learning/?ref=home-articlecards', background: 'linear-gradient(180deg, #4572B6 0%, #789EDA 100%)' },
+  { title: 'System Design', link: 'https://www.geeksforgeeks.org/system-design-tutorial/?ref=home-articlecards', background: 'linear-gradient(180deg, #CC733E 0%, #EAA378 100%)' },
+  { title: 'DevOps', link: 'https://www.geeksforgeeks.org/devops-tutorial/?ref=home-articlecards', background: 'linear-gradient(180deg, #F1637C 0%, #E399A6 100%)' }
+]
+
+const webDevCards = [
+  { title: 'JavaScript', link: 'https://www.geeksforgeeks.org/javascript/?ref=home-articlecards', background: '#D5A05A' },
+  { title: 'HTML', link: 'https://www.geeksforgeeks.org/html-tutorial/?ref=home-articlecards', background: '#D5A05A' },
+  { title: 'CSS', link: 'https://www.geeksforgeeks.org/css-tutorial/?ref=home-articlecards', background: '#D5A05A' },
+  { title: 'ReactJS', link: 'https://www.geeksforgeeks.org/react-tutorial/?ref=home-articlecards', background: '#D5A05A' },
+  { title: 'Node.js', link: 'https://www.geeksforgeeks.org/nodejs/?ref=home-articlecards', background: '#D5A05A' },
+  { title: 'Django', link: 'https://www.geeksforgeeks.org/django-tutorial/?ref=home-articlecards', background: '#D5A05A' },
+  { title: 'Frontend Development', link: 'https://www.geeksforgeeks.org/front-end-development/?ref=home-articlecards', background: '#D5A05A' },
+  { title: 'Backend Development', link: 'https://www.geeksforgeeks.org/backend-development/?ref=home-articlecards', background: '#D5A05A' }
+]
+
+const dsaCards = [
+  { title: 'Data Structures', link: 'https://www.geeksforgeeks.org/data-structures/?ref=home-articlecards', background: '#F1637C' },
+  { title: 'Algorithms', link: 'https://www.geeksforgeeks.org/fundamentals-of-algorithms/?ref=home-articlecards', background: '#F1637C' },
+  { title: 'Advanced Data Structures', link: 'https://www.geeksforgeeks.org/advanced-data-structure/?ref=home-articlecards', background: '#F1637C' },
+  { title: 'Advanced Algorithms', link: 'https://www.geeksforgeeks.org/advanced-algorithm/?ref=home-articlecards', background: '#F1637C' },
+  { title: 'Graph Data Structure', link: 'https://www.geeksforgeeks.org/graph-data-structure-and-algorithms/?ref=home-articlecards', background: '#F1637C' },
+  { title: 'Dynamic Programming', link: 'https://www.geeksforgeeks.org/dynamic-programming/?ref=home-articlecards', background: '#F1637C' },
+  { title: 'Greedy Algorithms', link: 'https://www.geeksforgeeks.org/greedy-algorithms/?ref=home-articlecards', background: '#F1637C' },
+  { title: 'Backtracking', link: 'https://www.geeksforgeeks.org/backtracking-algorithms/?ref=home-articlecards', background: '#F1637C' }
+]
 </script>
 
 <template>
   <div>
     <ULandingHero v-if="page.hero" v-bind="page.hero">
       <template #headline>
-        <UBadge
-          v-if="page.hero.headline"
-          variant="subtle"
-          size="lg"
-          class="relative rounded-full font-semibold"
-        >
-          <NuxtLink
-            :to="page.hero.headline.to"
-            target="_blank"
-            class="focus:outline-none"
-            tabindex="-1"
-          >
+        <UBadge v-if="page.hero.headline" variant="subtle" size="lg" class="relative rounded-full font-semibold">
+          <NuxtLink :to="page.hero.headline.to" target="_blank" class="focus:outline-none" tabindex="-1">
             <span class="absolute inset-0" aria-hidden="true" />
           </NuxtLink>
           {{ page.hero.headline.label }}
-          <UIcon
-            v-if="page.hero.headline.icon"
-            :name="page.hero.headline.icon"
-            class="ml-1 w-4 h-4 pointer-events-none"
-          />
+          <UIcon v-if="page.hero.headline.icon" :name="page.hero.headline.icon" class="ml-1 w-4 h-4 pointer-events-none" />
         </UBadge>
       </template>
 
@@ -91,26 +66,18 @@ const articles = [
         </div>
       </template>
 
-      <MDC
-        :value="page.hero.code"
-        tag="pre"
-        class="prose prose-primary dark:prose-invert mx-auto"
-      />
+      <MDC :value="page.hero.code" tag="pre" class="prose prose-primary dark:prose-invert mx-auto" />
     </ULandingHero>
 
     <ULandingSection :title="page.features.title" :links="page.features.links">
       <UPageGrid>
-        <ULandingCard
-          v-for="(item, index) of page.features.items"
-          :key="index"
-          v-bind="item"
-        />
+        <ULandingCard v-for="(item, index) of page.features.items" :key="index" v-bind="item" />
       </UPageGrid>
     </ULandingSection>
 
     <ExploreSection :articles="articles" />
-
     <CoursesSection />
+    <TopicsSection :webDevCards="webDevCards" :dsaCards="dsaCards" />
   </div>
 </template>
 
