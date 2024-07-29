@@ -31,7 +31,7 @@ const courses = [
     icon: "i-simple-icons-cplusplus",
   },
   {
-    title: "Course 2",
+    title: "xxxx Book Club",
     description: "Description for course 2",
     link: "#",
     backgroundColor: "linear-gradient(180deg, #5A5EB7 0%, #7075EA 100%)",
