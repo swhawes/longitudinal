@@ -1,11 +1,11 @@
 <template>
   <section class="my-16 px-4">
     <div class="container mx-auto">
-      <!-- Web Development Section -->
+      <!-- Two Time Points Section -->
       <div class="flex justify-between items-center mb-8">
-        <h2 class="text-3xl font-bold">Web Development</h2>
+        <h2 class="text-3xl font-bold">Models for Two Time Points</h2>
         <a
-          href="https://www.geeksforgeeks.org/web-development/?ref=home_viewall_row3"
+          href="https://www.google.com"
           target="_blank"
           class="text-green-500 hover:text-green-600"
         >
@@ -40,11 +40,11 @@
         </div>
       </div>
 
-      <!-- DSA Section -->
+      <!-- Traditional Linear Models Section -->
       <div class="flex justify-between items-center mb-8">
-        <h2 class="text-3xl font-bold">DSA</h2>
+        <h2 class="text-3xl font-bold">Traditional Linear Models</h2>
         <a
-          href="https://www.geeksforgeeks.org/data-structures/?ref=home_viewall_row3"
+          href="https://www.google.com"
           target="_blank"
           class="text-green-500 hover:text-green-600"
         >

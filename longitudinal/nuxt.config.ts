@@ -67,6 +67,15 @@ export default defineNuxtConfig({
     }
   },
   css: [
-    '@fortawesome/fontawesome-free/css/all.min.css' // Add Font Awesome CSS
-  ]
+    '@fortawesome/fontawesome-free/css/all.min.css', // Add Font Awesome CSS
+    '~/assets/css/main.css' // Add the main.css for Tailwind
+  ],
+  build: {
+    postcss: {
+      plugins: {
+        tailwindcss: {},
+        autoprefixer: {}
+      }
+    }
+  }
 })

@@ -21,7 +21,8 @@
     "@nuxtjs/tailwindcss": "^6.12.0",
     "nuxt": "^3.12.1",
     "nuxt-og-image": "^3.0.0-rc.53",
-    "nuxt-plotly": "^1.0.14"
+    "nuxt-plotly": "^1.0.14",
+    "vue-multiselect": "^3.0.0"
   },
   "devDependencies": {
     "@nuxt/eslint": "^0.3.13",
