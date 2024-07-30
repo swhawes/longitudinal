@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom styles to reduce spacing */
+.reduce-spacing {
+  padding-top: 2rem !important; /* Adjust as needed */
+  padding-bottom: 12rem !important; /* Adjust as needed */
+}
+
+.hero-custom {
+  margin-top: 0 !important; /* Adjust as needed */
+  padding-top: 0 !important; /* Adjust as needed */
+}
+
+.subheader-custom {
+  margin-bottom: 0 !important; /* Adjust as needed */
+  padding-bottom: 0 !important; /* Adjust as needed */
+}

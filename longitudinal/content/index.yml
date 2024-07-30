@@ -36,10 +36,10 @@ hero:
     ggplot(mtcars, aes(x = wt, y = mpg)) +
     geom_point(color = "blue", size = 3) +
     geom_smooth(method = "lm", color = "red", se = FALSE) +
-    labs(title = "Relationship between Car Weight and MPG",
-    x = "Weight (1000 lbs)",
-    y = "Miles per Gallon",
-    caption = "Data from the 1974 Motor Trend US magazine") +
+    labs(title: "Relationship between Car Weight and MPG",
+    x: "Weight (1000 lbs)",
+    y: "Miles per Gallon",
+    caption: "Data from the 1974 Motor Trend US magazine") +
     theme_minimal()
     # Fit a linear model
     model <- lm(mpg ~ wt, data = mtcars)
@@ -49,7 +49,7 @@ hero:
 
     testss
     ```
-  titleClasses: "text-center mx-auto w-4/5"
+  titleClasses: "text-center mx-auto w-4/5 reduce-spacing hero-custom"
 features:
   title: "Explore Content"
   links:

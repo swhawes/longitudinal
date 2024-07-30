@@ -16,7 +16,7 @@
       <ul class="flex flex-nowrap space-x-4">
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >Trending Now</a
+            >Growth Curves</a
           >
         </li>
         <li>
@@ -26,7 +26,7 @@
         </li>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >Algorithms</a
+            >Linear Mixed Models</a
           >
         </li>
         <AppDropdown>
@@ -67,7 +67,7 @@
         </AppDropdown>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >Foundational Courses</a
+            >SEM</a
           >
         </li>
         <AppDropdown>
@@ -151,12 +151,52 @@
         </AppDropdown>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >Practice Problem</a
+            >Practice Problems</a
           >
         </li>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >Machine Learning</a
+            >Tutorials</a
+          >
+        </li>
+        <li>
+          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+            >xxxxxx</a
+          >
+        </li>
+        <li>
+          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+            >xxxxxx</a
+          >
+        </li>
+        <li>
+          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+            >xxxxxx</a
+          >
+        </li>
+        <li>
+          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+            >xxxxxx</a
+          >
+        </li>
+        <li>
+          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+            >xxxxxx</a
+          >
+        </li>
+        <li>
+          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+            >xxxxxx</a
+          >
+        </li>
+        <li>
+          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+            >xxxxxx</a
+          >
+        </li>
+        <li>
+          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+            >xxxxxx</a
           >
         </li>
         <!-- Add more links as needed -->
