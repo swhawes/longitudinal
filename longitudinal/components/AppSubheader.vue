@@ -186,6 +186,11 @@
         </li>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+            >Tailwind/Vue</a
+          >
+        </li>
+        <li>
+          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
             >Playground</a
           >
         </li>

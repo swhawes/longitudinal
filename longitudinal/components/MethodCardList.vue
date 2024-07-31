@@ -1,10 +1,32 @@
 <template>
-  <div class="method-cards-grid">
-    <MethodCard
-      v-for="(card, index) in methodCards"
-      :key="index"
-      :card="card"
-    />
+  <div>
+    <div class="section-header">Difference Scores</div>
+    <div class="method-cards-grid">
+      <MethodCard
+        v-for="(card, index) in differenceScores"
+        :key="index"
+        :card="card"
+        :style="{ '--top-color': card.background }"
+      />
+    </div>
+    <div class="section-header mt-8">Residualized Change Scores</div>
+    <div class="method-cards-grid">
+      <MethodCard
+        v-for="(card, index) in residualizedChangeScores"
+        :key="index"
+        :card="card"
+        :style="{ '--top-color': card.background }"
+      />
+    </div>
+    <div class="section-header mt-8">Linear Mixed-Effects Models</div>
+    <div class="method-cards-grid">
+      <MethodCard
+        v-for="(card, index) in linearMixedEffectsModels"
+        :key="index"
+        :card="card"
+        :style="{ '--top-color': card.background }"
+      />
+    </div>
   </div>
 </template>
 
@@ -17,46 +39,132 @@ interface MethodCard {
   background: string;
 }
 
-const methodCards: MethodCard[] = [
+const differenceScores: MethodCard[] = [
   {
-    title: "Difference Scores",
-    link: "/difference-scores", // Update to internal link
+    title: "Basic Model",
+    link: "/difference-scores",
     background: "#D5A05A",
   },
+  {
+    title: "Zero-Inflated Poisson",
+    link: "/xxxx",
+    background: "#D5A05A",
+  },
+  {
+    title: "Zero-Inflated Negative Binomial",
+    link: "/xxxx",
+    background: "#D5A05A",
+  },
+  {
+    title: "xxxx",
+    link: "/xxxx",
+    background: "#D5A05A",
+  },
+  {
+    title: "xxxx",
+    link: "/xxxx",
+    background: "#D5A05A",
+  },
+  {
+    title: "xxxx",
+    link: "/xxxx",
+    background: "#D5A05A",
+  },
+  {
+    title: "xxxx",
+    link: "/xxxx",
+    background: "#D5A05A",
+  },
+  {
+    title: "xxxx",
+    link: "/xxxx",
+    background: "#D5A05A",
+  },
+];
+
+const residualizedChangeScores: MethodCard[] = [
   {
     title: "Residualized Change Scores",
-    link: "/residualized-change-scores", // Update to internal link
-    background: "#D5A05A",
+    link: "/residualized-change-scores",
+    background: "#5A9E6D",
   },
   {
     title: "xxxx",
-    link: "/xxxx", // Update to internal link
-    background: "#D5A05A",
+    link: "/xxxx",
+    background: "#5A9E6D",
   },
   {
     title: "xxxx",
-    link: "/xxxx", // Update to internal link
-    background: "#D5A05A",
+    link: "/xxxx",
+    background: "#5A9E6D",
   },
   {
     title: "xxxx",
-    link: "/xxxx", // Update to internal link
-    background: "#D5A05A",
+    link: "/xxxx",
+    background: "#5A9E6D",
   },
   {
     title: "xxxx",
-    link: "/xxxx", // Update to internal link
-    background: "#D5A05A",
+    link: "/xxxx",
+    background: "#5A9E6D",
   },
   {
     title: "xxxx",
-    link: "/xxxx", // Update to internal link
-    background: "#D5A05A",
+    link: "/xxxx",
+    background: "#5A9E6D",
   },
   {
     title: "xxxx",
-    link: "/xxxx", // Update to internal link
-    background: "#D5A05A",
+    link: "/xxxx",
+    background: "#5A9E6D",
+  },
+  {
+    title: "xxxx",
+    link: "/xxxx",
+    background: "#5A9E6D",
+  },
+];
+
+const linearMixedEffectsModels: MethodCard[] = [
+  {
+    title: "Linear Mixed Effects Models",
+    link: "/linear-mixed-effects-models",
+    background: "#7A3E9D",
+  },
+  {
+    title: "xxxx",
+    link: "/xxxx",
+    background: "#7A3E9D",
+  },
+  {
+    title: "xxxx",
+    link: "/xxxx",
+    background: "#7A3E9D",
+  },
+  {
+    title: "xxxx",
+    link: "/xxxx",
+    background: "#7A3E9D",
+  },
+  {
+    title: "xxxx",
+    link: "/xxxx",
+    background: "#7A3E9D",
+  },
+  {
+    title: "xxxx",
+    link: "/xxxx",
+    background: "#7A3E9D",
+  },
+  {
+    title: "xxxx",
+    link: "/xxxx",
+    background: "#7A3E9D",
+  },
+  {
+    title: "xxxx",
+    link: "/xxxx",
+    background: "#7A3E9D",
   },
 ];
 </script>
@@ -78,5 +186,27 @@ const methodCards: MethodCard[] = [
   .method-cards-grid {
     grid-template-columns: repeat(4, 1fr); /* 4 columns for larger screens */
   }
+}
+
+.section-header {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff; /* White color */
+  text-align: left;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-bottom: 4px solid #cbd5e0; /* Light gray border */
+}
+
+.card-top h3 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
