@@ -35,7 +35,7 @@
               <a
                 href="#"
                 class="text-white hover:text-gray-300 whitespace-nowrap"
-                >System Design</a
+                >Simulations</a
               >
             </li>
           </template>
@@ -161,42 +161,27 @@
         </li>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >xxxxxx</a
+            >Visualizations</a
           >
         </li>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >xxxxxx</a
+            >Quarto</a
           >
         </li>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >xxxxxx</a
+            >Markdown</a
           >
         </li>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >xxxxxx</a
+            >Book Clubs</a
           >
         </li>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >xxxxxx</a
-          >
-        </li>
-        <li>
-          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >xxxxxx</a
-          >
-        </li>
-        <li>
-          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >xxxxxx</a
-          >
-        </li>
-        <li>
-          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >xxxxxx</a
+            >Playground</a
           >
         </li>
         <!-- Add more links as needed -->

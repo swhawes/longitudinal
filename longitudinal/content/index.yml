@@ -2,8 +2,8 @@ title: "Longitudinal.dev"
 description: Longitudinal.dev is a collection of xxxxxxx.
 navigation: false
 hero:
-  title: "A Longitudinal<br>Data Science<br>Platform"
-  description: "Documentation, Examples, Templates, and Apps"
+  title: "A Longitudinal Data Science Platform"
+  description: "Documentation, Examples, Templates, and Tools"
   orientation: horizontal
   headline:
     label: Looking for ABCD Examples?
@@ -22,32 +22,36 @@ hero:
       to: https://github.com/OpenDevSci/LongDev-ABCD"
       target: _blank
   code: |
-    ```r [sampleRCodez.r]
+    ```r [longitudinal_GLMM.r]
     # Load necessary libraries
-    library(ggplot2)
-    library(dplyr)
+    library(tidyverse)
+    library(glmmTMB)
 
-    # Load the mtcars dataset
-    data(mtcars)
-    # Summarize the data
-    summary(mtcars)
+    # Load the ABCD Study dataset
+    data(abcd)
 
     # Create a scatter plot with a regression line
-    ggplot(mtcars, aes(x = wt, y = mpg)) +
+    ggplot(abcd, aes(x = event, y = cbcl_adhd)) +
     geom_point(color = "blue", size = 3) +
     geom_smooth(method = "lm", color = "red", se = FALSE) +
-    labs(title: "Relationship between Car Weight and MPG",
-    x: "Weight (1000 lbs)",
-    y: "Miles per Gallon",
-    caption: "Data from the 1974 Motor Trend US magazine") +
+    labs(title: "Relationship between CBCL ADHD scores and event",
+    x: "Event (Assessment Wave)",
+    y: "CBCL ADHD Scores",
+    caption: "Data from the Adolescent Brain Cognitive Development (ABCD) Study") +
     theme_minimal()
-    # Fit a linear model
-    model <- lm(mpg ~ wt, data = mtcars)
+
+    # Fit a zero-inflated model
+    model <- glmmTMB(CBCL_ADHD ~ 1 +  age + sex +
+             factor(visit) + (1+visit| family),
+             family=truncated_genpois(link="log"),
+             ziformula=~1 + age + sex + factor(visit) +
+             (1+visit| family),
+             data=abcd, REML=FALSE, 
+             control = glmmTMBControl(parallel = 16)))
 
     # Display model summary
     summary(model)
 
-    testss
     ```
   titleClasses: "text-center mx-auto w-4/5 reduce-spacing hero-custom"
 features:

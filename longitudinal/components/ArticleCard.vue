@@ -27,12 +27,14 @@ export default {
 
 <style scoped>
 .HomePageArticleCard {
-  @apply p-4 rounded-lg shadow-lg flex flex-col justify-between;
+  @apply p-4 rounded-lg shadow-lg flex flex-col items-center justify-center; /* Center content */
   background: linear-gradient(180deg, #4caf97 0%, #51c6ab 100%);
+  min-height: 300px; /* Adjust this value to increase the vertical length */
+  text-align: center; /* Center text horizontally */
 }
 
 .HomePageArticleCard__title {
-  @apply text-white font-bold text-lg;
+  @apply text-white font-bold text-lg py-6;
 }
 
 .HomePageArticleCard__cta {

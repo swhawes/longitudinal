@@ -1,0 +1,15 @@
+---
+title: "TBD - Data Wrangling"
+author: "test"
+---
+
+
+#####
+
+This is a link to the [Traditional Linear Models](./1.index.md) page.
+
+<a href="/manuscript.pdf" target="_blank" download="awesome.pdf">Download Manuscript</a>
+
+<iframe src="/manuscript.pdf" />
+
+######
