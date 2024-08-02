@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import ExploreSection from "~/components/ExploreSection.vue";
 import CoursesSection from "~/components/CoursesSection.vue";
-import TopicsSection from "~/components/TopicsSection.vue";
 import FetchJson from "~/components/FetchJson.vue"; // Import the FetchJson component
 
 const { data: page } = await useAsyncData("index", () =>
@@ -15,93 +14,6 @@ useSeoMeta({
   description: page.value.description,
   ogDescription: page.value.description,
 });
-
-const webDevCards = [
-  {
-    title: "Difference Scores",
-    link: "https://www.google.com",
-    background: "#D5A05A",
-  },
-  {
-    title: "Residualized Change Scores",
-    link: "https://www.google.com",
-    background: "#D5A05A",
-  },
-  {
-    title: "xxxx",
-    link: "https://www.google.com",
-    background: "#D5A05A",
-  },
-  {
-    title: "xxxx",
-    link: "https://www.google.com",
-    background: "#D5A05A",
-  },
-  {
-    title: "xxxx",
-    link: "https://www.google.com",
-    background: "#D5A05A",
-  },
-  {
-    title: "xxxx",
-    link: "https://www.google.com",
-    background: "#D5A05A",
-  },
-  {
-    title: "xxxx",
-    link: "https://www.google.com",
-    background: "#D5A05A",
-  },
-  {
-    title: "xxxx",
-    link: "https://www.google.com",
-    background: "#D5A05A",
-  }, // ... other webDevCards
-];
-
-const dsaCards = [
-  {
-    title: "Linear Mixed-Effects Models",
-    link: "https://www.google.com",
-    background: "#F1637C",
-  },
-  {
-    title: "xxxxxx",
-    link: "https://www.google.com",
-    background: "#F1637C",
-  },
-  {
-    title: "xxxxxx",
-    link: "https://www.google.com",
-    background: "#F1637C",
-  },
-  {
-    title: "xxxxxx",
-    link: "https://www.google.com",
-    background: "#F1637C",
-  },
-  {
-    title: "xxxxxx",
-    link: "https://www.google.com",
-    background: "#F1637C",
-  },
-  {
-    title: "xxxxxx",
-    link: "https://www.google.com",
-    background: "#F1637C",
-  },
-  {
-    title: "xxxxxx",
-    link: "https://www.google.com",
-    background: "#F1637C",
-  },
-  {
-    title: "xxxxxx",
-    link: "https://www.google.com",
-    background: "#F1637C",
-  },
-  // ... other dsaCards
-];
 </script>
 
 <template>
@@ -156,7 +68,6 @@ const dsaCards = [
 
     <ExploreSection :articles="articles" />
     <CoursesSection />
-    <TopicsSection :web-dev-cards="webDevCards" :dsa-cards="dsaCards" />
     <FetchJson />
     <!-- Add FetchJson component here -->
   </div>

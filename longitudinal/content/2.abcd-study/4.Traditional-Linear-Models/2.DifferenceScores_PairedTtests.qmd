@@ -5,7 +5,6 @@ author: "Biostatistics Working Group"
 
 
 #####
-
 This is a link to the [Traditional Linear Models](./1.index.md) page.
 
 <a href="/manuscript.pdf" target="_blank" download="awesome.pdf">Download Manuscript</a>

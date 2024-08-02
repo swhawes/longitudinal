@@ -1,1 +1,3 @@
-#title: "Book Club yml title"
+title: Book Club
+description: Resources and information for the book club.
+defaultOpen: false

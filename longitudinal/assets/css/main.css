@@ -7,13 +7,60 @@
   padding-top: 2rem !important; /* Adjust as needed */
   padding-bottom: 12rem !important; /* Adjust as needed */
 }
-
+/* Custom styling for the hero section */
 .hero-custom {
-  margin-top: 0 !important; /* Adjust as needed */
-  padding-top: 0 !important; /* Adjust as needed */
+  color: #ffffff; /* White color */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif; /* Adjust the font family */
+  letter-spacing: 1px; /* Add letter spacing */
+  /* font-size: 2.2rem; */
 }
 
-.subheader-custom {
-  margin-bottom: 0 !important; /* Adjust as needed */
-  padding-bottom: 0 !important; /* Adjust as needed */
+/* Highlight specific words */
+.highlight {
+  color: #00dc82; /* Nuxt green color */
+  /* font-weight: bold; */
+  /* font-style: italic; */
+}
+
+/* Styling for the description */
+.hero-description {
+  color: #ffffff; /* White color */
+  margin-top: 1rem;
+  font-family: "Arial", sans-serif;
+}
+
+/* Styling for the headline link */
+.headline-link {
+  color: #ffffff; /* White color */
+  transition: color 0.3s ease;
+}
+
+.headline-link:hover {
+  color: #cbd5e0; /* Light gray color on hover */
+}
+
+/* Styling for the links */
+.hero-links a {
+  display: inline-block;
+  margin: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #2b6cb0; /* Blue background */
+  color: #ffffff; /* White text */
+  border-radius: 0.375rem; /* Rounded corners */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.hero-links a:hover {
+  background-color: #2c5282; /* Darker blue background on hover */
+  color: #ffffff; /* White text on hover */
+}
+
+/* Additional styling for the hero code block */
+.hero-code pre {
+  background-color: #2d3748; /* Dark gray background */
+  border: 1px solid #4a5568; /* Gray border */
+  padding: 1rem;
+  border-radius: 0.375rem;
+  color: #ffffff; /* White text */
 }

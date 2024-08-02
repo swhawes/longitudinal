@@ -42,12 +42,12 @@ interface MethodCard {
 const differenceScores: MethodCard[] = [
   {
     title: "Basic Model",
-    link: "/difference-scores",
+    link: "/abcd-study/traditional-linear-models/differencescores_pairedttests",
     background: "#D5A05A",
   },
   {
     title: "Simple Regression",
-    link: "/xxxx",
+    link: "/abcd-study/traditional-linear-models/differencescores_simpleregression",
     background: "#D5A05A",
   },
   {
