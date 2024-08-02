@@ -46,12 +46,12 @@ const differenceScores: MethodCard[] = [
     background: "#D5A05A",
   },
   {
-    title: "Zero-Inflated Poisson",
+    title: "Simple Regression",
     link: "/xxxx",
     background: "#D5A05A",
   },
   {
-    title: "Zero-Inflated Negative Binomial",
+    title: "ZINB",
     link: "/xxxx",
     background: "#D5A05A",
   },

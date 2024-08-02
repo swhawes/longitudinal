@@ -2,12 +2,12 @@ title: "Longitudinal.dev"
 description: Longitudinal.dev is a collection of xxxxxxx.
 navigation: false
 hero:
-  title: "A Longitudinal Data Science Platform"
+  title: "An Open Source Platform for Longitudinal Data Science"
   description: "Documentation, Examples, Templates, and Tools"
   orientation: horizontal
   headline:
     label: Looking for ABCD Examples?
-    to: https://longitudinal.dev/examples/examples.html
+    to: /getting-started
     icon: i-heroicons-arrow-top-right-on-square-20-solid
   links:
     - label: Get started

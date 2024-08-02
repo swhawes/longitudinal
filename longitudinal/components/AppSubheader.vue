@@ -189,6 +189,12 @@
             >Tailwind/Vue</a
           >
         </li>
+        <li />
+        <li>
+          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+            >ADD slack/github instructions/info</a
+          >
+        </li>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
             >Playground</a
