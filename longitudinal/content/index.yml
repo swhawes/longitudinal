@@ -7,7 +7,7 @@ hero:
   orientation: horizontal
   headline:
     label: Looking for ABCD Examples?
-    to: /getting-started
+    to: /abcd-study
     icon: i-heroicons-arrow-top-right-on-square-20-solid
   links:
     - label: Get started
