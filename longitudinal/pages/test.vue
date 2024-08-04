@@ -3,6 +3,9 @@
     <h1>Testing ArticlesList Component</h1>
     <ArticleList />
   </div>
+  <div>
+    <TestComponent />
+  </div>
 </template>
 
 <script setup>

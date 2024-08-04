@@ -50,36 +50,6 @@ const differenceScores: MethodCard[] = [
     link: "/abcd-study/traditional-linear-models/differencescores_simpleregression",
     background: "#D5A05A",
   },
-  {
-    title: "ZINB",
-    link: "/xxxx",
-    background: "#D5A05A",
-  },
-  {
-    title: "xxxx",
-    link: "/xxxx",
-    background: "#D5A05A",
-  },
-  {
-    title: "xxxx",
-    link: "/xxxx",
-    background: "#D5A05A",
-  },
-  {
-    title: "xxxx",
-    link: "/xxxx",
-    background: "#D5A05A",
-  },
-  {
-    title: "xxxx",
-    link: "/xxxx",
-    background: "#D5A05A",
-  },
-  {
-    title: "xxxx",
-    link: "/xxxx",
-    background: "#D5A05A",
-  },
 ];
 
 const residualizedChangeScores: MethodCard[] = [
@@ -129,26 +99,6 @@ const linearMixedEffectsModels: MethodCard[] = [
   {
     title: "Linear Mixed Effects Models",
     link: "/linear-mixed-effects-models",
-    background: "#7A3E9D",
-  },
-  {
-    title: "xxxx",
-    link: "/xxxx",
-    background: "#7A3E9D",
-  },
-  {
-    title: "xxxx",
-    link: "/xxxx",
-    background: "#7A3E9D",
-  },
-  {
-    title: "xxxx",
-    link: "/xxxx",
-    background: "#7A3E9D",
-  },
-  {
-    title: "xxxx",
-    link: "/xxxx",
     background: "#7A3E9D",
   },
   {

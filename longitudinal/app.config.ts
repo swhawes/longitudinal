@@ -28,7 +28,7 @@ export default defineAppConfig({
     }]
   },
   footer: {
-    credits: 'Copyright © 2023',
+    credits: 'credits to add ',
     colorMode: false,
     links: [{
       'icon': 'i-simple-icons-github',

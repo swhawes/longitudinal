@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   ],
   hooks: {
     'components:extend': (components) => {
-      const globals = components.filter(c => ['UButton', 'UIcon', 'ArticleList', 'MethodCardList'].includes(c.pascalName))
+      const globals = components.filter(c => ['UButton', 'UIcon', 'ArticleList', 'MethodCardList', 'TestComponent'].includes(c.pascalName))
       globals.forEach(c => c.global = true)
     }
   },
