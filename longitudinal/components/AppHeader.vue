@@ -14,7 +14,7 @@ const { header } = useAppConfig();
         <UColorModeImage v-bind="{ class: 'h-6 w-auto', ...header?.logo }" />
       </template>
       <template v-else>
-        Longitudinal.dev <UBadge label="Docs" variant="subtle" class="mb-0.5" />
+        <span class="highlighted-logo">Longitudinal.dev</span> <UBadge label="Docs" variant="subtle" class="mb-0.5" />
       </template>
     </template>
 
@@ -47,3 +47,16 @@ const { header } = useAppConfig();
   <!-- Use the Subheader Component -->
   <AppSubheader />
 </template>
+
+<style scoped>
+.highlighted-logo {
+  color: white; /* Adjust color if needed */
+  text-shadow: 0 0 10px #00DC82; /* Nuxt green shadow */
+  border: 2px solid #00DC82; /* Nuxt green border */
+  padding: 0.25rem; /* Adjust padding as needed */
+  display: inline-block;
+  box-shadow: 0 0 10px #00DC82; /* Nuxt green box shadow */
+  border-radius: 0.25rem; /* Optional: round the corners */
+}
+</style>
+

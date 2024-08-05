@@ -114,3 +114,7 @@ p {
   font-size: 0.9em;
   color: #555;
 }
+
+.white-text {
+  color: white;
+}

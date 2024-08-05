@@ -1,8 +1,5 @@
-title: "Longitudinal.dev"
-description: Longitudinal.dev is a collection of xxxxxxx.
-navigation: false
 hero:
-  title: "A <br> <span class='highlight'>Longitudinal Data Science</span> <br> Platform"
+  title: "<span class='white-text'> A </span> <br> <span class='highlight'>Longitudinal Data Science</span> <br> <span class='white-text'>Platform</span>"
   description: "Open Source Documentation, Examples, Templates, and Tools"
   orientation: horizontal
   headline:

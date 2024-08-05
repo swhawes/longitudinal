@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ExploreSection from "~/components/ExploreSection.vue";
-import CoursesSection from "~/components/CoursesSection.vue";
+import CoursesSection from "~/components/LongSection.vue";
 import FetchJson from "~/components/FetchJson.vue"; // Import the FetchJson component
 
 const { data: page } = await useAsyncData("index", () =>
@@ -67,7 +67,6 @@ useSeoMeta({
     </ULandingSection>
 
     <ExploreSection :articles="articles" />
-    <CoursesSection />
     <FetchJson />
     <!-- Add FetchJson component here -->
   </div>
