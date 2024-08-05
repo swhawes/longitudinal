@@ -1,32 +1,22 @@
 <template>
   <div class="wrapper">
-    <header class="header">
-      <nav class="bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-        <div class="container mx-auto px-4">
-          <div class="flex justify-between items-center py-4">
-            <div class="flex items-center space-x-4">
-              <!-- <img src="/images/logo.png" alt="Logo" class="w-12 h-12"> -->
-              <span class="text-xl font-semibold">Exploring R @ YourSite</span>
-            </div>
-            <ul class="flex space-x-4">
-              <li><NuxtLink to="#princeton-content" class="hover:text-gray-700 dark:hover:text-gray-200">Content from Princeton</NuxtLink></li>
-              <li><NuxtLink to="#books" class="hover:text-gray-700 dark:hover:text-gray-200">Free R eBooks</NuxtLink></li>
-              <li><NuxtLink to="#cheatsheets" class="hover:text-gray-700 dark:hover:text-gray-200">Cheatsheets</NuxtLink></li>
-              <li><NuxtLink to="#interactive" class="hover:text-gray-700 dark:hover:text-gray-200">Interactive tutorials</NuxtLink></li>
-              <li><NuxtLink to="#videos" class="hover:text-gray-700 dark:hover:text-gray-200">Instructional Videos</NuxtLink></li>
-              <li><NuxtLink to="#text-tutorials" class="hover:text-gray-700 dark:hover:text-gray-200">Text-based tutorials</NuxtLink></li>
-            </ul>
-          </div>
-        </div>
+    <header class="r-header flex justify-center items-center text-white h-64">
+      <div class="r-logo-animation flex items-end">
+        <img src="/images/r-logo.png" alt="Learn R" class="w-32 h-32 " />
+        <span class="text-4xl font-bold ml-2">esources</span>
+      </div>
+    </header>
+    <header class="header bg-white p-4 text-black">
+      <nav class="navigation flex justify-center gap-4">
+        <NuxtLink to="#books" class="nav-button">Books</NuxtLink>
+        <NuxtLink to="#interactive" class="nav-button">Interactive tutorials</NuxtLink>
+        <NuxtLink to="#videos" class="nav-button">Videos</NuxtLink>
+        <NuxtLink to="#cheatsheets" class="nav-button">Cheatsheets</NuxtLink>
+        <NuxtLink to="#text-tutorials" class="nav-button">Text-based tutorials</NuxtLink>
       </nav>
     </header>
-
     <main class="neve-main">
-      <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Self-Learning Resources for R</h1>
-      </div>
-
-      <section class="py-8 bg-gray-100 dark:bg-gray-800" id="books">
+      <section id="books">
         <div class="container mx-auto">
           <h2 class="text-2xl font-bold text-center mb-4">R Books (Free and Online)</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -43,7 +33,7 @@
         </div>
       </section>
 
-      <section class="py-8 bg-gray-200 dark:bg-gray-700" id="videos">
+      <section class="py-8 bg-gray-200 dark:bg-gray-800" id="videos">
         <div class="container mx-auto">
           <h2 class="text-2xl font-bold text-center mb-4">Instructional Videos</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -56,7 +46,7 @@
         </div>
       </section>
 
-      <section class="py-8 bg-green-100 dark:bg-green-800" id="interactive">
+      <section class="py-8 bg-gray-100 dark:bg-gray-700" id="interactive">
         <div class="container mx-auto">
           <h2 class="text-2xl font-bold text-center mb-4">Interactive Tutorials</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -70,14 +60,14 @@
         </div>
       </section>
 
-      <section class="py-8 bg-blue-100 dark:bg-blue-800" id="cheatsheets">
+      <section class="py-8 bg-blue-100 dark:bg-gray-800" id="cheatsheets">
         <div class="container mx-auto">
           <h2 class="text-2xl font-bold text-center mb-4">Cheatsheets</h2>
           <!-- Add cheatsheets content here -->
         </div>
       </section>
 
-      <section class="py-8 bg-yellow-100 dark:bg-yellow-800" id="text-tutorials">
+      <section class="py-8 bg-yellow-100 dark:bg-gray-700" id="text-tutorials">
         <div class="container mx-auto">
           <h2 class="text-2xl font-bold text-center mb-4">Text-based tutorials</h2>
           <!-- Add text-based tutorials content here -->
@@ -197,6 +187,31 @@ const tutorials = ref([
 </script>
 
 <style scoped>
+.r-logo-animation {
+  display: flex;
+  align-items: flex-end; /* Align items to the bottom */
+}
+
+.r-logo-animation img {
+  margin-bottom: -5px; /* Adjust this value as needed */
+}
+
+.text-4xl {
+  font-size: 2.25rem; /* Tailwind text-4xl equivalent */
+}
+
+.font-bold {
+  font-weight: 700; /* Tailwind font-bold equivalent */
+}
+
+.ml-2 {
+  margin-left: 0.5rem; /* Tailwind ml-2 equivalent */
+}
+
+.nav-button {
+  @apply inline-block px-4 py-2 bg-gray-800 text-white rounded-md transition duration-300 ease-in-out hover:bg-gray-600;
+}
+
 .wrapper {
   font-family: 'Arial', sans-serif;
 }
@@ -262,4 +277,5 @@ p {
   font-size: 0.9em;
   color: #555;
 }
+
 </style>
