@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Testing ArticlesList Component</h1>
-    <ArticleList />
+    <!-- <ArticleList /> -->
   </div>
   <div>
     <TestComponent />

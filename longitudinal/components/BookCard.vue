@@ -1,64 +1,33 @@
 <template>
-  <div class="book-card">
+  <div class="book">
     <a :href="link" target="_blank" rel="noopener noreferrer">
       <img :src="image" :alt="title" class="book-cover" />
-      <div class="book-info">
-        <h3>{{ title }}</h3>
-        <p>{{ description }}</p>
-      </div>
+      <h3>{{ title }}</h3>
+      <p><strong>Author:</strong> {{ author }}</p>
+      <p><strong>Description:</strong> {{ description }}</p>
     </a>
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    image: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    link: {
-      type: String,
-      required: true,
-    },
-  },
-};
+<script setup>
+defineProps({
+  title: String,
+  author: String,
+  description: String,
+  image: String,
+  link: String
+})
 </script>
 
 <style scoped>
-.book-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 16px;
+.book {
   text-align: center;
-  transition: transform 0.2s;
-}
-.book-card:hover {
-  transform: scale(1.05);
+  margin: 10px;
+  max-width: 200px;
 }
 .book-cover {
-  max-width: 150px;
+  width: 100%;
   height: auto;
-  margin-bottom: 16px;
-}
-.book-info h3 {
-  font-size: 1.2em;
-  margin: 0;
-}
-.book-info p {
-  font-size: 0.9em;
-  color: #666;
+  margin-bottom: 10px;
 }
 </style>
