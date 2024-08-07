@@ -1,3 +1,5 @@
+# This file can be deleted once resources is functioning correctly in the
+content folder
 <template>
   <div class="wrapper">
     <header class="r-header flex justify-center items-center text-white h-64">
@@ -14,9 +16,7 @@
         </NuxtLink>
         <NuxtLink to="#videos" class="nav-button"> Videos </NuxtLink>
         <NuxtLink to="#cheatsheets" class="nav-button"> Cheatsheets </NuxtLink>
-        <NuxtLink to="#text-tutorials" class="nav-button">
-          Blogs
-        </NuxtLink>
+        <NuxtLink to="#text-tutorials" class="nav-button"> Blogs </NuxtLink>
       </nav>
     </header>
     <main class="neve-main">
