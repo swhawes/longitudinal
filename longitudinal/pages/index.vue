@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import ExploreSection from "~/components/ExploreSection.vue";
-import CoursesSection from "~/components/LongSection.vue";
-import FetchJson from "~/components/FetchJson.vue"; // Import the FetchJson component
+// import ExploreSection from "~/components/ExploreSection.vue";
+// import CoursesSection from "~/components/LongSection.vue";
+// import FetchJson from "~/components/FetchJson.vue"; // Import the FetchJson component
 
 const { data: page } = await useAsyncData("index", () =>
   queryContent("/").findOne()
