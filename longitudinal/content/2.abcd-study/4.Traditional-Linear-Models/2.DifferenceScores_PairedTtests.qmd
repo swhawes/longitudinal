@@ -1,7 +1,6 @@
 ---
 title: "Difference Scores: Paired Samples T-test"
 author: "Biostatistics Working Group"
-layout: "docs"
 ---
 
 

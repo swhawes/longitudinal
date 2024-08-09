@@ -1,17 +1,21 @@
 <script setup lang="ts">
 import { withoutTrailingSlash } from "ufo";
+import { useRoute, useFetch } from "#app";
 
 definePageMeta({
-  layout: "default",
+  layout: "docs",
 });
 
 const route = useRoute();
 const { toc, seo } = useAppConfig();
 
-const { data: page } = await useAsyncData(route.path, () =>
+const { data: page, error } = await useAsyncData(route.path, () =>
   queryContent(route.path).findOne()
 );
-if (!page.value) {
+console.log("Requested Path:", route.path);
+console.log("Fetched Page:", page);
+if (error.value) {
+  console.error("Error fetching page:", error.value);
   throw createError({
     statusCode: 404,
     statusMessage: "Page not found",

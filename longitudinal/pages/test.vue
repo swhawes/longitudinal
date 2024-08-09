@@ -1,5 +1,5 @@
 <template>
-    <CoursesSection />
+  <CoursesSection />
 </template>
 
 <script setup>

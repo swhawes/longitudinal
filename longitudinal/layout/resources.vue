@@ -1,16 +1,8 @@
+<!-- layout/resources.vue -->
 <template>
   <div>
-    This is a test of resources.vue layout.
-    <main>
-      <NuxtPage />
-    </main>
+    <h1>This is the resources.vue layout.</h1>
+    <slot />
+    <NuxtPage />
   </div>
 </template>
-
-<script setup>
-// Add any required setup code here
-</script>
-
-<style scoped>
-/* Add custom styles here */
-</style>

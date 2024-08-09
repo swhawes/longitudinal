@@ -1,12 +1,13 @@
 <template>
   <div>
     <header>
-      <h1>Default Layout</h1>
+      <h1>This is a test of default.vue layout.</h1>
       <nav>
         <!-- Navigation links -->
       </nav>
     </header>
     <main>
+      <slot />
       <NuxtPage />
     </main>
     <footer>

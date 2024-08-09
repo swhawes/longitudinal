@@ -1,6 +1,7 @@
 ---
 title: "Difference Scores: Simple Regression"
 author: "Biostatistics Working Group"
+layout: docs
 ---
 
 ```r  [codeBlock.r]
