@@ -186,13 +186,12 @@
         </li>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >Tailwind/Vue</a
+            >Slack Channel</a
           >
         </li>
-        <li />
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >ADD slack/github instructions/info</a
+            >Github</a
           >
         </li>
         <li>
