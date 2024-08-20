@@ -1,6 +1,9 @@
 import type { Config } from 'tailwindcss'
 import defaultTheme from 'tailwindcss/defaultTheme'
 
+// Import the plugin
+import forms from '@tailwindcss/forms'
+
 export default <Partial<Config>>{
   theme: {
     extend: {
@@ -23,5 +26,9 @@ export default <Partial<Config>>{
         }
       }
     }
-  }
+  },
+  plugins: [
+    // Add the forms plugin
+    forms
+  ]
 }
