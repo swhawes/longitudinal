@@ -1,4 +1,21 @@
 <template>
+  <section>
+    <svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <!-- The background tree image -->
+  <image href="/public/images/tree.svg" width="800" height="800" />
+
+  <!-- Link to the Linux website with the Linux logo -->
+  <a href="https://www.linux.org" target="_blank">
+    <image href="/public/images/linux-logo.svg" x="200" y="300" width="100" height="100" />
+  </a>
+
+  <!-- Link to the Python website with the Python logo -->
+  <a href="https://www.python.org" target="_blank">
+    <image href="/public/images/python-logo.svg" x="500" y="300" width="100" height="100" />
+  </a>
+</svg>
+
+  </section>
   <div class="bg-white">
     <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl">
       <div class="relative overflow-hidden rounded-lg lg:h-96">
@@ -1115,7 +1132,7 @@
         <!-- Image section -->
         <div class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
           <img
-            src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
+            src="https://images.unsplash.com/photo-1666875753105-c63a6f3bdc86?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt=""
             class="aspect-[5/2] w-full object-cover xl:rounded-3xl"
           >
