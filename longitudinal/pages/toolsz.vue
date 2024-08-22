@@ -1,70 +1,264 @@
 <template>
-  <div class="bg-white">
-    <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl">
-      <div class="relative overflow-hidden rounded-lg lg:h-96">
-        <div class="relative flex h-full">
-          <!-- Left content (empty or other content can go here) -->
-          <div class="w-1/2">
-            <!-- You can put content here if needed -->
+  <section>
+    <div class="bg-#020420">
+      <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl">
+        <div class="relative overflow-hidden rounded-lg lg:h-96">
+          <div class="absolute inset-0">
+            <img
+              src="/public/images/opensource_logos.png"
+              alt=""
+              class="h-full w-full object-cover object-center"
+            />
           </div>
-
-          <!-- Right half with the image -->
-          <div class="w-1/2 relative">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="800"
-              height="800"
-              viewBox="0 0 800 800"
-            >
-              <!-- The background tree image -->
-              <image href="/public/images/tree.svg" width="800" height="800" />
-
-              <!-- Link to the Linux website with the Linux logo -->
-              <a href="https://www.linux.org" target="_blank">
-                <image
-                  href="/public/images/linux-logo.svg"
-                  x="200"
-                  y="300"
-                  width="100"
-                  height="100"
-                />
-              </a>
-
-              <!-- Link to the Python website with the Python logo -->
-              <a href="https://www.python.org" target="_blank">
-                <image
-                  href="/public/images/python-logo.svg"
-                  x="500"
-                  y="300"
-                  width="100"
-                  height="100"
-                />
-              </a>
-            </svg>
-          </div>
-        </div>
-
-        <div aria-hidden="true" class="relative h-96 w-full lg:hidden" />
-        <div aria-hidden="true" class="relative h-32 w-full lg:hidden" />
-        <div
-          class="absolute inset-x-0 bottom-0 rounded-bl-lg rounded-br-lg bg-black bg-opacity-75 p-6 backdrop-blur backdrop-filter sm:flex sm:items-center sm:justify-between lg:inset-x-auto lg:inset-y-0 lg:w-96 lg:flex-col lg:items-start lg:rounded-br-none lg:rounded-tl-lg"
-        >
-          <div>
-            <h2 class="text-xl font-bold text-white">Open Source Tools</h2>
-            <p class="mt-1 text-sm text-gray-300">
-              Upgrade your desk with objects that keep you organized and
-              clear-minded.
-            </p>
-          </div>
-          <a
-            href="#"
-            class="mt-6 flex flex-shrink-0 items-center justify-center rounded-md border border-white border-opacity-25 bg-white bg-opacity-0 px-4 py-3 text-base font-medium text-white hover:bg-opacity-10 sm:ml-8 sm:mt-0 lg:ml-0 lg:w-full"
-            >View the collection</a
+          <div aria-hidden="true" class="relative h-96 w-full lg:hidden" />
+          <div aria-hidden="true" class="relative h-32 w-full lg:hidden" />
+          <div
+            class="absolute inset-x-0 bottom-0 rounded-bl-lg rounded-br-lg bg-black bg-opacity-75 p-6 backdrop-blur backdrop-filter sm:flex sm:items-center sm:justify-between lg:inset-x-auto lg:inset-y-0 lg:w-96 lg:flex-col lg:items-start lg:rounded-br-none lg:rounded-tl-lg"
           >
+            <div>
+              <h2 class="text-xl font-bold text-white">Open Source Tools</h2>
+              <p class="mt-1 text-sm text-gray-100">
+                Tools to help longitudinal data science research.
+              </p>
+            </div>
+            <a
+              href="#"
+              class="mt-6 flex flex-shrink-0 items-center justify-center rounded-md border border-white border-opacity-25 bg-white bg-opacity-0 px-4 py-3 text-base font-medium text-white hover:bg-opacity-10 sm:ml-8 sm:mt-0 lg:ml-0 lg:w-full"
+              >View tools</a
+            >
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
+  <section>
+    <div class="bg-white">
+      <!-- Content section -->
+      <div class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
+        <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
+          <h2
+            class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+          >
+            What are open source tools?
+          </h2>
+          <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
+            <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
+              <p class="text-xl leading-8 text-gray-600">
+                Aliquet nec orci mattis amet quisque ullamcorper neque, nibh
+                sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque
+                id at vitae feugiat egestas ac. Diam nulla orci at in viverra
+                scelerisque eget. Eleifend egestas fringilla sapien.
+              </p>
+              <div class="mt-10 max-w-xl text-base leading-7 text-gray-700">
+                <p>
+                  Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget
+                  risus enim. Mattis mauris semper sed amet vitae sed turpis id.
+                  Id dolor praesent donec est. Odio penatibus risus viverra
+                  tellus varius sit neque erat velit. Faucibus commodo massa
+                  rhoncus, volutpat. Dignissim sed eget risus enim. Mattis
+                  mauris semper sed amet vitae sed turpis id.
+                </p>
+                <p class="mt-10">
+                  Et vitae blandit facilisi magna lacus commodo. Vitae sapien
+                  duis odio id et. Id blandit molestie auctor fermentum
+                  dignissim. Lacus diam tincidunt ac cursus in vel. Mauris
+                  varius vulputate et ultrices hac adipiscing egestas. Iaculis
+                  convallis ac tempor et ut. Ac lorem vel integer orci.
+                </p>
+              </div>
+            </div>
+            <div class="lg:flex lg:flex-auto lg:justify-center">
+              <dl class="w-64 space-y-8 xl:w-80">
+                <div
+                  v-for="stat in stats"
+                  :key="stat.label"
+                  class="flex flex-col-reverse gap-y-4"
+                >
+                  <dt class="text-base leading-7 text-gray-600">
+                    {{ stat.label }}
+                  </dt>
+                  <dd
+                    class="text-5xl font-semibold tracking-tight text-gray-900"
+                  >
+                    {{ stat.value }}
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="overflow-hidden bg-#020420">
+      <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
+        <div
+          class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center"
+        >
+          <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
+            <h1
+              class="text-4xl font-bold tracking-tight text-gray-600 sm:text-6xl"
+            >
+              Programming Languages
+            </h1>
+            <p
+              class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none"
+            >
+              Cupidatat minim id magna ipsum sint dolor qui. Sunt sit in quis
+              cupidatat mollit aute velit. Et labore commodo nulla aliqua
+              proident mollit ullamco exercitation tempor. Sint aliqua anim
+              nulla sunt mollit id pariatur in voluptate cillum. Eu voluptate
+              tempor esse minim amet fugiat veniam occaecat aliqua.
+            </p>
+          </div>
+          <div
+            class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0"
+          >
+            <div
+              class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80"
+            >
+              <div class="relative">
+                <img
+                  src="public/images/python-logo.png"
+                  alt=""
+                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                />
+                <div
+                  class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                />
+              </div>
+            </div>
+            <div
+              class="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36"
+            >
+              <div class="relative">
+                <img
+                  src="public/images/r-logo.png"
+                  alt=""
+                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                />
+                <div
+                  class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                />
+              </div>
+              <div class="relative">
+                <img
+                  src="public/images/julia-logo.svg"
+                  alt=""
+                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                />
+                <div
+                  class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                />
+              </div>
+            </div>
+            <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
+              <div class="relative">
+                <img
+                  src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80"
+                  alt=""
+                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                />
+                <div
+                  class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                />
+              </div>
+              <div class="relative">
+                <img
+                  src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
+                  alt=""
+                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                />
+                <div
+                  class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="bg-white text-black">test</section>
+  <section>
+    <div class="bg-gray-900 py-24 sm:py-32">
+      <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
+        <h1 class="text-4xl font-bold tracking-tight text-gray-600 sm:text-6xl">
+          Programming Languages
+        </h1>
+        <p
+          class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none"
+        >
+          Cupidatat minim id magna ipsum sint dolor qui. Sunt sit in quis
+          cupidatat mollit aute velit. Et labore commodo nulla aliqua proident
+          mollit ullamco exercitation tempor. Sint aliqua anim nulla sunt mollit
+          id pariatur in voluptate cillum. Eu voluptate tempor esse minim amet
+          fugiat veniam occaecat aliqua.
+        </p>
+      </div>
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div
+          class="-mx-6 grid grid-cols-2 gap-0.5 overflow-hidden sm:mx-0 sm:rounded-2xl md:grid-cols-3"
+        >
+          <div class="bg-white/5 p-8 sm:p-10">
+            <img
+              class="max-h-12 w-full object-contain"
+              src="https://tailwindui.com/img/logos/158x48/transistor-logo-white.svg"
+              alt="Transistor"
+              width="158"
+              height="48"
+            />
+          </div>
+          <div class="bg-white/5 p-6 sm:p-10">
+            <img
+              class="max-h-12 w-full object-contain"
+              src="https://tailwindui.com/img/logos/158x48/reform-logo-white.svg"
+              alt="Reform"
+              width="158"
+              height="48"
+            />
+          </div>
+          <div class="bg-white/5 p-6 sm:p-10">
+            <img
+              class="max-h-12 w-full object-contain"
+              src="https://tailwindui.com/img/logos/158x48/tuple-logo-white.svg"
+              alt="Tuple"
+              width="158"
+              height="48"
+            />
+          </div>
+          <div class="bg-white/5 p-6 sm:p-10">
+            <img
+              class="max-h-12 w-full object-contain"
+              src="https://tailwindui.com/img/logos/158x48/laravel-logo-white.svg"
+              alt="Laravel"
+              width="158"
+              height="48"
+            />
+          </div>
+          <div class="bg-white/5 p-6 sm:p-10">
+            <img
+              class="max-h-12 w-full object-contain"
+              src="https://tailwindui.com/img/logos/158x48/savvycal-logo-white.svg"
+              alt="SavvyCal"
+              width="158"
+              height="48"
+            />
+          </div>
+          <div class="bg-white/5 p-6 sm:p-10">
+            <img
+              class="max-h-12 w-full object-contain"
+              src="https://tailwindui.com/img/logos/158x48/statamic-logo-white.svg"
+              alt="Statamic"
+              width="158"
+              height="48"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <section>
     <ul role="list" class="divide-y divide-gray-800">
       <li
@@ -159,51 +353,6 @@
     <div class="bg-white">
       <!-- Header -->
       <header class="absolute inset-x-0 top-0 z-50">
-        <!-- <nav
-          class="flex items-center justify-between p-6 lg:px-8"
-          aria-label="Global"
-        >
-          <div class="flex lg:flex-1">
-            <a
-              href="#"
-              class="-m-1.5 p-1.5"
-            >
-              <span class="sr-only">Your Company</span>
-              <img
-                class="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
-              >
-            </a>
-          </div>
-          <div class="flex lg:hidden">
-            <button
-              type="button"
-              class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-              @click="mobileMenuOpen = true"
-            >
-              <span class="sr-only">Open main menu</span>
-              <Bars3Icon
-                class="h-6 w-6"
-                aria-hidden="true"
-              />
-            </button>
-          </div>
-          <div class="hidden lg:flex lg:gap-x-12">
-            <a
-              v-for="item in navigation"
-              :key="item.name"
-              :href="item.href"
-              class="text-sm font-semibold leading-6 text-gray-900"
-            >{{ item.name }}</a>
-          </div>
-          <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a
-              href="#"
-              class="text-sm font-semibold leading-6 text-gray-900"
-            >Log in <span aria-hidden="true">&rarr;</span></a>
-          </div>
-        </nav> -->
         <Dialog
           class="lg:hidden"
           :open="mobileMenuOpen"
@@ -757,62 +906,6 @@
           </div>
         </div>
 
-        <!-- Content section -->
-        <div class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
-          <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-            <h2
-              class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
-            >
-              Our mission
-            </h2>
-            <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
-              <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
-                <p class="text-xl leading-8 text-gray-600">
-                  Aliquet nec orci mattis amet quisque ullamcorper neque, nibh
-                  sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque
-                  id at vitae feugiat egestas ac. Diam nulla orci at in viverra
-                  scelerisque eget. Eleifend egestas fringilla sapien.
-                </p>
-                <div class="mt-10 max-w-xl text-base leading-7 text-gray-700">
-                  <p>
-                    Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget
-                    risus enim. Mattis mauris semper sed amet vitae sed turpis
-                    id. Id dolor praesent donec est. Odio penatibus risus
-                    viverra tellus varius sit neque erat velit. Faucibus commodo
-                    massa rhoncus, volutpat. Dignissim sed eget risus enim.
-                    Mattis mauris semper sed amet vitae sed turpis id.
-                  </p>
-                  <p class="mt-10">
-                    Et vitae blandit facilisi magna lacus commodo. Vitae sapien
-                    duis odio id et. Id blandit molestie auctor fermentum
-                    dignissim. Lacus diam tincidunt ac cursus in vel. Mauris
-                    varius vulputate et ultrices hac adipiscing egestas. Iaculis
-                    convallis ac tempor et ut. Ac lorem vel integer orci.
-                  </p>
-                </div>
-              </div>
-              <div class="lg:flex lg:flex-auto lg:justify-center">
-                <dl class="w-64 space-y-8 xl:w-80">
-                  <div
-                    v-for="stat in stats"
-                    :key="stat.label"
-                    class="flex flex-col-reverse gap-y-4"
-                  >
-                    <dt class="text-base leading-7 text-gray-600">
-                      {{ stat.label }}
-                    </dt>
-                    <dd
-                      class="text-5xl font-semibold tracking-tight text-gray-900"
-                    >
-                      {{ stat.value }}
-                    </dd>
-                  </div>
-                </dl>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Image section -->
         <div class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
           <img
@@ -949,70 +1042,6 @@
           </div>
         </div>
       </main>
-    </div>
-  </section>
-  <section>
-    <div class="bg-gray-900 py-24 sm:py-32">
-      <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div
-          class="-mx-6 grid grid-cols-2 gap-0.5 overflow-hidden sm:mx-0 sm:rounded-2xl md:grid-cols-3"
-        >
-          <div class="bg-white/5 p-8 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="https://tailwindui.com/img/logos/158x48/transistor-logo-white.svg"
-              alt="Transistor"
-              width="158"
-              height="48"
-            />
-          </div>
-          <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="https://tailwindui.com/img/logos/158x48/reform-logo-white.svg"
-              alt="Reform"
-              width="158"
-              height="48"
-            />
-          </div>
-          <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="https://tailwindui.com/img/logos/158x48/tuple-logo-white.svg"
-              alt="Tuple"
-              width="158"
-              height="48"
-            />
-          </div>
-          <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="https://tailwindui.com/img/logos/158x48/laravel-logo-white.svg"
-              alt="Laravel"
-              width="158"
-              height="48"
-            />
-          </div>
-          <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="https://tailwindui.com/img/logos/158x48/savvycal-logo-white.svg"
-              alt="SavvyCal"
-              width="158"
-              height="48"
-            />
-          </div>
-          <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="https://tailwindui.com/img/logos/158x48/statamic-logo-white.svg"
-              alt="Statamic"
-              width="158"
-              height="48"
-            />
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
