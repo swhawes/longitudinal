@@ -1,4 +1,5 @@
 <template>
+  <!-- Hero Section -->
   <section>
     <div class="bg-#020420">
       <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl">
@@ -31,65 +32,210 @@
       </div>
     </div>
   </section>
-  <section>
-    <div class="bg-white">
-      <!-- Content section -->
-      <div class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
-        <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-          <h2
-            class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+
+  <!-- Introduction Section -->
+  <section id="tools" class="bg-white text-gray-800 py-16 relative">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h2 class="text-4xl font-bold text-center">
+        What are Open Source Tools?
+      </h2>
+      <p class="mt-6 text-lg leading-8 text-center">
+        Open source tools provide the foundation for scalable, reproducible
+        research, offering essential functionalities for data management,
+        analysis, and visualization.
+      </p>
+
+      <!-- Carousel Container with Scroll Buttons -->
+      <div class="relative mt-10">
+        <!-- Left Arrow -->
+        <button class="scroll-button left-0" @click="scrollLeft">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            class="h-8 w-8"
           >
-            What are open source tools?
-          </h2>
-          <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
-            <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
-              <p class="text-xl leading-8 text-gray-600">
-                Aliquet nec orci mattis amet quisque ullamcorper neque, nibh
-                sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque
-                id at vitae feugiat egestas ac. Diam nulla orci at in viverra
-                scelerisque eget. Eleifend egestas fringilla sapien.
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
+
+        <!-- Carousel -->
+        <div ref="carousel" class="carousel-container">
+          <!-- Tool 1 -->
+          <div class="feature">
+            <div class="feature-content">
+              <h3 class="text-2xl font-semibold mb-4">
+                🛠️ Version Control (Git/GitHub)
+              </h3>
+              <p class="text-lg text-gray-700">
+                Manage code and collaborate seamlessly on longitudinal data
+                projects.
               </p>
-              <div class="mt-10 max-w-xl text-base leading-7 text-gray-700">
-                <p>
-                  Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget
-                  risus enim. Mattis mauris semper sed amet vitae sed turpis id.
-                  Id dolor praesent donec est. Odio penatibus risus viverra
-                  tellus varius sit neque erat velit. Faucibus commodo massa
-                  rhoncus, volutpat. Dignissim sed eget risus enim. Mattis
-                  mauris semper sed amet vitae sed turpis id.
-                </p>
-                <p class="mt-10">
-                  Et vitae blandit facilisi magna lacus commodo. Vitae sapien
-                  duis odio id et. Id blandit molestie auctor fermentum
-                  dignissim. Lacus diam tincidunt ac cursus in vel. Mauris
-                  varius vulputate et ultrices hac adipiscing egestas. Iaculis
-                  convallis ac tempor et ut. Ac lorem vel integer orci.
-                </p>
-              </div>
+              <a
+                href="/tools/version-control"
+                class="learn-more mt-4 inline-block text-blue-600 hover:underline"
+                >Learn more →</a
+              >
             </div>
-            <div class="lg:flex lg:flex-auto lg:justify-center">
-              <dl class="w-64 space-y-8 xl:w-80">
-                <div
-                  v-for="stat in stats"
-                  :key="stat.label"
-                  class="flex flex-col-reverse gap-y-4"
-                >
-                  <dt class="text-base leading-7 text-gray-600">
-                    {{ stat.label }}
-                  </dt>
-                  <dd
-                    class="text-5xl font-semibold tracking-tight text-gray-900"
-                  >
-                    {{ stat.value }}
-                  </dd>
-                </div>
-              </dl>
+          </div>
+
+          <!-- Tool 2 -->
+          <div class="feature">
+            <div class="feature-content">
+              <h3 class="text-2xl font-semibold mb-4">
+                🗂️ Data Formats (Apache Parquet and Arrow)
+              </h3>
+              <p class="text-lg text-gray-700">
+                Efficient formats designed to handle large-scale datasets with
+                high performance.
+              </p>
+              <a
+                href="/tools/data-formats"
+                class="learn-more mt-4 inline-block text-blue-600 hover:underline"
+                >Learn more →</a
+              >
+            </div>
+          </div>
+
+          <!-- Tool 3 -->
+          <div class="feature">
+            <div class="feature-content">
+              <h3 class="text-2xl font-semibold mb-4">
+                🔗 Data Sharing Platforms
+              </h3>
+              <p class="text-lg text-gray-700">
+                Secure and scalable platforms for sharing and accessing research
+                data globally.
+              </p>
+              <a
+                href="/tools/data-sharing"
+                class="learn-more mt-4 inline-block text-blue-600 hover:underline"
+                >Learn more →</a
+              >
+            </div>
+          </div>
+
+          <!-- Additional Tools -->
+          <!-- Tool 4: IDEs -->
+          <div class="feature">
+            <div class="feature-content">
+              <h3 class="text-2xl font-semibold mb-4">
+                💻 Integrated Development Environments (IDEs)
+              </h3>
+              <p class="text-lg text-gray-700">
+                Powerful environments for developing and testing data science
+                code.
+              </p>
+              <a
+                href="/tools/ides"
+                class="learn-more mt-4 inline-block text-blue-600 hover:underline"
+                >Learn more →</a
+              >
+            </div>
+          </div>
+
+          <!-- Tool 5: Notebooks -->
+          <div class="feature">
+            <div class="feature-content">
+              <h3 class="text-2xl font-semibold mb-4">📓 Notebooks</h3>
+              <p class="text-lg text-gray-700">
+                Interactive notebooks for literate programming and exploratory
+                analysis.
+              </p>
+              <a
+                href="/tools/notebooks"
+                class="learn-more mt-4 inline-block text-blue-600 hover:underline"
+                >Learn more →</a
+              >
+            </div>
+          </div>
+
+          <!-- Tool 6: Literate Programming -->
+          <div class="feature">
+            <div class="feature-content">
+              <h3 class="text-2xl font-semibold mb-4">
+                📜 Literate Programming
+              </h3>
+              <p class="text-lg text-gray-700">
+                Tools that combine code, documentation, and analysis into a
+                single document.
+              </p>
+              <a
+                href="/tools/literate-programming"
+                class="learn-more mt-4 inline-block text-blue-600 hover:underline"
+                >Learn more →</a
+              >
+            </div>
+          </div>
+
+          <!-- Tool 7: Databases -->
+          <div class="feature">
+            <div class="feature-content">
+              <h3 class="text-2xl font-semibold mb-4">🗄️ Databases</h3>
+              <p class="text-lg text-gray-700">
+                Robust and scalable databases for managing large longitudinal
+                datasets.
+              </p>
+              <a
+                href="/tools/databases"
+                class="learn-more mt-4 inline-block text-blue-600 hover:underline"
+                >Learn more →</a
+              >
             </div>
           </div>
         </div>
+
+        <!-- Right Arrow -->
+        <button class="scroll-button right-0" @click="scrollRight">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            class="h-8 w-8"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </button>
       </div>
     </div>
   </section>
+
+  <!-- Footer Section -->
+  <section class="bg-gray-900 text-white py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold">Stay Updated</h2>
+      <p class="mt-2 text-lg">
+        Subscribe to get the latest updates on open source tools for data
+        science.
+      </p>
+      <form class="mt-6 flex justify-center">
+        <input
+          type="email"
+          placeholder="Enter your email"
+          class="rounded-md px-4 py-2 text-gray-900 shadow-sm"
+        />
+        <button
+          type="submit"
+          class="ml-4 rounded-md bg-blue-500 hover:bg-blue-700 px-6 py-2 text-white"
+        >
+          Subscribe
+        </button>
+      </form>
+    </div>
+  </section>
+  <section class="bg-white">test</section>
   <section>
     <div class="overflow-hidden bg-#020420">
       <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
@@ -185,7 +331,7 @@
     <div class="bg-gray-900 py-24 sm:py-32">
       <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
         <h1 class="text-4xl font-bold tracking-tight text-gray-600 sm:text-6xl">
-          Programming Languages
+          Integrated Develoment Environments (IDEs)
         </h1>
         <p
           class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none"
@@ -259,8 +405,74 @@
       </div>
     </div>
   </section>
-  <section>
-    <ul role="list" class="divide-y divide-gray-800">
+  <section class="bg-white text-black">test</section>
+  <section class="bg-white">
+    <!-- Newsletter section -->
+    <!-- <div class="mx-auto mt-32 max-w-7xl sm:mt-56 sm:px-6 lg:px-8"> -->
+    <div
+      class="relative isolate overflow-hidden bg-gray-900 px-6 py-24 shadow-2xl sm:rounded-3xl sm:px-24 xl:py-32"
+    >
+      <h2
+        class="mx-auto max-w-2xl text-center text-3xl font-bold tracking-tight text-white sm:text-4xl"
+      >
+        Version Control
+      </h2>
+      <p
+        class="mx-auto mt-2 max-w-xl text-center text-lg leading-8 text-gray-300"
+      >
+        Reprehenderit ad esse et non officia in nulla. Id proident tempor
+        incididunt nostrud nulla et culpa.
+      </p>
+      <form class="mx-auto mt-10 flex max-w-md gap-x-4">
+        <label for="email-address" class="sr-only">Email address</label>
+        <input
+          id="email-address"
+          name="email"
+          type="email"
+          autocomplete="email"
+          required=""
+          class="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-white sm:text-sm sm:leading-6"
+          placeholder="Enter your email"
+        />
+        <button
+          type="submit"
+          class="flex-none rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        >
+          Notify me
+        </button>
+      </form>
+      <svg
+        viewBox="0 0 1024 1024"
+        class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-x-1/2"
+        aria-hidden="true"
+      >
+        <circle
+          cx="512"
+          cy="512"
+          r="512"
+          fill="url(#759c1415-0410-454c-8f7c-9a820de03641)"
+          fill-opacity="0.7"
+        />
+        <defs>
+          <radialGradient
+            id="759c1415-0410-454c-8f7c-9a820de03641"
+            cx="0"
+            cy="0"
+            r="1"
+            gradientUnits="userSpaceOnUse"
+            gradientTransform="translate(512 512) rotate(90) scale(512)"
+          >
+            <stop stop-color="#7775D6" />
+            <stop offset="1" stop-color="#E935C1" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+      </svg>
+      <!-- </div> -->
+    </div>
+  </section>
+  <section class="bg-white text-black">test</section>
+  <section class="bg-white">
+    <ul role="list" class="divide-y divide-gray-300">
       <li
         v-for="person in people"
         :key="person.email"
@@ -1025,209 +1237,7 @@
             </div>
           </div>
         </div>
-
-        <!-- Team section -->
-        <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-48 lg:px-8">
-          <div class="mx-auto max-w-2xl lg:mx-0">
-            <h2
-              class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
-            >
-              Our team
-            </h2>
-            <p class="mt-6 text-lg leading-8 text-gray-600">
-              Sit facilis neque ab nulla vel. Cum eos in laudantium. Temporibus
-              eos totam in dolorum. Nemo vel facere repellendus ut eos dolores
-              similique.
-            </p>
-          </div>
-        </div>
       </main>
-    </div>
-  </section>
-
-  <!-- Calendar -->
-  <section class="bg-white">
-    <div>
-      <h2 class="text-base font-semibold leading-6 text-gray-900">
-        Upcoming meetings
-      </h2>
-      <div class="lg:grid lg:grid-cols-12 lg:gap-x-16">
-        <div
-          class="mt-10 text-center lg:col-start-8 lg:col-end-13 lg:row-start-1 lg:mt-9 xl:col-start-9"
-        >
-          <div class="flex items-center text-gray-900">
-            <button
-              type="button"
-              class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
-            >
-              <span class="sr-only">Previous month</span>
-              <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
-            </button>
-            <div class="flex-auto text-sm font-semibold">January</div>
-            <button
-              type="button"
-              class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
-            >
-              <span class="sr-only">Next month</span>
-              <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
-            </button>
-          </div>
-          <div class="mt-6 grid grid-cols-7 text-xs leading-6 text-gray-500">
-            <div>M</div>
-            <div>T</div>
-            <div>W</div>
-            <div>T</div>
-            <div>F</div>
-            <div>S</div>
-            <div>S</div>
-          </div>
-          <div
-            class="isolate mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-200 text-sm shadow ring-1 ring-gray-200"
-          >
-            <button
-              v-for="(day, dayIdx) in days"
-              :key="day.date"
-              type="button"
-              :class="[
-                'py-1.5 hover:bg-gray-100 focus:z-10',
-                day.isCurrentMonth ? 'bg-white' : 'bg-gray-50',
-                (day.isSelected || day.isToday) && 'font-semibold',
-                day.isSelected && 'text-white',
-                !day.isSelected &&
-                  day.isCurrentMonth &&
-                  !day.isToday &&
-                  'text-gray-900',
-                !day.isSelected &&
-                  !day.isCurrentMonth &&
-                  !day.isToday &&
-                  'text-gray-400',
-                day.isToday && !day.isSelected && 'text-indigo-600',
-                dayIdx === 0 && 'rounded-tl-lg',
-                dayIdx === 6 && 'rounded-tr-lg',
-                dayIdx === days.length - 7 && 'rounded-bl-lg',
-                dayIdx === days.length - 1 && 'rounded-br-lg',
-              ]"
-            >
-              <time
-                :datetime="day.date"
-                :class="[
-                  'mx-auto flex h-7 w-7 items-center justify-center rounded-full',
-                  day.isSelected && day.isToday && 'bg-indigo-600',
-                  day.isSelected && !day.isToday && 'bg-gray-900',
-                ]"
-                >{{ day.date.split("-").pop().replace(/^0/, "") }}</time
-              >
-            </button>
-          </div>
-          <button
-            type="button"
-            class="mt-8 w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Add event
-          </button>
-        </div>
-        <ol
-          class="mt-4 divide-y divide-gray-100 text-sm leading-6 lg:col-span-7 xl:col-span-8"
-        >
-          <li
-            v-for="meeting in meetings"
-            :key="meeting.id"
-            class="relative flex space-x-6 py-6 xl:static"
-          >
-            <img
-              :src="meeting.imageUrl"
-              alt=""
-              class="h-14 w-14 flex-none rounded-full"
-            />
-            <div class="flex-auto">
-              <h3 class="pr-10 font-semibold text-gray-900 xl:pr-0">
-                {{ meeting.name }}
-              </h3>
-              <dl class="mt-2 flex flex-col text-gray-500 xl:flex-row">
-                <div class="flex items-start space-x-3">
-                  <dt class="mt-0.5">
-                    <span class="sr-only">Date</span>
-                    <CalendarIcon
-                      class="h-5 w-5 text-gray-400"
-                      aria-hidden="true"
-                    />
-                  </dt>
-                  <dd>
-                    <time :datetime="meeting.datetime"
-                      >{{ meeting.date }} at {{ meeting.time }}</time
-                    >
-                  </dd>
-                </div>
-                <div
-                  class="mt-2 flex items-start space-x-3 xl:ml-3.5 xl:mt-0 xl:border-l xl:border-gray-400 xl:border-opacity-50 xl:pl-3.5"
-                >
-                  <dt class="mt-0.5">
-                    <span class="sr-only">Location</span>
-                    <MapPinIcon
-                      class="h-5 w-5 text-gray-400"
-                      aria-hidden="true"
-                    />
-                  </dt>
-                  <dd>{{ meeting.location }}</dd>
-                </div>
-              </dl>
-            </div>
-            <Menu
-              as="div"
-              class="absolute right-0 top-6 xl:relative xl:right-auto xl:top-auto xl:self-center"
-            >
-              <div>
-                <MenuButton
-                  class="-m-2 flex items-center rounded-full p-2 text-gray-500 hover:text-gray-600"
-                >
-                  <span class="sr-only">Open options</span>
-                  <EllipsisHorizontalIcon class="h-5 w-5" aria-hidden="true" />
-                </MenuButton>
-              </div>
-
-              <transition
-                enter-active-class="transition ease-out duration-100"
-                enter-from-class="transform opacity-0 scale-95"
-                enter-to-class="transform opacity-100 scale-100"
-                leave-active-class="transition ease-in duration-75"
-                leave-from-class="transform opacity-100 scale-100"
-                leave-to-class="transform opacity-0 scale-95"
-              >
-                <MenuItems
-                  class="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                >
-                  <div class="py-1">
-                    <MenuItem v-slot="{ active }">
-                      <a
-                        href="#"
-                        :class="[
-                          active
-                            ? 'bg-gray-100 text-gray-900'
-                            : 'text-gray-700',
-                          'block px-4 py-2 text-sm',
-                        ]"
-                        >Edit</a
-                      >
-                    </MenuItem>
-                    <MenuItem v-slot="{ active }">
-                      <a
-                        href="#"
-                        :class="[
-                          active
-                            ? 'bg-gray-100 text-gray-900'
-                            : 'text-gray-700',
-                          'block px-4 py-2 text-sm',
-                        ]"
-                        >Cancel</a
-                      >
-                    </MenuItem>
-                  </div>
-                </MenuItems>
-              </transition>
-            </Menu>
-          </li>
-        </ol>
-      </div>
     </div>
   </section>
 </template>
@@ -1619,25 +1629,57 @@ const mobileMenuOpen = ref(false);
 </script>
 
 <style scoped>
-.feature-highlights {
+.carousel-container {
   display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  padding: 2rem;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  scrollbar-width: none; /* Hide scrollbar */
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar */
 }
 
 .feature {
+  padding: 2rem;
   background-color: #f9f9f9;
   border-radius: 10px;
-  padding: 2rem;
+  min-width: 20rem; /* Fixed width for consistent display */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  gap: 2rem;
 }
 
-.feature-content {
-  max-width: 600px;
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.4); /* Translucent background */
+  color: white;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s;
+}
+
+.scroll-button:hover {
+  background-color: rgba(0, 0, 0, 0.6); /* Darker on hover */
+}
+
+.left-0 {
+  left: 0.5rem;
+}
+
+.right-0 {
+  right: 0.5rem;
+}
+
+.feature-content h3,
+.feature-content p {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .icon {
