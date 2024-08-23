@@ -103,7 +103,6 @@
             </div>
           </div>
 
-          <!-- Additional Tools -->
           <!-- Tool 4: IDEs -->
           <div class="feature">
             <div class="feature-content">
@@ -193,7 +192,6 @@
       </div>
     </div>
   </section>
-  <section class="bg-white">test</section>
   <section>
     <div class="overflow-hidden">
       <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
@@ -242,7 +240,7 @@
                 <img
                   src="public/images/python-logo.png"
                   alt="Python"
-                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
@@ -256,7 +254,7 @@
                 <img
                   src="public/images/r-logo.png"
                   alt="R"
-                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
@@ -266,29 +264,7 @@
                 <img
                   src="public/images/julia-logo.svg"
                   alt="Julia"
-                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                />
-                <div
-                  class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
-                />
-              </div>
-            </div>
-            <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
-              <div class="relative">
-                <img
-                  src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80"
-                  alt="Data Science Setup"
-                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                />
-                <div
-                  class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
-                />
-              </div>
-              <div class="relative">
-                <img
-                  src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
-                  alt="Data Analysis Workspace"
-                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
@@ -306,10 +282,8 @@
       Learn More
     </a>
   </section>
-
-  <section class="bg-white text-black">testz</section>
-  <section>
-    <div class="bg-gray-900 py-24 sm:py-32">
+  <section class="bg-white">
+    <div class="py-24 sm:py-32">
       <div
         class="w-full max-w-xl lg:shrink-0 xl:max-w-3xl ml-auto text-right pr-10"
       >
@@ -379,21 +353,10 @@
               height="48"
             />
           </div>
-          <div class="bg-white/5 p-6 sm:p-10">
-            <!-- <img
-              class="max-h-12 w-full object-contain"
-              src="https://tailwindui.com/img/logos/158x48/statamic-logo-white.svg"
-              alt="Statamic"
-              width="158"
-              height="48"
-            /> -->
-          </div>
         </div>
       </div>
     </div>
   </section>
-  <section class="bg-white text-black">test</section>
-  <section class="bg-white">test</section>
   <section>
     <div class="overflow-hidden">
       <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
@@ -428,11 +391,14 @@
               class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80"
             >
               <div class="relative">
-                <img
-                  src="public/images/python-logo.png"
-                  alt=""
-                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                />
+                <div class="relative">
+                  <img
+                    src="public/images/git-logo.svg"
+                    alt=""
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                </div>
+
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
@@ -443,9 +409,9 @@
             >
               <div class="relative">
                 <img
-                  src="public/images/r-logo.png"
+                  src="public/images/github-logo.webp"
                   alt=""
-                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
@@ -453,21 +419,22 @@
               </div>
               <div class="relative">
                 <img
-                  src="public/images/julia-logo.svg"
+                  src="public/images/gitlab_logo.svg"
                   alt=""
-                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
               </div>
             </div>
+
             <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
               <div class="relative">
                 <img
                   src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80"
                   alt=""
-                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
@@ -477,7 +444,7 @@
                 <img
                   src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
                   alt=""
-                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
@@ -489,9 +456,8 @@
       </div>
     </div>
   </section>
-  <section class="bg-white text-black">testz</section>
   <section>
-    <div class="bg-gray-900 py-24 sm:py-32">
+    <div class="bg-white py-24 sm:py-32">
       <div
         class="w-full max-w-xl lg:shrink-0 xl:max-w-3xl ml-auto text-right pr-10"
       >
@@ -572,7 +538,6 @@
       </div>
     </div>
   </section>
-  <section class="bg-white">test</section>
   <section>
     <div class="overflow-hidden">
       <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
@@ -609,7 +574,7 @@
                 <img
                   src="public/images/python-logo.png"
                   alt=""
-                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
@@ -623,7 +588,7 @@
                 <img
                   src="public/images/r-logo.png"
                   alt=""
-                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
@@ -633,7 +598,7 @@
                 <img
                   src="public/images/julia-logo.svg"
                   alt=""
-                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
@@ -645,7 +610,7 @@
                 <img
                   src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80"
                   alt=""
-                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
@@ -655,7 +620,7 @@
                 <img
                   src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
                   alt=""
-                  class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
@@ -667,9 +632,8 @@
       </div>
     </div>
   </section>
-  <section class="bg-white text-black">testz</section>
   <section>
-    <div class="bg-gray-900 py-24 sm:py-32">
+    <div class="bg-white py-24 sm:py-32">
       <div
         class="w-full max-w-xl lg:shrink-0 xl:max-w-3xl ml-auto text-right pr-10"
       >
@@ -750,84 +714,94 @@
       </div>
     </div>
   </section>
-  <section class="bg-white text-black">testz</section>
   <section>
-    <div class="bg-gray-900 py-24 sm:py-32">
-      <div
-        class="w-full max-w-xl lg:shrink-0 xl:max-w-3xl ml-auto text-right pr-10"
-      >
-        <h1 class="text-4xl font-bold tracking-tight text-gray-600 sm:text-6xl">
-          Databases
-        </h1>
-        <p
-          class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none"
-        >
-          Robust and scalable databases are key to managing the vast amounts of
-          data generated in longitudinal studies. Systems like PostgreSQL,
-          MongoDB, and specialized time-series databases are designed to store
-          and query large datasets efficiently. For longitudinal data science,
-          these databases are essential in organizing and retrieving data across
-          multiple time points, facilitating complex queries, and supporting
-          real-time analytics and integration with data processing pipelines.
-        </p>
-      </div>
-      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="overflow-hidden">
+      <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
         <div
-          class="-mx-6 grid grid-cols-2 gap-0.5 overflow-hidden sm:mx-0 sm:rounded-2xl md:grid-cols-3"
+          class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center"
         >
-          <div class="bg-white/5 p-8 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/vscodelogo.png"
-              alt="Transistor"
-              width="158"
-              height="48"
-            />
+          <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
+            <h1
+              class="text-4xl font-bold tracking-tight text-gray-600 sm:text-6xl"
+            >
+              Databases
+            </h1>
+            <p
+              class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none"
+            >
+              Robust and scalable databases are key to managing the vast amounts
+              of data generated in longitudinal studies. Systems like
+              PostgreSQL, MongoDB, and specialized time-series databases are
+              designed to store and query large datasets efficiently. For
+              longitudinal data science, these databases are essential in
+              organizing and retrieving data across multiple time points,
+              facilitating complex queries, and supporting real-time analytics
+              and integration with data processing pipelines.
+            </p>
           </div>
-          <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/rstudiologo.svg"
-              alt="Reform"
-              width="158"
-              height="48"
-            />
-          </div>
-          <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/neovimlogo.svg"
-              alt="Tuple"
-              width="158"
-              height="48"
-            />
-          </div>
-          <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/condalogo.svg"
-              alt="Laravel"
-              width="158"
-              height="48"
-            />
-          </div>
-          <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/emacslogo.svg"
-              alt="SavvyCal"
-              width="158"
-              height="48"
-            />
-          </div>
-          <div class="bg-white/5 p-6 sm:p-10">
-            <!-- <img
-              class="max-h-12 w-full object-contain"
-              src="https://tailwindui.com/img/logos/158x48/statamic-logo-white.svg"
-              alt="Statamic"
-              width="158"
-              height="48"
-            /> -->
+          <div
+            class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0"
+          >
+            <div
+              class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80"
+            >
+              <div class="relative">
+                <img
+                  src="public/images/python-logo.png"
+                  alt=""
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                />
+                <div
+                  class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                />
+              </div>
+            </div>
+            <div
+              class="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36"
+            >
+              <div class="relative">
+                <img
+                  src="public/images/r-logo.png"
+                  alt=""
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                />
+                <div
+                  class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                />
+              </div>
+              <div class="relative">
+                <img
+                  src="public/images/julia-logo.svg"
+                  alt=""
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                />
+                <div
+                  class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                />
+              </div>
+            </div>
+            <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
+              <div class="relative">
+                <img
+                  src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80"
+                  alt=""
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                />
+                <div
+                  class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                />
+              </div>
+              <div class="relative">
+                <img
+                  src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
+                  alt=""
+                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                />
+                <div
+                  class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
