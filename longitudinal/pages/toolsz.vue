@@ -238,7 +238,7 @@
             >
               <div class="relative">
                 <img
-                  src="public/images/python-logo.png"
+                  src="public/images/python-logo.svg"
                   alt="Python"
                   class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
@@ -270,6 +270,34 @@
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
               </div>
+              <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
+                <div class="relative">
+                  <img
+                    src="public/images/sql-logo.svg"
+                    alt=""
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                  <div
+                    class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                  />
+                  <!-- Closing tag added here -->
+                </div>
+                <!-- Closing tag for the first relative div -->
+
+                <div class="relative">
+                  <img
+                    src="public/images/cpp-logo.svg"
+                    alt=""
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                  <div
+                    class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                  />
+                  <!-- Closing tag added here -->
+                </div>
+                <!-- Closing tag for the second relative div -->
+              </div>
+              <!-- Closing tag for the main container div -->
             </div>
           </div>
         </div>
@@ -348,6 +376,15 @@
             <img
               class="max-h-12 w-full object-contain"
               src="public/images/emacslogo.svg"
+              alt="SavvyCal"
+              width="158"
+              height="48"
+            />
+          </div>
+          <div class="bg-white/5 p-6 sm:p-10">
+            <img
+              class="max-h-12 w-full object-contain"
+              src="public/images/zed-logo.png"
               alt="SavvyCal"
               width="158"
               height="48"
@@ -432,7 +469,7 @@
             <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
               <div class="relative">
                 <img
-                  src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80"
+                  src="public/images/gitkraken-logo.svg"
                   alt=""
                   class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
@@ -442,7 +479,7 @@
               </div>
               <div class="relative">
                 <img
-                  src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
+                  src="public/images/gitea-logo.svg"
                   alt=""
                   class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
@@ -483,7 +520,7 @@
           <div class="bg-white/5 p-8 sm:p-10">
             <img
               class="max-h-12 w-full object-contain"
-              src="public/images/vscodelogo.png"
+              src="public/images/markdown-logo.png"
               alt="Transistor"
               width="158"
               height="48"
@@ -492,7 +529,7 @@
           <div class="bg-white/5 p-6 sm:p-10">
             <img
               class="max-h-12 w-full object-contain"
-              src="public/images/rstudiologo.svg"
+              src="public/images/csv-logo.jpeg"
               alt="Reform"
               width="158"
               height="48"
@@ -501,7 +538,7 @@
           <div class="bg-white/5 p-6 sm:p-10">
             <img
               class="max-h-12 w-full object-contain"
-              src="public/images/neovimlogo.svg"
+              src="public/images/parquet-logo.svg"
               alt="Tuple"
               width="158"
               height="48"
@@ -510,7 +547,7 @@
           <div class="bg-white/5 p-6 sm:p-10">
             <img
               class="max-h-12 w-full object-contain"
-              src="public/images/condalogo.svg"
+              src="public/images/json-logo.svg"
               alt="Laravel"
               width="158"
               height="48"
@@ -519,20 +556,20 @@
           <div class="bg-white/5 p-6 sm:p-10">
             <img
               class="max-h-12 w-full object-contain"
-              src="public/images/emacslogo.svg"
+              src="public/images/arrow-logo.png"
               alt="SavvyCal"
               width="158"
               height="48"
             />
           </div>
           <div class="bg-white/5 p-6 sm:p-10">
-            <!-- <img
+            <img
               class="max-h-12 w-full object-contain"
-              src="https://tailwindui.com/img/logos/158x48/statamic-logo-white.svg"
-              alt="Statamic"
+              src="public/images/xlsx-logo.svg"
+              alt="Zed IDE Logo"
               width="158"
               height="48"
-            /> -->
+            />
           </div>
         </div>
       </div>
@@ -548,7 +585,7 @@
             <h1
               class="text-4xl font-bold tracking-tight text-gray-600 sm:text-6xl"
             >
-              Notebooks
+              Notebooks & Literate Programming
             </h1>
             <p
               class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none"
@@ -572,7 +609,7 @@
             >
               <div class="relative">
                 <img
-                  src="public/images/python-logo.png"
+                  src="public/images/quarto-logo.png"
                   alt=""
                   class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
@@ -586,7 +623,7 @@
             >
               <div class="relative">
                 <img
-                  src="public/images/r-logo.png"
+                  src="public/images/jupyter-logo.svg"
                   alt=""
                   class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
@@ -596,7 +633,7 @@
               </div>
               <div class="relative">
                 <img
-                  src="public/images/julia-logo.svg"
+                  src="public/images/observable-logo.webp"
                   alt=""
                   class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
@@ -605,28 +642,26 @@
                 />
               </div>
             </div>
-            <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
-              <div class="relative">
-                <img
+            <!-- <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
+              <div class="relative"> -->
+            <!-- <img
                   src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80"
                   alt=""
                   class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
-                <div
+                > -->
+            <!-- <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
               </div>
-              <div class="relative">
-                <img
+              <div class="relative"> -->
+            <!-- <img
                   src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
                   alt=""
                   class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
-                <div
+                > -->
+            <!-- <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
-                />
-              </div>
-            </div>
+                /> -->
           </div>
         </div>
       </div>
@@ -702,13 +737,13 @@
             />
           </div>
           <div class="bg-white/5 p-6 sm:p-10">
-            <!-- <img
+            <img
               class="max-h-12 w-full object-contain"
-              src="https://tailwindui.com/img/logos/158x48/statamic-logo-white.svg"
-              alt="Statamic"
+              src="public/images/zed-logo.png"
+              alt="Zed IDE Logo"
               width="158"
               height="48"
-            /> -->
+            />
           </div>
         </div>
       </div>
@@ -747,7 +782,7 @@
             >
               <div class="relative">
                 <img
-                  src="public/images/python-logo.png"
+                  src="public/images/python-logo.svg"
                   alt=""
                   class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                 />
