@@ -7,7 +7,7 @@
           <div class="absolute inset-0">
             <img
               src="/public/images/opensource_logos.png"
-              alt=""
+              alt="Open source tools"
               class="h-full w-full object-cover object-center"
             />
           </div>
@@ -103,7 +103,7 @@
             </div>
           </div>
 
-          <!-- Tool 4: IDEs -->
+          <!-- Tool 3: IDEs -->
           <div class="feature">
             <div class="feature-content">
               <h3 class="text-2xl font-semibold mb-4">
@@ -121,41 +121,25 @@
             </div>
           </div>
 
-          <!-- Tool 5: Notebooks -->
-          <div class="feature">
-            <div class="feature-content">
-              <h3 class="text-2xl font-semibold mb-4">📓 Notebooks</h3>
-              <p class="text-lg text-gray-700">
-                Interactive notebooks for literate programming and exploratory
-                analysis.
-              </p>
-              <a
-                href="/tools/notebooks"
-                class="learn-more mt-4 inline-block text-blue-600 hover:underline"
-                >Learn more →</a
-              >
-            </div>
-          </div>
-
-          <!-- Tool 6: Literate Programming -->
+          <!-- Tool 4: Notebooks & Literate Programming -->
           <div class="feature">
             <div class="feature-content">
               <h3 class="text-2xl font-semibold mb-4">
-                📜 Literate Programming
+                📓 Notebooks & Literate Programming
               </h3>
               <p class="text-lg text-gray-700">
-                Tools that combine code, documentation, and analysis into a
-                single document.
+                Combine code, narrative, and analysis in a single document to
+                support reproducible research workflows.
               </p>
               <a
-                href="/tools/literate-programming"
+                href="/tools/notebooks-literate-programming"
                 class="learn-more mt-4 inline-block text-blue-600 hover:underline"
                 >Learn more →</a
               >
             </div>
           </div>
 
-          <!-- Tool 7: Databases -->
+          <!-- Tool 5: Databases -->
           <div class="feature">
             <div class="feature-content">
               <h3 class="text-2xl font-semibold mb-4">🗄️ Databases</h3>
@@ -192,6 +176,7 @@
       </div>
     </div>
   </section>
+  <!-- Programming Languages Section -->
   <section>
     <div class="overflow-hidden">
       <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
@@ -237,11 +222,13 @@
               class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80"
             >
               <div class="relative">
-                <img
-                  src="public/images/python-logo.svg"
-                  alt="Python"
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
+                <a href="https://www.python.org/" target="_blank">
+                  <img
+                    src="public/images/python-logo.svg"
+                    alt="Python Logo"
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                </a>
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
@@ -251,53 +238,55 @@
               class="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36"
             >
               <div class="relative">
-                <img
-                  src="public/images/r-logo.png"
-                  alt="R"
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
+                <a href="https://www.r-project.org/" target="_blank">
+                  <img
+                    src="public/images/r-logo.png"
+                    alt="R Logo"
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                </a>
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
               </div>
               <div class="relative">
-                <img
-                  src="public/images/julia-logo.svg"
-                  alt="Julia"
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
+                <a href="https://julialang.org/" target="_blank">
+                  <img
+                    src="public/images/julia-logo.svg"
+                    alt="Julia Logo"
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                </a>
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
               </div>
-              <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
-                <div class="relative">
+            </div>
+            <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
+              <div class="relative">
+                <a href="https://www.mysql.com/" target="_blank">
                   <img
                     src="public/images/sql-logo.svg"
-                    alt=""
+                    alt="SQL Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
-                  <div
-                    class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
-                  />
-                  <!-- Closing tag added here -->
-                </div>
-                <!-- Closing tag for the first relative div -->
-
-                <div class="relative">
+                </a>
+                <div
+                  class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                />
+              </div>
+              <div class="relative">
+                <a href="https://isocpp.org/" target="_blank">
                   <img
                     src="public/images/cpp-logo.svg"
-                    alt=""
+                    alt="C++ Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
-                  <div
-                    class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
-                  />
-                  <!-- Closing tag added here -->
-                </div>
-                <!-- Closing tag for the second relative div -->
+                </a>
+                <div
+                  class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                />
               </div>
-              <!-- Closing tag for the main container div -->
             </div>
           </div>
         </div>
@@ -310,13 +299,15 @@
       Learn More
     </a>
   </section>
+
+  <!-- Integrated Development Environments (IDEs) Section -->
   <section class="bg-white">
     <div class="py-24 sm:py-32">
       <div
         class="w-full max-w-xl lg:shrink-0 xl:max-w-3xl ml-auto text-right pr-10"
       >
         <h1 class="text-4xl font-bold tracking-tight text-gray-600 sm:text-6xl">
-          Integrated Develoment Environments (IDEs)
+          Integrated Development Environments (IDEs)
         </h1>
         <p
           class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none"
@@ -337,63 +328,81 @@
           class="-mx-6 grid grid-cols-2 gap-0.5 overflow-hidden sm:mx-0 sm:rounded-2xl md:grid-cols-3"
         >
           <div class="bg-white/5 p-8 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/vscodelogo.png"
-              alt="Transistor"
-              width="158"
-              height="48"
-            />
+            <a href="https://code.visualstudio.com/" target="_blank">
+              <img
+                class="max-h-12 w-full object-contain"
+                src="public/images/vscodelogo.png"
+                alt="VS Code Logo"
+                width="158"
+                height="48"
+              />
+            </a>
           </div>
           <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/rstudiologo.svg"
-              alt="Reform"
-              width="158"
-              height="48"
-            />
+            <a href="https://www.rstudio.com/" target="_blank">
+              <img
+                class="max-h-12 w-full object-contain"
+                src="public/images/rstudiologo.svg"
+                alt="RStudio Logo"
+                width="158"
+                height="48"
+              />
+            </a>
           </div>
           <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/neovimlogo.svg"
-              alt="Tuple"
-              width="158"
-              height="48"
-            />
+            <a href="https://neovim.io/" target="_blank">
+              <img
+                class="max-h-12 w-full object-contain"
+                src="public/images/neovimlogo.svg"
+                alt="Neovim Logo"
+                width="158"
+                height="48"
+              />
+            </a>
           </div>
           <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/condalogo.svg"
-              alt="Laravel"
-              width="158"
-              height="48"
-            />
+            <a href="https://docs.conda.io/" target="_blank">
+              <img
+                class="max-h-12 w-full object-contain"
+                src="public/images/condalogo.svg"
+                alt="Conda Logo"
+                width="158"
+                height="48"
+              />
+            </a>
           </div>
           <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/emacslogo.svg"
-              alt="SavvyCal"
-              width="158"
-              height="48"
-            />
+            <a href="https://www.gnu.org/software/emacs/" target="_blank">
+              <img
+                class="max-h-12 w-full object-contain"
+                src="public/images/emacslogo.svg"
+                alt="Emacs Logo"
+                width="158"
+                height="48"
+              />
+            </a>
           </div>
           <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/zed-logo.png"
-              alt="SavvyCal"
-              width="158"
-              height="48"
-            />
+            <a href="https://zed.dev/" target="_blank">
+              <img
+                class="max-h-12 w-full object-contain"
+                src="public/images/zed-logo.png"
+                alt="Zed IDE Logo"
+                width="158"
+                height="48"
+              />
+            </a>
           </div>
         </div>
+        <a
+          href="/tools/ides"
+          class="learn-more mt-4 inline-block text-blue-600 hover:underline"
+          >Learn more →</a
+        >
       </div>
     </div>
   </section>
+  <!-- Version Control Section -->
   <section>
     <div class="overflow-hidden">
       <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
@@ -428,14 +437,13 @@
               class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80"
             >
               <div class="relative">
-                <div class="relative">
+                <a href="https://git-scm.com/" target="_blank">
                   <img
                     src="public/images/git-logo.svg"
-                    alt=""
+                    alt="Git Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
-                </div>
-
+                </a>
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
@@ -445,21 +453,25 @@
               class="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36"
             >
               <div class="relative">
-                <img
-                  src="public/images/github-logo.webp"
-                  alt=""
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
+                <a href="https://github.com/" target="_blank">
+                  <img
+                    src="public/images/github-logo.webp"
+                    alt="GitHub Logo"
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                </a>
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
               </div>
               <div class="relative">
-                <img
-                  src="public/images/gitlab_logo.svg"
-                  alt=""
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
+                <a href="https://about.gitlab.com/" target="_blank">
+                  <img
+                    src="public/images/gitlab_logo.svg"
+                    alt="GitLab Logo"
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                </a>
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
@@ -468,21 +480,25 @@
 
             <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
               <div class="relative">
-                <img
-                  src="public/images/gitkraken-logo.svg"
-                  alt=""
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
+                <a href="https://www.gitkraken.com/" target="_blank">
+                  <img
+                    src="public/images/gitkraken-logo.svg"
+                    alt="GitKraken Logo"
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                </a>
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
               </div>
               <div class="relative">
-                <img
-                  src="public/images/gitea-logo.svg"
-                  alt=""
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
+                <a href="https://gitea.io/en-us/" target="_blank">
+                  <img
+                    src="public/images/gitea-logo.svg"
+                    alt="Gitea Logo"
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                </a>
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
@@ -490,9 +506,16 @@
             </div>
           </div>
         </div>
+        <a
+          href="/tools/version-control"
+          class="learn-more mt-4 inline-block text-blue-600 hover:underline"
+          >Learn more →</a
+        >
       </div>
     </div>
   </section>
+
+  <!-- Data Formats Section -->
   <section>
     <div class="bg-white py-24 sm:py-32">
       <div
@@ -518,63 +541,84 @@
           class="-mx-6 grid grid-cols-2 gap-0.5 overflow-hidden sm:mx-0 sm:rounded-2xl md:grid-cols-3"
         >
           <div class="bg-white/5 p-8 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/markdown-logo.png"
-              alt="Transistor"
-              width="158"
-              height="48"
-            />
+            <a href="https://www.markdownguide.org/" target="_blank">
+              <img
+                class="max-h-12 w-full object-contain"
+                src="public/images/markdown-logo.png"
+                alt="Markdown Logo"
+                width="158"
+                height="48"
+              />
+            </a>
           </div>
           <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/csv-logo.jpeg"
-              alt="Reform"
-              width="158"
-              height="48"
-            />
+            <a
+              href="https://en.wikipedia.org/wiki/Comma-separated_values"
+              target="_blank"
+            >
+              <img
+                class="max-h-12 w-full object-contain"
+                src="public/images/csv-logo.jpeg"
+                alt="CSV Logo"
+                width="158"
+                height="48"
+              />
+            </a>
           </div>
           <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/parquet-logo.svg"
-              alt="Tuple"
-              width="158"
-              height="48"
-            />
+            <a href="https://parquet.apache.org/" target="_blank">
+              <img
+                class="max-h-12 w-full object-contain"
+                src="public/images/parquet-logo.svg"
+                alt="Apache Parquet Logo"
+                width="158"
+                height="48"
+              />
+            </a>
           </div>
           <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/json-logo.svg"
-              alt="Laravel"
-              width="158"
-              height="48"
-            />
+            <a href="https://www.json.org/" target="_blank">
+              <img
+                class="max-h-12 w-full object-contain"
+                src="public/images/json-logo.svg"
+                alt="JSON Logo"
+                width="158"
+                height="48"
+              />
+            </a>
           </div>
           <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/arrow-logo.png"
-              alt="SavvyCal"
-              width="158"
-              height="48"
-            />
+            <a href="https://arrow.apache.org/" target="_blank">
+              <img
+                class="max-h-12 w-full object-contain"
+                src="public/images/arrow-logo.png"
+                alt="Apache Arrow Logo"
+                width="158"
+                height="48"
+              />
+            </a>
           </div>
           <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/xlsx-logo.svg"
-              alt="Zed IDE Logo"
-              width="158"
-              height="48"
-            />
+            <a href="https://en.wikipedia.org/wiki/XML" target="_blank">
+              <img
+                class="max-h-12 w-full object-contain"
+                src="public/images/xml-logo.webp"
+                alt="xml Logo"
+                width="158"
+                height="48"
+              />
+            </a>
           </div>
         </div>
+        <a
+          href="/tools/data-formats"
+          class="learn-more mt-4 inline-block text-blue-600 hover:underline"
+          >Learn more →</a
+        >
       </div>
     </div>
   </section>
+  <!-- Notebooks & Literate Programming Section -->
   <section>
     <div class="overflow-hidden">
       <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
@@ -590,15 +634,23 @@
             <p
               class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none"
             >
-              Interactive notebooks, such as Jupyter and R Markdown, are
+              Interactive notebooks, such as Jupyter and R Markdown, serve as
               powerful tools for literate programming and exploratory data
-              analysis. They allow researchers to blend code, results, and
-              narrative into a single document, making it easy to track
-              analytical processes and share insights. In longitudinal data
-              science, notebooks are particularly useful for iterative analyses,
-              enabling seamless updates as new data points are added and
-              facilitating collaboration by providing a transparent,
-              step-by-step research workflow.
+              analysis. By seamlessly blending code, results, and narrative
+              within a single document, these tools simplify tracking analytical
+              processes and sharing insights. In longitudinal data science,
+              where iterative analyses and continuous data updates are common,
+              notebooks provide an ideal platform for maintaining transparency
+              and facilitating collaboration through a clear, step-by-step
+              workflow. The integration of documentation, code, and output
+              within one cohesive narrative is a hallmark of literate
+              programming, ensuring that research workflows remain both
+              transparent and reproducible. For longitudinal studies that span
+              years, tools like Jupyter, R Markdown, and Emacs Org-mode prove
+              invaluable in ensuring that data processing steps, model
+              assumptions, and findings are meticulously documented, enabling
+              future researchers and collaborators to easily understand and
+              replicate the analysis.
             </p>
           </div>
           <div
@@ -608,11 +660,13 @@
               class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80"
             >
               <div class="relative">
-                <img
-                  src="public/images/quarto-logo.png"
-                  alt=""
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
+                <a href="https://quarto.org/" target="_blank">
+                  <img
+                    src="public/images/quarto-logo.png"
+                    alt="Quarto Logo"
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                </a>
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
@@ -622,135 +676,44 @@
               class="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36"
             >
               <div class="relative">
-                <img
-                  src="public/images/jupyter-logo.svg"
-                  alt=""
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
+                <a href="https://jupyter.org/" target="_blank">
+                  <img
+                    src="public/images/jupyter-logo.svg"
+                    alt="Jupyter Logo"
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                </a>
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
               </div>
               <div class="relative">
-                <img
-                  src="public/images/observable-logo.webp"
-                  alt=""
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
+                <a href="https://observablehq.com/" target="_blank">
+                  <img
+                    src="public/images/observable-logo.webp"
+                    alt="Observable HQ Logo"
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                </a>
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
               </div>
             </div>
-            <!-- <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
-              <div class="relative"> -->
-            <!-- <img
-                  src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80"
-                  alt=""
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                > -->
-            <!-- <div
-                  class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
-                />
-              </div>
-              <div class="relative"> -->
-            <!-- <img
-                  src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
-                  alt=""
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                > -->
-            <!-- <div
-                  class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
-                /> -->
           </div>
         </div>
+        <a
+          href="/tools/notebooks"
+          class="learn-more mt-4 inline-block text-blue-600 hover:underline"
+          >Learn more →</a
+        >
       </div>
     </div>
   </section>
+
+  <!-- Databases Section -->
   <section>
-    <div class="bg-white py-24 sm:py-32">
-      <div
-        class="w-full max-w-xl lg:shrink-0 xl:max-w-3xl ml-auto text-right pr-10"
-      >
-        <h1 class="text-4xl font-bold tracking-tight text-gray-600 sm:text-6xl">
-          Literate Programming
-        </h1>
-        <p
-          class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none"
-        >
-          Literate programming tools enable the integration of documentation,
-          code, and output in a single cohesive narrative, making research
-          workflows more transparent and reproducible. In longitudinal studies,
-          where analysis can span years, tools like Jupyter, R Markdown, and
-          Emacs Org-mode are invaluable. They help ensure that data processing
-          steps, model assumptions, and findings are well-documented and can be
-          understood and reproduced by collaborators or future researchers.
-        </p>
-      </div>
-      <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div
-          class="-mx-6 grid grid-cols-2 gap-0.5 overflow-hidden sm:mx-0 sm:rounded-2xl md:grid-cols-3"
-        >
-          <div class="bg-white/5 p-8 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/vscodelogo.png"
-              alt="Transistor"
-              width="158"
-              height="48"
-            />
-          </div>
-          <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/rstudiologo.svg"
-              alt="Reform"
-              width="158"
-              height="48"
-            />
-          </div>
-          <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/neovimlogo.svg"
-              alt="Tuple"
-              width="158"
-              height="48"
-            />
-          </div>
-          <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/condalogo.svg"
-              alt="Laravel"
-              width="158"
-              height="48"
-            />
-          </div>
-          <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/emacslogo.svg"
-              alt="SavvyCal"
-              width="158"
-              height="48"
-            />
-          </div>
-          <div class="bg-white/5 p-6 sm:p-10">
-            <img
-              class="max-h-12 w-full object-contain"
-              src="public/images/zed-logo.png"
-              alt="Zed IDE Logo"
-              width="158"
-              height="48"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section>
-    <div class="overflow-hidden">
+    <div class="overflow-hidden bg-white">
       <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
         <div
           class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center"
@@ -781,11 +744,13 @@
               class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80"
             >
               <div class="relative">
-                <img
-                  src="public/images/python-logo.svg"
-                  alt=""
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
+                <a href="https://www.postgresql.org/" target="_blank">
+                  <img
+                    src="public/images/postgresql-logo.svg"
+                    alt="PostgreSQL Logo"
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                </a>
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
@@ -795,21 +760,25 @@
               class="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36"
             >
               <div class="relative">
-                <img
-                  src="public/images/r-logo.png"
-                  alt=""
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
+                <a href="https://www.mysql.com/" target="_blank">
+                  <img
+                    src="public/images/mysql-logo.svg"
+                    alt="MySQL Logo"
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                </a>
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
               </div>
               <div class="relative">
-                <img
-                  src="public/images/julia-logo.svg"
-                  alt=""
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
+                <a href="https://duckdb.org/" target="_blank">
+                  <img
+                    src="public/images/duckdb-logo.svg"
+                    alt="DuckDB Logo"
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                </a>
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
@@ -817,21 +786,25 @@
             </div>
             <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
               <div class="relative">
-                <img
-                  src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80"
-                  alt=""
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
+                <a href="https://www.mongodb.com/" target="_blank">
+                  <img
+                    src="public/images/mongodb-logo.svg"
+                    alt="MongoDB Logo"
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                </a>
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
               </div>
               <div class="relative">
-                <img
-                  src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
-                  alt=""
-                  class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
-                />
+                <a href="https://redis.io/" target="_blank">
+                  <img
+                    src="public/images/redis-logo.svg"
+                    alt="Redis Logo"
+                    class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
+                  />
+                </a>
                 <div
                   class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
                 />
@@ -839,6 +812,11 @@
             </div>
           </div>
         </div>
+        <a
+          href="/tools/databases"
+          class="learn-more mt-4 inline-block text-blue-600 hover:underline"
+          >Learn more →</a
+        >
       </div>
     </div>
   </section>
