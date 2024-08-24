@@ -68,43 +68,20 @@
         <!-- Carousel -->
         <div ref="carousel" class="carousel-container">
           <!-- Tool 1 -->
-          <div class="feature">
+          <a href="#programming-languages" class="feature block">
             <div class="feature-content">
               <h3 class="text-2xl font-semibold mb-4">
-                🛠️ Version Control (Git/GitHub)
+                🗂️ Programming Languages
               </h3>
               <p class="text-lg text-gray-700">
-                Manage code and collaborate seamlessly on longitudinal data
-                projects.
+                Flexible tools for managing, analyzing, and modeling complex
+                datasets at scale.
               </p>
-              <a
-                href="/tools/version-control"
-                class="learn-more mt-4 inline-block text-blue-600 hover:underline"
-                >Learn more →</a
-              >
             </div>
-          </div>
+          </a>
 
-          <!-- Tool 2 -->
-          <div class="feature">
-            <div class="feature-content">
-              <h3 class="text-2xl font-semibold mb-4">
-                🗂️ Data Formats (Apache Parquet and Arrow)
-              </h3>
-              <p class="text-lg text-gray-700">
-                Efficient formats designed to handle large-scale datasets with
-                high performance.
-              </p>
-              <a
-                href="/tools/data-formats"
-                class="learn-more mt-4 inline-block text-blue-600 hover:underline"
-                >Learn more →</a
-              >
-            </div>
-          </div>
-
-          <!-- Tool 3: IDEs -->
-          <div class="feature">
+          <!-- Tool 2: IDEs -->
+          <a href="#ides" class="feature block">
             <div class="feature-content">
               <h3 class="text-2xl font-semibold mb-4">
                 💻 Integrated Development Environments (IDEs)
@@ -113,16 +90,38 @@
                 Powerful environments for developing and testing data science
                 code.
               </p>
-              <a
-                href="/tools/ides"
-                class="learn-more mt-4 inline-block text-blue-600 hover:underline"
-                >Learn more →</a
-              >
             </div>
-          </div>
+          </a>
 
-          <!-- Tool 4: Notebooks & Literate Programming -->
-          <div class="feature">
+          <!-- Tool 3: Version Control -->
+          <a href="#version-control" class="feature block">
+            <div class="feature-content">
+              <h3 class="text-2xl font-semibold mb-4">
+                🛠️ Version Control (Git/GitHub)
+              </h3>
+              <p class="text-lg text-gray-700">
+                Efficient formats designed to handle large-scale datasets with
+                high performance.
+              </p>
+            </div>
+          </a>
+
+          <!-- Tool 4 -->
+          <a href="#data-formats" class="feature block">
+            <div class="feature-content">
+              <h3 class="text-2xl font-semibold mb-4">
+                🗂️ Data Formats (Apache Parquet and Arrow)
+              </h3>
+              <p class="text-lg text-gray-700">
+                Efficient formats designed to handle large-scale datasets with
+                high performance. Manage code and collaborate seamlessly on
+                longitudinal data projects.
+              </p>
+            </div>
+          </a>
+
+          <!-- Tool 5: Notebooks & Literate Programming -->
+          <a href="#notebooks" class="feature block">
             <div class="feature-content">
               <h3 class="text-2xl font-semibold mb-4">
                 📓 Notebooks & Literate Programming
@@ -131,29 +130,19 @@
                 Combine code, narrative, and analysis in a single document to
                 support reproducible research workflows.
               </p>
-              <a
-                href="/tools/notebooks-literate-programming"
-                class="learn-more mt-4 inline-block text-blue-600 hover:underline"
-                >Learn more →</a
-              >
             </div>
-          </div>
+          </a>
 
-          <!-- Tool 5: Databases -->
-          <div class="feature">
+          <!-- Tool 6: Databases -->
+          <a href="#databases" class="feature block">
             <div class="feature-content">
               <h3 class="text-2xl font-semibold mb-4">🗄️ Databases</h3>
               <p class="text-lg text-gray-700">
                 Robust and scalable databases for managing large longitudinal
                 datasets.
               </p>
-              <a
-                href="/tools/databases"
-                class="learn-more mt-4 inline-block text-blue-600 hover:underline"
-                >Learn more →</a
-              >
             </div>
-          </div>
+          </a>
         </div>
 
         <!-- Right Arrow -->
@@ -177,7 +166,7 @@
     </div>
   </section>
   <!-- Programming Languages Section -->
-  <section>
+  <section id="programming-languages">
     <div class="overflow-hidden">
       <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
         <div
@@ -301,7 +290,7 @@
   </section>
 
   <!-- Integrated Development Environments (IDEs) Section -->
-  <section class="bg-white">
+  <section id="ides" class="bg-white">
     <div class="py-24 sm:py-32">
       <div
         class="w-full max-w-xl lg:shrink-0 xl:max-w-3xl ml-auto text-right pr-10"
@@ -403,7 +392,7 @@
     </div>
   </section>
   <!-- Version Control Section -->
-  <section>
+  <section id="version-control">
     <div class="overflow-hidden">
       <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
         <div
@@ -516,7 +505,7 @@
   </section>
 
   <!-- Data Formats Section -->
-  <section>
+  <section id="data-formats">
     <div class="bg-white py-24 sm:py-32">
       <div
         class="w-full max-w-xl lg:shrink-0 xl:max-w-3xl ml-auto text-right pr-10"
@@ -619,7 +608,7 @@
     </div>
   </section>
   <!-- Notebooks & Literate Programming Section -->
-  <section>
+  <section id="notebooks">
     <div class="overflow-hidden">
       <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
         <div
@@ -712,7 +701,7 @@
   </section>
 
   <!-- Databases Section -->
-  <section>
+  <section id="databases">
     <div class="overflow-hidden bg-white">
       <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
         <div
