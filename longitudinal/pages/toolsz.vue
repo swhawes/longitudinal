@@ -383,13 +383,14 @@
             </a>
           </div>
         </div>
-        <a
-          href="/tools/ides"
-          class="learn-more mt-4 inline-block text-blue-600 hover:underline"
-          >Learn more →</a
-        >
       </div>
     </div>
+    <a
+      href="#"
+      class="inline-block px-6 py-3 text-white font-medium border border-[#020420] rounded-md shadow bg-[#00DC82] hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-[#020420] focus:ring-offset-2 transition"
+    >
+      Learn More
+    </a>
   </section>
   <!-- Version Control Section -->
   <section id="version-control">
@@ -495,13 +496,14 @@
             </div>
           </div>
         </div>
-        <a
-          href="/tools/version-control"
-          class="learn-more mt-4 inline-block text-blue-600 hover:underline"
-          >Learn more →</a
-        >
       </div>
     </div>
+    <a
+      href="#"
+      class="inline-block px-6 py-3 text-[#00DC82] font-medium border border-[#00DC82] rounded-md shadow hover:bg-[#00DC82] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#00DC82] focus:ring-offset-2 transition"
+    >
+      Learn More
+    </a>
   </section>
 
   <!-- Data Formats Section -->
@@ -599,12 +601,13 @@
             </a>
           </div>
         </div>
-        <a
-          href="/tools/data-formats"
-          class="learn-more mt-4 inline-block text-blue-600 hover:underline"
-          >Learn more →</a
-        >
       </div>
+      <a
+        href="#"
+        class="inline-block px-6 py-3 text-white font-medium border border-[#020420] rounded-md shadow bg-[#00DC82] hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-[#020420] focus:ring-offset-2 transition"
+      >
+        Learn More
+      </a>
     </div>
   </section>
   <!-- Notebooks & Literate Programming Section -->
@@ -691,13 +694,14 @@
             </div>
           </div>
         </div>
-        <a
-          href="/tools/notebooks"
-          class="learn-more mt-4 inline-block text-blue-600 hover:underline"
-          >Learn more →</a
-        >
       </div>
     </div>
+    <a
+      href="#"
+      class="inline-block px-6 py-3 text-[#00DC82] font-medium border border-[#00DC82] rounded-md shadow hover:bg-[#00DC82] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#00DC82] focus:ring-offset-2 transition"
+    >
+      Learn More
+    </a>
   </section>
 
   <!-- Databases Section -->
@@ -801,12 +805,13 @@
             </div>
           </div>
         </div>
-        <a
-          href="/tools/databases"
-          class="learn-more mt-4 inline-block text-blue-600 hover:underline"
-          >Learn more →</a
-        >
       </div>
+      <a
+        href="#"
+        class="inline-block px-6 py-3 text-white font-medium border border-[#020420] rounded-md shadow bg-[#00DC82] hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-[#020420] focus:ring-offset-2 transition"
+      >
+        Learn More
+      </a>
     </div>
   </section>
 </template>
