@@ -1614,6 +1614,10 @@
       </div>
     </div>
   </section>
+  <section>
+    <!-- metadata tool -->
+    <FetchJson />
+  </section>
 </template>
 
 <script setup>

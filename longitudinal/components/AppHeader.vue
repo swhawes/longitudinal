@@ -15,7 +15,10 @@ const { header } = useAppConfig();
       </template>
       <template v-else>
         <span class="highlighted-logo">Longitudinal.dev</span>
-        <UBadge label="Docs" variant="subtle" class="mb-0.5" />
+        <!-- Updated UBadge with a router-link to the /about page -->
+        <router-link to="/about">
+          <UBadge label="Docs" variant="subtle" class="mb-0.5 cursor-pointer" />
+        </router-link>
       </template>
     </template>
 

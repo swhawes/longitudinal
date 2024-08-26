@@ -67,8 +67,8 @@ useSeoMeta({
     </ULandingSection>
 
     <ExploreSection :articles="articles" />
-    <FetchJson />
-    <!-- Add FetchJson component here -->
+    <div>tbd</div>
+    <!-- Add content here -->
   </div>
 </template>
 
