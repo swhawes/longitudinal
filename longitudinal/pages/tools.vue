@@ -23,7 +23,7 @@
               </p>
             </div>
             <a
-              href="#"
+              href="tools/toc"
               class="mt-6 flex flex-shrink-0 items-center justify-center rounded-md border border-white border-opacity-25 bg-white bg-opacity-0 px-4 py-3 text-base font-medium text-white hover:bg-opacity-10 sm:ml-8 sm:mt-0 lg:ml-0 lg:w-full"
               >View tools</a
             >

@@ -1,6 +1,7 @@
 <template>
   <div class="p-4 max-w-lg mx-auto bg-white shadow-lg rounded-lg">
     <h2 class="text-2xl font-bold mb-4">Metadata Query Tool</h2>
+
     <div class="mb-4">
       <label class="block text-gray-700 text-sm font-bold mb-2"
         >Select Query Type:</label
@@ -14,6 +15,7 @@
         @input="onQueryTypeChange"
       />
     </div>
+
     <div v-if="selectedQueryType" class="mb-4">
       <label class="block text-gray-700 text-sm font-bold mb-2"
         >Select {{ selectedQueryType.name }}:</label
@@ -29,6 +31,7 @@
         :show-labels="true"
       />
     </div>
+
     <button
       class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
       @click="fetchMetadata"
@@ -98,6 +101,7 @@ export default {
       console.log("Parsed metadata:", this.metadata); // Debug log
     } catch (err) {
       this.error = `Failed to fetch metadata: ${err.message}`;
+      console.error(this.error);
     }
   },
   methods: {
@@ -106,24 +110,28 @@ export default {
       this.selectedQueryValue = null;
 
       if (this.selectedQueryType) {
+        // Check if metadata is correctly populated and contains expected values
         const options = this.metadata
           .map((item) => item[this.selectedQueryType.value])
           .filter(
             (value, index, self) => value && self.indexOf(value) === index
           );
 
+        // Ensure options are populated and correctly mapped
+        console.log("Options derived from metadata:", options);
         this.queryOptions = options.map((value) => ({ name: value, value }));
-        console.log("Query options:", this.queryOptions); // Debug log
+        console.log("Query options:", this.queryOptions);
       }
     },
     fetchMetadata() {
       if (!this.selectedQueryType || !this.selectedQueryValue) return;
 
+      // Ensure metadataResults are filtered correctly
       this.metadataResults = this.metadata.filter(
         (item) =>
           item[this.selectedQueryType.value] === this.selectedQueryValue.value
       );
-      console.log("Metadata results:", this.metadataResults); // Debug log
+      console.log("Metadata results:", this.metadataResults);
     },
   },
 };
