@@ -2,9 +2,17 @@
   <div class="sidebar">
     <ul>
       <li v-for="(section, index) in sidebarSections" :key="section.title">
-        <button @click="toggleSection(index)">
-          {{ section.title }}
-        </button>
+        <!-- Make the section title clickable as a link -->
+        <div class="section-header">
+          <nuxt-link :to="section.path">
+            {{ section.title }}
+          </nuxt-link>
+          <!-- Add a button to toggle the nested items -->
+          <button @click="toggleSection(index)">
+            {{ section.collapsed ? "+" : "-" }}
+          </button>
+        </div>
+        <!-- Show/hide nested items based on collapsed state -->
         <ul v-show="!section.collapsed">
           <li v-for="item in section.children" :key="item.slug">
             <nuxt-link :to="item.path">
@@ -43,11 +51,7 @@ function toggleSection(index) {
 <style scoped>
 .sidebar {
   /* Sidebar styles */
-}
-
-button {
-  cursor: pointer;
-  font-weight: bold;
+  width: 250px;
 }
 
 ul {
@@ -57,5 +61,25 @@ ul {
 
 li {
   margin-bottom: 0.5rem;
+}
+
+/* Style for clickable section title and toggle button */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  padding: 0;
+  margin-left: 10px;
+}
+
+button:hover {
+  font-weight: bold;
 }
 </style>

@@ -3,9 +3,7 @@ title: "Growth Mixture Models"
 author: "Biostatistics Working Group"
 ---
 
-# removed duplicate family members
-# accounted for clustering (e.g., by site) in the model
-```{r}
+```r  [codeBlock.r]
 
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
@@ -31,21 +29,21 @@ df <- readRDS(data_path)
 df_selected <- df %>%
     select(src_subject_id, eventname, anthroweightcalc, site_id_l, rel_family_id.x) %>%
     filter(eventname %in% c("baseline_year_1_arm_1", "1_year_follow_up_y_arm_1", "2_year_follow_up_y_arm_1", "3_year_follow_up_y_arm_1")) %>%
-    #drop_na(anthroheightcalc) %>%
+    # drop_na(anthroheightcalc) %>%
     arrange(src_subject_id, eventname) %>%
     mutate(
         src_subject_id = factor(src_subject_id),
         eventname = factor(eventname, levels = c("baseline_year_1_arm_1", "1_year_follow_up_y_arm_1", "2_year_follow_up_y_arm_1", "3_year_follow_up_y_arm_1"), labels = c("Baseline", "Year_1", "Year_2", "Year_3")),
         anthroheightcalc = round(as.numeric(anthroweightcalc), 2),
-        site_id_l = factor(site_id_l), 
+        site_id_l = factor(site_id_l),
         rel_family_id.x = as.factor(rel_family_id.x)
     ) %>%
-  rename(
-    id = src_subject_id,
-    event = eventname,
-    weight = anthroweightcalc,
-    site = site_id_l,
-    family = rel_family_id.x
+    rename(
+        id = src_subject_id,
+        event = eventname,
+        weight = anthroweightcalc,
+        site = site_id_l,
+        family = rel_family_id.x
     ) %>%
     group_by(id) %>%
     filter(all(c("Baseline", "Year_1", "Year_2", "Year_3") %in% event)) %>%
@@ -54,29 +52,29 @@ df_selected <- df %>%
 
 # Remove duplicate family members
 
-set.seed(123)  # For reproducibility
+set.seed(123) # For reproducibility
 
 # Filter to baseline event
 df_baseline <- df_selected %>%
-  filter(event == "Baseline")
+    filter(event == "Baseline")
 
 # Identify families with multiple members at baseline
 multi_member_families <- df_baseline %>%
-  group_by(family) %>%
-  filter(n() > 1) %>%
-  ungroup()
+    group_by(family) %>%
+    filter(n() > 1) %>%
+    ungroup()
 
 # Randomly select one member per family with multiple members at baseline
 selected_multi_members <- multi_member_families %>%
-  group_by(family) %>%
-  sample_n(1) %>%
-  ungroup()
+    group_by(family) %>%
+    sample_n(1) %>%
+    ungroup()
 
 # Identify families with a single member at baseline
 single_member_families <- df_baseline %>%
-  group_by(family) %>%
-  filter(n() == 1) %>%
-  ungroup()
+    group_by(family) %>%
+    filter(n() == 1) %>%
+    ungroup()
 
 # Combine the selected single members and randomly selected multi-members
 selected_families <- bind_rows(single_member_families, selected_multi_members)
@@ -86,7 +84,7 @@ selected_ids <- selected_families$id
 
 # Filter the original dataset to include only the selected individuals
 df_long <- df_selected %>%
-  filter(id %in% selected_ids)
+    filter(id %in% selected_ids)
 
 ```
 
@@ -102,31 +100,14 @@ Growth Mixture Models (GMM) are utilized to identify distinct subgroups within t
 
 The resulting growth mixture model helps delineate classes that show distinct growth patterns. Each class's trajectory can be characterized by its initial status (intercept), rate of growth (slope), and pattern changes over time (step and shape), providing a nuanced understanding of how height progresses differently across subgroups. This analysis is particularly valuable in understanding heterogeneity in developmental outcomes.
 
-```{r}
+```r  [codeBlock.r]
 
-#######
-## Windsorizing the weight variable
-# Set the quantile thresholds for winsorizing
-lower_quantile <- 0.05
-upper_quantile <- 0.95
+## winsorizing to limit extreme values of the weight variable
+df_long$weight_adjusted <- with(df_long, pmin(pmax(weight, quantile(weight, 0.05, na.rm = TRUE)), quantile(weight, 0.95, na.rm = TRUE)))
 
-# Calculate the quantile thresholds
-quantiles <- quantile(df_long$weight, probs = c(lower_quantile, upper_quantile), na.rm = TRUE)
-lower_bound <- quantiles[1]
-upper_bound <- quantiles[2]
+set.seed(2002)
 
-# Winsorize the weight variable
-df_long$weight_adjusted <- ifelse(df_long$weight < lower_bound, lower_bound, 
-                                  ifelse(df_long$weight > upper_bound, upper_bound, df_long$weight))
-
-# Check the summary of the adjusted weight variable
-summary(df_long$weight_adjusted)
-
-#######
-
-#set.seed(2002)
-
-df_long <- na.omit(df_long)  # Remove rows with NA values
+df_long <- na.omit(df_long) # Remove rows with NA values
 
 # Convert the id variable to numeric
 df_long$id_numeric <- as.numeric(df_long$id)
@@ -136,20 +117,26 @@ df_long$weight_adjusted <- as.numeric(df_long$weight_adjusted)
 # Fit the model using hlme with the numeric id variable
 gmm1 <- hlme(weight_adjusted ~ event, subject = "id_numeric", random = ~1, ng = 1, data = df_long)
 
-gmm2 <- gridsearch(rep = 50, maxiter = 5, minit = gmm1,
-hlme(weight_adjusted ~ event, subject = "id_numeric", random=~1,
-ng = 2, data = df_long, mixture = ~ event,
-nwg=T))
+gmm2 <- gridsearch(
+    rep = 50, maxiter = 5, minit = gmm1,
+    hlme(weight_adjusted ~ event,
+        subject = "id_numeric", random = ~1,
+        ng = 2, data = df_long, mixture = ~event,
+        nwg = T
+    )
+)
 
-gmm3 <- gridsearch(rep = 50, maxiter = 10, minit = gmm1,
-hlme(weight_adjusted ~ event, subject = "id_numeric", random=~1,
-ng = 3, data = df_long, mixture = ~ event,
-nwg=T))
+gmm3 <- gridsearch(
+    rep = 50, maxiter = 10, minit = gmm1,
+    hlme(weight_adjusted ~ event,
+        subject = "id_numeric", random = ~1,
+        ng = 3, data = df_long, mixture = ~event,
+        nwg = T
+    )
+)
 
 # make table with results for the 4 models:
 summarytable(gmm1, gmm2, gmm3)
-
-
 
 ```
 
@@ -158,14 +145,6 @@ The results from the growth mixture model (GMM) analysis indicate a substantial 
 Notably, each class exhibits distinct growth parameters, primarily differing in their intercepts while showing largely consistent slope patterns. The first class shows a mean intercept (i) and slope (s) indicating a particular growth trajectory; the second class has a different intercept and slope, suggesting a distinct growth pattern; and the third class, although much smaller in size, presents another unique growth trajectory. The differences in intercepts across classes highlight the variability in initial weight, while the similarities in slopes suggest consistent growth rates across the sample.
 
 The variances across time points also differ significantly between classes, highlighting the variability in growth patterns across the sample. This variability emphasizes the importance of considering different subgroups within the population when analyzing growth trajectories. The GMM approach is particularly valuable in understanding heterogeneous population subgroups that follow distinct developmental trajectories over time, allowing for a more nuanced interpretation of growth patterns.
-
-### Model Plots
-```{r}
-
-
-```
-
-This plot illustrates xxxx.
 
 ## Wrapping Up
 This analysis assessed how participants' weights change across multiple time points, revealing improved model fit with an increase in the number of classes from one to three. This is supported by reductions in the Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC) values, suggesting that more precise class specifications enhance model accuracy. The best-fitting three-class model attained a log-likelihood of -95568.72, indicating good classification accuracy. Distinct growth patterns emerged across classes, with notable variances in intercepts and consistent slopes across classes, emphasizing the variability of developmental patterns within the population.

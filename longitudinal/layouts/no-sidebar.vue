@@ -1,4 +1,16 @@
-<script setup lang="ts">
+<template>
+  <div>
+    <Nuxt />
+  </div>
+</template>
+
+<script>
+export default {
+  layout: 'no-sidebar'
+}
+</script>
+
+<!-- <script setup lang="ts">
 import type { NavItem } from "@nuxt/content/dist/runtime/types";
 
 const navigation = inject<Ref<NavItem[]>>("navigation");
@@ -16,4 +28,4 @@ const navigation = inject<Ref<NavItem[]>>("navigation");
       <slot />
     </UPage>
   </UContainer>
-</template>
+</template> -->

@@ -3,9 +3,7 @@ title: "Latent Change Score Models"
 author: "Biostatistics Working Group"
 ---
 
-# removed duplicate family members
-# accounted for clustering (e.g., by site) in the model 
-```{r}
+```r  [codeBlock.r]
 
 #| echo: FALSE # The content of this code block will not be shown when rendered
 #| output: FALSE # Output from this code block will not be shown when rendered
@@ -16,6 +14,7 @@ author: "Biostatistics Working Group"
 library(tidyverse) # Collection of R packages for data science
 library(lcsm) # Latent Change Score Models
 library(kableExtra) # Build tables and manipulate table styles
+library(semPlot) # Creates a path diagram of SEM & GLM models
 
 # Set the data path
 data_path <- "/Users/shawes/ABCD/data/rds/abcd_5.0_rds/core-rds-5.0/non-imaging_excluding_nt_5.0.rds"
@@ -93,8 +92,9 @@ This example will explore changes in height from baseline to 3 subsequent annual
 
 ## Results 
 ### Compute Latent Change Score Model
-The code below is used to compute a latent change score analysis to investigate changes in height across four annual assessments. This statistical approach models growth factors, including constant and proportional changes, and how they vary between individuals. It also evaluates the stability of growth patterns over time, giving a more nuanced understanding of developmental trajectories and the amount of change between each time point.
-```{r}
+The code below is used to compute a latent change score analysis to investigate changes in height across four annual assessments. This statistical approach models growth factors, including constant and proportional changes, and how they vary between individuals. It also evaluates the stability of growth patterns over time, giving a more nuanced understanding of developmental trajectories and the amount of change between each time point. This analysis includes study "site" as a cluster variable. It is not necessary to account for clustering by "family" is this analysis as our selected subsample includes only one participant per family. 
+
+```r  [codeBlock.r]
 
 # Convert to wide format if necessary
 df_wide <- df_long %>%
@@ -122,38 +122,41 @@ model <- lavaan::sem(model_syntax_corrected, data = df_wide, cluster = "site", m
 
 summary(model)
 
-
 ```
 
 The results of the latent change score model (LCSM) for height indicated increasing patterns of growth. The fitted model included a constant change factor of 10.40, reflecting a substantial uniform base growth factor across all individuals consistently over time. The proportional change factor of -0.15 illustrates a negative relationship, indicating that higher initial heights might result in lesser incremental growth, though the relationship is not statistically significant. The phi estimate of 0.30 shows autoregressive effects of the change scores, where the direction and magnitude of past growth significantly predict subsequent changes. Additionally, the covariance between the constant change factor and the initial true score was 1.31, indicating a positive relationship between baseline height and subsequent growth trajectories.
 
 ### Model Plots
-```{r}
+```r  [codeBlock.r]
 
 # Visualize the LCSM model using semPaths from the semPlot
 
-semPaths(model, "std", layout = "tree", style = "ram", 
-         nCharNodes = 0, edge.label.cex = .6, sizeMan = 8, sizeLat = 6, 
-         mar = c(3, 3, 3, 3), nDigits = 2, 
-         residuals = FALSE, intercepts = FALSE,
-         shapeMan = "rectangle", shapeLat = "ellipse", 
-         col = list(man = "skyblue", lat = "pink"),
-         label.cex = 2)
+semPaths(model, "std",
+    layout = "tree", style = "ram",
+    nCharNodes = 0, edge.label.cex = .6, sizeMan = 8, sizeLat = 6,
+    mar = c(3, 3, 3, 3), nDigits = 2,
+    residuals = FALSE, intercepts = FALSE,
+    shapeMan = "rectangle", shapeLat = "ellipse",
+    col = list(man = "skyblue", lat = "pink"),
+    label.cex = 2
+)
 
 ```
 
 This path diagram represents the structural relationships specified in the LCSM by simplifying the model structure into a more intuitive graphical format. The diagram highlights connections and dependencies among the variables, as well as the model's estimated parameters.
 
-```{r}
+```r  [codeBlock.r]
 
 # Create plot for construct x
-plot <- plot_trajectories(data = df_wide,
-                            id_var = "id", 
-                            var_list = c("Height_Baseline", "Height_Year_1", "Height_Year_2", "Height_Year_3"),
-                            xlab = "Time", ylab = "Height",
-                            connect_missing = FALSE, 
-                            random_sample_frac = 0.2) +
-        scale_x_discrete(labels = c("Baseline", "Year_1", "Year_2", "Year_3"))
+plot <- plot_trajectories(
+    data = df_wide,
+    id_var = "id",
+    var_list = c("Height_Baseline", "Height_Year_1", "Height_Year_2", "Height_Year_3"),
+    xlab = "Time", ylab = "Height",
+    connect_missing = FALSE,
+    random_sample_frac = 0.2
+) +
+    scale_x_discrete(labels = c("Baseline", "Year_1", "Year_2", "Year_3"))
 
 # Print the plot
 print(plot)
