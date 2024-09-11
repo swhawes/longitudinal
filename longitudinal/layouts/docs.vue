@@ -8,7 +8,7 @@ const navigation = inject<Ref<NavItem[]>>("navigation");
   <UContainer>
     <UPage>
       <template #left>
-        <UAside>
+        <UAside v-if="$route.path !== '/testcontent'">
           <UNavigationTree :links="mapContentNavigation(navigation)" />
         </UAside>
       </template>

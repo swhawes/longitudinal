@@ -68,7 +68,7 @@ useSeoMeta({
 
     <ExploreSection :articles="articles" />
     <AcknowledgmentsSection />
-    <div>tbd</div>
+
     <!-- Add content here -->
   </div>
 </template>
