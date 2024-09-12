@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.45">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Your Name">
+<title>Linear Mixed-Effects Models for Longitudinal Data Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="linear-mixedeffects-models_files/libs/clipboard/clipboard.min.js"></script>
+<script src="linear-mixedeffects-models_files/libs/quarto-html/quarto.js"></script>
+<script src="linear-mixedeffects-models_files/libs/quarto-html/popper.min.js"></script>
+<script src="linear-mixedeffects-models_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="linear-mixedeffects-models_files/libs/quarto-html/anchor.min.js"></script>
+<link href="linear-mixedeffects-models_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="linear-mixedeffects-models_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="linear-mixedeffects-models_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="linear-mixedeffects-models_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="linear-mixedeffects-models_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><link href="linear-mixedeffects-models_files/libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="linear-mixedeffects-models_files/libs/pagedtable-1.1/js/pagedtable.js"></script>
+</head>
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#introduction-to-longitudinal-data" id="toc-introduction-to-longitudinal-data" class="nav-link active" data-scroll-target="#introduction-to-longitudinal-data">Introduction to Longitudinal Data</a>
+  <ul class="collapse">
+<li>
+<a href="#what-is-longitudinal-data" id="toc-what-is-longitudinal-data" class="nav-link" data-scroll-target="#what-is-longitudinal-data">What is Longitudinal Data?</a>
+  <ul class="collapse">
+<li><a href="#why-use-mixed-effects-models" id="toc-why-use-mixed-effects-models" class="nav-link" data-scroll-target="#why-use-mixed-effects-models">Why Use Mixed-Effects Models?</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li>
+<a href="#linear-mixed-effects-model-theory" id="toc-linear-mixed-effects-model-theory" class="nav-link" data-scroll-target="#linear-mixed-effects-model-theory">Linear Mixed-Effects Model Theory</a>
+  <ul class="collapse">
+<li><a href="#fixed-vs.-random-effects" id="toc-fixed-vs.-random-effects" class="nav-link" data-scroll-target="#fixed-vs.-random-effects">Fixed vs.&nbsp;Random Effects</a></li>
+  <li><a href="#hierarchical-structure-of-lmms" id="toc-hierarchical-structure-of-lmms" class="nav-link" data-scroll-target="#hierarchical-structure-of-lmms">Hierarchical Structure of LMMs</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#preparing-data-in-r" id="toc-preparing-data-in-r" class="nav-link" data-scroll-target="#preparing-data-in-r">Preparing Data in R</a>
+  <ul class="collapse">
+<li><a href="#handling-missing-data" id="toc-handling-missing-data" class="nav-link" data-scroll-target="#handling-missing-data">Handling Missing Data</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#fitting-linear-mixed-effects-models-in-r" id="toc-fitting-linear-mixed-effects-models-in-r" class="nav-link" data-scroll-target="#fitting-linear-mixed-effects-models-in-r">Fitting Linear Mixed-Effects Models in R</a>
+  <ul class="collapse">
+<li><a href="#model-interpretation" id="toc-model-interpretation" class="nav-link" data-scroll-target="#model-interpretation">Model Interpretation</a></li>
+  <li><a href="#adding-random-slopes" id="toc-adding-random-slopes" class="nav-link" data-scroll-target="#adding-random-slopes">Adding Random Slopes</a></li>
+  <li>
+<a href="#model-diagnostics-and-interpretation" id="toc-model-diagnostics-and-interpretation" class="nav-link" data-scroll-target="#model-diagnostics-and-interpretation">Model Diagnostics and Interpretation</a>
+  <ul class="collapse">
+<li><a href="#model-fit-aic-bic-and-likelihood-ratio-tests" id="toc-model-fit-aic-bic-and-likelihood-ratio-tests" class="nav-link" data-scroll-target="#model-fit-aic-bic-and-likelihood-ratio-tests">Model Fit: AIC, BIC, and Likelihood Ratio Tests</a></li>
+  </ul>
+</li>
+  <li><a href="#residual-diagnostics" id="toc-residual-diagnostics" class="nav-link" data-scroll-target="#residual-diagnostics">Residual Diagnostics</a></li>
+  <li>
+<a href="#examples-of-longitudinal-analyses" id="toc-examples-of-longitudinal-analyses" class="nav-link" data-scroll-target="#examples-of-longitudinal-analyses">Examples of Longitudinal Analyses</a>
+  <ul class="collapse">
+<li><a href="#growth-curve-model-example" id="toc-growth-curve-model-example" class="nav-link" data-scroll-target="#growth-curve-model-example">Growth Curve Model Example</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization">Visualization</a>
+  <ul class="collapse">
+<li><a href="#plotting-raw-data" id="toc-plotting-raw-data" class="nav-link" data-scroll-target="#plotting-raw-data">Plotting Raw Data</a></li>
+  <li><a href="#plotting-predicted-values" id="toc-plotting-predicted-values" class="nav-link" data-scroll-target="#plotting-predicted-values">Plotting Predicted Values</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#advanced-topics-optional" id="toc-advanced-topics-optional" class="nav-link" data-scroll-target="#advanced-topics-optional">Advanced Topics (Optional)</a>
+  <ul class="collapse">
+<li><a href="#nested-models-and-cross-classified-models" id="toc-nested-models-and-cross-classified-models" class="nav-link" data-scroll-target="#nested-models-and-cross-classified-models">Nested Models and Cross-Classified Models</a></li>
+  <li><a href="#generalized-lmms-glmms" id="toc-generalized-lmms-glmms" class="nav-link" data-scroll-target="#generalized-lmms-glmms">Generalized LMMs (GLMMs)</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+<li><a href="#exercise-1-random-intercept-model" id="toc-exercise-1-random-intercept-model" class="nav-link" data-scroll-target="#exercise-1-random-intercept-model">Exercise 1: Random Intercept Model</a></li>
+  <li><a href="#exercise-2-compare-random-intercept-vs.-random-slope" id="toc-exercise-2-compare-random-intercept-vs.-random-slope" class="nav-link" data-scroll-target="#exercise-2-compare-random-intercept-vs.-random-slope">Exercise 2: Compare Random Intercept vs.&nbsp;Random Slope</a></li>
+  </ul>
+</li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul>
+</li>
+  </ul></nav>
+</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Linear Mixed-Effects Models for Longitudinal Data Analysis</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Your Name </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="introduction-to-longitudinal-data" class="level1"><h1>Introduction to Longitudinal Data</h1>
+<p>Welcome to this tutorial on <strong>linear mixed-effects models</strong> (LMM) for longitudinal data analyses! Longitudinal data involves repeated measurements over time from the same individuals, making it essential to use models that account for correlations within subjects.</p>
+<p>In this tutorial, we’ll cover everything you need to know about LMMs: from understanding their basic structure to fitting and interpreting them in R using the <code>lme4</code> package. Whether you’re a beginner or have some experience with modeling, you’ll find examples and exercises to help you along the way.</p>
+<p>Let’s dive in!</p>
+<section id="what-is-longitudinal-data" class="level2"><h2 class="anchored" data-anchor-id="what-is-longitudinal-data">What is Longitudinal Data?</h2>
+<p>Longitudinal data tracks the same subjects over time. For example, you might record the height of children annually as they grow, which leads to repeated measures for each child.</p>
+<section id="why-use-mixed-effects-models" class="level3"><h3 class="anchored" data-anchor-id="why-use-mixed-effects-models">Why Use Mixed-Effects Models?</h3>
+<p>Traditional regression models fail to account for the fact that repeated measurements within individuals are correlated. This is where <strong>linear mixed-effects models (LMMs)</strong> come in handy, as they allow us to model both <strong>fixed effects</strong> (population-wide parameters) and <strong>random effects</strong> (subject-specific deviations).</p>
+<p>To visualize this, consider the following dataset of children’s growth over time:</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/">lme4</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: Matrix
+
+Attaching package: 'Matrix'
+
+The following objects are masked from 'package:tidyr':
+
+    expand, pack, unpack</code></pre>
+</div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load the example dataset from the nlme package</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"Orthodont"</span>, package <span class="op">=</span> <span class="st">"nlme"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">Orthodont</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 108
+Columns: 4
+$ distance &lt;dbl&gt; 26.0, 25.0, 29.0, 31.0, 21.5, 22.5, 23.0, 26.5, 23.0, 22.5, 2…
+$ age      &lt;dbl&gt; 8, 10, 12, 14, 8, 10, 12, 14, 8, 10, 12, 14, 8, 10, 12, 14, 8…
+$ Subject  &lt;ord&gt; M01, M01, M01, M01, M02, M02, M02, M02, M03, M03, M03, M03, M…
+$ Sex      &lt;fct&gt; Male, Male, Male, Male, Male, Male, Male, Male, Male, Male, M…</code></pre>
+</div>
+</div>
+</section></section></section><section id="linear-mixed-effects-model-theory" class="level1"><h1>Linear Mixed-Effects Model Theory</h1>
+<p>Now, let’s go over some of the key concepts behind linear mixed-effects models.</p>
+<section id="fixed-vs.-random-effects" class="level2"><h2 class="anchored" data-anchor-id="fixed-vs.-random-effects">Fixed vs.&nbsp;Random Effects</h2>
+<ul>
+<li>
+<strong>Fixed effects</strong> represent population-wide parameters. For example, you might find that, on average, all children in your study grow by 2 cm each year.</li>
+<li>
+<strong>Random effects</strong> capture individual-specific variations. One child might grow faster than another, and mixed-effects models allow each child to have their own growth trajectory.</li>
+</ul></section><section id="hierarchical-structure-of-lmms" class="level2"><h2 class="anchored" data-anchor-id="hierarchical-structure-of-lmms">Hierarchical Structure of LMMs</h2>
+<p>Linear mixed-effects models are hierarchical, meaning they allow for data that is nested. In our example, measurements are nested within individuals (e.g., repeated height measurements for each child).</p>
+<p>The general form of an LMM is:</p>
+<p>[ y_{ij} = eta_0 + eta_1 ext{Age}<em>{ij} + u</em>{0i} + _{ij} ]</p>
+<p>Where: - ( y_{ij} ): response variable (e.g., height for child ( i ) at time ( j )) - ( eta_0 ), ( eta_1 ): fixed effects (intercept and slope) - ( u_{0i} ): random intercept (individual-specific) - ( _{ij} ): residual error</p>
+</section></section><section id="preparing-data-in-r" class="level1"><h1>Preparing Data in R</h1>
+<p>Before fitting an LMM, it’s crucial to ensure your data is properly formatted. Longitudinal data should generally be in <strong>long format</strong>, where each row corresponds to an observation at a specific time point for an individual.</p>
+<p>Let’s reshape a dataset if needed.</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Reshaping data into long format</span></span>
+<span><span class="va">long_data</span> <span class="op">&lt;-</span> <span class="va">Orthodont</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span><span class="op">(</span>key <span class="op">=</span> <span class="st">"time"</span>, value <span class="op">=</span> <span class="st">"height"</span>, <span class="va">distance</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">long_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Subject"],"name":[2],"type":["ord"],"align":["right"]},{"label":["Sex"],"name":[3],"type":["fct"],"align":["left"]},{"label":["time"],"name":[4],"type":["chr"],"align":["left"]},{"label":["height"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"8","2":"M01","3":"Male","4":"distance","5":"26.0","_rn_":"1"},{"1":"10","2":"M01","3":"Male","4":"distance","5":"25.0","_rn_":"2"},{"1":"12","2":"M01","3":"Male","4":"distance","5":"29.0","_rn_":"3"},{"1":"14","2":"M01","3":"Male","4":"distance","5":"31.0","_rn_":"4"},{"1":"8","2":"M02","3":"Male","4":"distance","5":"21.5","_rn_":"5"},{"1":"10","2":"M02","3":"Male","4":"distance","5":"22.5","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<section id="handling-missing-data" class="level2"><h2 class="anchored" data-anchor-id="handling-missing-data">Handling Missing Data</h2>
+<p>Longitudinal data often have missing values. You can use functions like <code><a href="https://rdrr.io/r/stats/na.fail.html">na.omit()</a></code> to drop missing data or more sophisticated methods like <strong>multiple imputation</strong> using the <code>mice</code> package.</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Check for missing values</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Orthodont</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+</section></section><section id="fitting-linear-mixed-effects-models-in-r" class="level1"><h1>Fitting Linear Mixed-Effects Models in R</h1>
+<p>Now, let’s fit our first model! We’ll start by fitting a <strong>random intercept model</strong>, where each individual gets their own baseline (intercept).</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Random intercept model</span></span>
+<span><span class="va">model1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">distance</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">Subject</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">Orthodont</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Display model summary to examine fixed and random effects</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: distance ~ age + (1 | Subject)
+   Data: Orthodont
+
+REML criterion at convergence: 447
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.6645 -0.5351 -0.0129  0.4874  3.7218 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ Subject  (Intercept) 4.472    2.115   
+ Residual             2.049    1.432   
+Number of obs: 108, groups:  Subject, 27
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept) 16.76111    0.80240   20.89
+age          0.66019    0.06161   10.72
+
+Correlation of Fixed Effects:
+    (Intr)
+age -0.845</code></pre>
+</div>
+</div>
+<section id="model-interpretation" class="level2"><h2 class="anchored" data-anchor-id="model-interpretation">Model Interpretation</h2>
+<p>In the output, the fixed effects provide the population-wide average relationship between the predictors (e.g., age) and the response variable (e.g., height). The random effects show how much individual subjects deviate from this average.</p>
+</section><section id="adding-random-slopes" class="level2"><h2 class="anchored" data-anchor-id="adding-random-slopes">Adding Random Slopes</h2>
+<p>You can also allow for <strong>random slopes</strong>, meaning that individuals can differ not only in their intercepts (baselines) but also in their trajectories (slopes).</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Random intercept and slope model</span></span>
+<span><span class="va">model2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">distance</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="op">(</span><span class="va">age</span> <span class="op">|</span> <span class="va">Subject</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">Orthodont</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: distance ~ age + (age | Subject)
+   Data: Orthodont
+
+REML criterion at convergence: 442.6
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.2229 -0.4938  0.0073  0.4721  3.9161 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr 
+ Subject  (Intercept) 5.41660  2.3274        
+          age         0.05128  0.2264   -0.61
+ Residual             1.71616  1.3100        
+Number of obs: 108, groups:  Subject, 27
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept) 16.76111    0.77528  21.620
+age          0.66019    0.07126   9.265
+
+Correlation of Fixed Effects:
+    (Intr)
+age -0.848</code></pre>
+</div>
+</div>
+<p>Now, each child has their own growth rate!</p>
+</section><section id="model-diagnostics-and-interpretation" class="level2"><h2 class="anchored" data-anchor-id="model-diagnostics-and-interpretation">Model Diagnostics and Interpretation</h2>
+<p>Once we’ve fitted our models, we need to assess how well they fit the data.</p>
+<section id="model-fit-aic-bic-and-likelihood-ratio-tests" class="level3"><h3 class="anchored" data-anchor-id="model-fit-aic-bic-and-likelihood-ratio-tests">Model Fit: AIC, BIC, and Likelihood Ratio Tests</h3>
+<p>One way to assess model fit is by comparing models using <strong>AIC</strong> (Akaike Information Criterion) or <strong>BIC</strong> (Bayesian Information Criterion). A lower AIC or BIC indicates a better model fit.</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Comparing model fit</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">model1</span>, <span class="va">model2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["df"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["AIC"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"4","2":"455.0025","_rn_":"model1"},{"1":"6","2":"454.6367","_rn_":"model2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section></section><section id="residual-diagnostics" class="level2"><h2 class="anchored" data-anchor-id="residual-diagnostics">Residual Diagnostics</h2>
+<p>Check the residuals to ensure that the assumptions of normality and homoscedasticity hold.</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Plot residuals</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">model2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="linear-mixedeffects-models_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If the residuals are roughly normally distributed and homoscedastic, you’re in good shape!</p>
+</section><section id="examples-of-longitudinal-analyses" class="level2"><h2 class="anchored" data-anchor-id="examples-of-longitudinal-analyses">Examples of Longitudinal Analyses</h2>
+<p>Let’s now explore a full example of longitudinal data analysis with a <strong>growth curve model</strong>.</p>
+<section id="growth-curve-model-example" class="level3"><h3 class="anchored" data-anchor-id="growth-curve-model-example">Growth Curve Model Example</h3>
+<p>We’ll use the <code>Orthodont</code> dataset and model children’s growth trajectories over time, accounting for both fixed effects (age) and random effects (individual deviations).</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Fit growth curve model</span></span>
+<span><span class="va">growth_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">distance</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="va">age</span> <span class="op">|</span> <span class="va">Subject</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">Orthodont</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">growth_model</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: distance ~ age + (1 + age | Subject)
+   Data: Orthodont
+
+REML criterion at convergence: 442.6
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.2229 -0.4938  0.0073  0.4721  3.9161 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr 
+ Subject  (Intercept) 5.41660  2.3274        
+          age         0.05128  0.2264   -0.61
+ Residual             1.71616  1.3100        
+Number of obs: 108, groups:  Subject, 27
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept) 16.76111    0.77528  21.620
+age          0.66019    0.07126   9.265
+
+Correlation of Fixed Effects:
+    (Intr)
+age -0.848</code></pre>
+</div>
+</div>
+</section></section><section id="visualization" class="level2"><h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
+<p>Visualizing both the raw data and the fitted model is key for understanding your results.</p>
+<section id="plotting-raw-data" class="level3"><h3 class="anchored" data-anchor-id="plotting-raw-data">Plotting Raw Data</h3>
+<p>Use <code>ggplot2</code> to visualize the data points and individual growth trajectories.</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Plot raw data</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">Orthodont</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span>, y <span class="op">=</span> <span class="va">distance</span>, color <span class="op">=</span> <span class="va">Subject</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="linear-mixedeffects-models_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="plotting-predicted-values" class="level3"><h3 class="anchored" data-anchor-id="plotting-predicted-values">Plotting Predicted Values</h3>
+<p>Next, plot the predicted growth curves for each individual based on the model:</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Plot predicted values</span></span>
+<span><span class="va">Orthodont</span><span class="op">$</span><span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">growth_model</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">Orthodont</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span>, y <span class="op">=</span> <span class="va">pred</span>, color <span class="op">=</span> <span class="va">Subject</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="linear-mixedeffects-models_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section></section><section id="advanced-topics-optional" class="level2"><h2 class="anchored" data-anchor-id="advanced-topics-optional">Advanced Topics (Optional)</h2>
+<section id="nested-models-and-cross-classified-models" class="level3"><h3 class="anchored" data-anchor-id="nested-models-and-cross-classified-models">Nested Models and Cross-Classified Models</h3>
+<p>In more complex cases, you might have individuals nested within larger groups (e.g., students within schools). LMMs can handle this by including random effects at multiple levels.</p>
+</section><section id="generalized-lmms-glmms" class="level3"><h3 class="anchored" data-anchor-id="generalized-lmms-glmms">Generalized LMMs (GLMMs)</h3>
+<p>For non-continuous outcomes (e.g., binary or count data), you can use <strong>generalized linear mixed-effects models (GLMMs)</strong> with the <code><a href="https://rdrr.io/pkg/lme4/man/glmer.html">glmer()</a></code> function.</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load necessary library and dataset</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/">lme4</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View the sleepstudy dataset</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"sleepstudy"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sleepstudy</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Reaction"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Days"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Subject"],"name":[3],"type":["fct"],"align":["left"]}],"data":[{"1":"249.5600","2":"0","3":"308","_rn_":"1"},{"1":"258.7047","2":"1","3":"308","_rn_":"2"},{"1":"250.8006","2":"2","3":"308","_rn_":"3"},{"1":"321.4398","2":"3","3":"308","_rn_":"4"},{"1":"356.8519","2":"4","3":"308","_rn_":"5"},{"1":"414.6901","2":"5","3":"308","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Create a binary outcome: 1 if reaction time is above 300, 0 otherwise</span></span>
+<span><span class="va">sleepstudy</span><span class="op">$</span><span class="va">binary_reaction</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">sleepstudy</span><span class="op">$</span><span class="va">Reaction</span> <span class="op">&gt;</span> <span class="fl">300</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Fit a GLMM with binary outcome (binary_reaction)</span></span>
+<span><span class="co"># Random intercept for Subject, and Days as a predictor</span></span>
+<span><span class="va">glmm_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/glmer.html">glmer</a></span><span class="op">(</span><span class="va">binary_reaction</span> <span class="op">~</span> <span class="va">Days</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">Subject</span><span class="op">)</span>, </span>
+<span>                    data <span class="op">=</span> <span class="va">sleepstudy</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Display the model summary</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">glmm_model</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: binomial  ( logit )
+Formula: binary_reaction ~ Days + (1 | Subject)
+   Data: sleepstudy
+
+     AIC      BIC   logLik deviance df.resid 
+   180.3    189.9    -87.2    174.3      177 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-4.6409 -0.4577 -0.1364  0.4941  3.9223 
+
+Random effects:
+ Groups  Name        Variance Std.Dev.
+ Subject (Intercept) 3.012    1.735   
+Number of obs: 180, groups:  Subject, 18
+
+Fixed effects:
+            Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -3.19546    0.68540  -4.662 3.13e-06 ***
+Days         0.58523    0.09806   5.968 2.40e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+     (Intr)
+Days -0.733</code></pre>
+</div>
+</div>
+</section></section><section id="exercises" class="level2"><h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<section id="section" class="level5"><h5 class="anchored" data-anchor-id="section"></h5>
+<section id="section-1" class="level6"><h6 class="anchored" data-anchor-id="section-1"></h6>
+<section id="section-2" class="level8"><p class="heading"></p>
+<section id="section-3" class="level9"><p class="heading"></p>
+</section></section></section></section><section id="exercise-1-random-intercept-model" class="level3"><h3 class="anchored" data-anchor-id="exercise-1-random-intercept-model">Exercise 1: Random Intercept Model</h3>
+<p>Use a new dataset and fit a random intercept model. Interpret the fixed and random effects.</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load necessary libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/">lme4</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># raw URL from your GitHub Gist</span></span>
+<span><span class="va">gist_url</span> <span class="op">&lt;-</span> <span class="st">"https://gist.githubusercontent.com/swhawes/83345cfbf7f42b26d6922590594311f1/raw/a091b25e9d45d4d72a25705c8a2604292895ed11/longitudinal_dataset.csv"</span></span>
+<span></span>
+<span><span class="co"># Read the dataset from GitHub Gist with the correct delimiter (tab)</span></span>
+<span><span class="va">longitudinal_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim</a></span><span class="op">(</span><span class="va">gist_url</span>, delim <span class="op">=</span> <span class="st">"\t"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 4000 Columns: 15
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr  (4): Gender, Education, HealthStatus, Group
+dbl (11): ParticipantID, Wave, Age, CogTestScore, StressLevel, EmploymentSta...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># View the first few rows of the dataset to ensure it's read correctly</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">longitudinal_data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["ParticipantID"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Wave"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Gender"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Education"],"name":[5],"type":["chr"],"align":["left"]},{"label":["CogTestScore"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["StressLevel"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["EmploymentStatus"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["SmokingStatus"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["DoctorVisits"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["HealthStatus"],"name":[11],"type":["chr"],"align":["left"]},{"label":["TimeBetweenWaves"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["SleepDuration"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["ExerciseHours"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["Group"],"name":[15],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"1","3":"55","4":"Male","5":"PhD","6":"83.71506","7":"31.98094","8":"0","9":"0","10":"2","11":"Fair","12":"NA","13":"7.928780","14":"3.584926","15":"Control"},{"1":"1","2":"2","3":"56","4":"Male","5":"PhD","6":"90.13274","7":"26.91077","8":"0","9":"1","10":"1","11":"Fair","12":"NA","13":"6.258554","14":"5.681555","15":"Control"},{"1":"1","2":"3","3":"57","4":"Male","5":"PhD","6":"87.72230","7":"37.23234","8":"1","9":"0","10":"0","11":"Fair","12":"NA","13":"6.813714","14":"6.685162","15":"Control"},{"1":"1","2":"4","3":"58","4":"Male","5":"PhD","6":"88.85960","7":"41.77160","8":"0","9":"0","10":"4","11":"Fair","12":"NA","13":"7.187663","14":"6.036551","15":"Control"},{"1":"2","2":"1","3":"39","4":"Male","5":"Masters","6":"92.69211","7":"59.67169","8":"0","9":"0","10":"2","11":"Good","12":"NA","13":"6.175243","14":"3.947541","15":"Control"},{"1":"2","2":"2","3":"40","4":"Male","5":"Masters","6":"98.06464","7":"55.79886","8":"1","9":"0","10":"3","11":"Good","12":"NA","13":"7.894537","14":"5.756677","15":"Control"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># ------------------ Example Analyses ------------------</span></span>
+<span></span>
+<span><span class="co"># Example 1: Linear Mixed Effects Model (Growth Curve Modeling for Cognitive Score)</span></span>
+<span><span class="va">growth_curve_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">CogTestScore</span> <span class="op">~</span> <span class="va">Wave</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">ParticipantID</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">longitudinal_data</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">growth_curve_model</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: CogTestScore ~ Wave + (1 | ParticipantID)
+   Data: longitudinal_data
+
+REML criterion at convergence: 28360.5
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-4.3637 -0.5177 -0.0163  0.4978  3.5032 
+
+Random effects:
+ Groups        Name        Variance Std.Dev.
+ ParticipantID (Intercept) 232.60   15.251  
+ Residual                   29.38    5.421  
+Number of obs: 4000, groups:  ParticipantID, 1000
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept) 97.80993    0.52600  185.95
+Wave         1.98292    0.07666   25.87
+
+Correlation of Fixed Effects:
+     (Intr)
+Wave -0.364</code></pre>
+</div>
+</div>
+</section><section id="exercise-2-compare-random-intercept-vs.-random-slope" class="level3"><h3 class="anchored" data-anchor-id="exercise-2-compare-random-intercept-vs.-random-slope">Exercise 2: Compare Random Intercept vs.&nbsp;Random Slope</h3>
+<p>Fit both a random intercept model and a random slope model. Compare their AIC values and interpret the results.</p>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Load necessary libraries</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/">lme4</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># raw URL from your GitHub Gist (ensure this is the tab-delimited dataset)</span></span>
+<span><span class="va">gist_url</span> <span class="op">&lt;-</span> <span class="st">"https://gist.githubusercontent.com/swhawes/83345cfbf7f42b26d6922590594311f1/raw/a091b25e9d45d4d72a25705c8a2604292895ed11/longitudinal_dataset.csv"</span></span>
+<span></span>
+<span><span class="co"># Read the dataset from GitHub Gist with the correct delimiter (tab)</span></span>
+<span><span class="va">longitudinal_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim</a></span><span class="op">(</span><span class="va">gist_url</span>, delim <span class="op">=</span> <span class="st">"\t"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 4000 Columns: 15
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr  (4): Gender, Education, HealthStatus, Group
+dbl (11): ParticipantID, Wave, Age, CogTestScore, StressLevel, EmploymentSta...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># ------------------ Exercise 2: Compare Random Intercept vs. Random Slope ------------------</span></span>
+<span></span>
+<span><span class="co"># Fit a random intercept model (each participant has their own intercept)</span></span>
+<span><span class="va">random_intercept_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">CogTestScore</span> <span class="op">~</span> <span class="va">Wave</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">ParticipantID</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">longitudinal_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Fit a random slope model (each participant has their own intercept and slope for Wave)</span></span>
+<span><span class="va">random_slope_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">CogTestScore</span> <span class="op">~</span> <span class="va">Wave</span> <span class="op">+</span> <span class="op">(</span><span class="va">Wave</span> <span class="op">|</span> <span class="va">ParticipantID</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">longitudinal_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compare the AIC values of both models</span></span>
+<span><span class="va">aic_comparison</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">random_intercept_model</span>, <span class="va">random_slope_model</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Display the AIC comparison</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">aic_comparison</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                       df      AIC
+random_intercept_model  4 28368.54
+random_slope_model      6 28308.03</code></pre>
+</div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Display the model summaries for interpretation</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">random_intercept_model</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: CogTestScore ~ Wave + (1 | ParticipantID)
+   Data: longitudinal_data
+
+REML criterion at convergence: 28360.5
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-4.3637 -0.5177 -0.0163  0.4978  3.5032 
+
+Random effects:
+ Groups        Name        Variance Std.Dev.
+ ParticipantID (Intercept) 232.60   15.251  
+ Residual                   29.38    5.421  
+Number of obs: 4000, groups:  ParticipantID, 1000
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept) 97.80993    0.52600  185.95
+Wave         1.98292    0.07666   25.87
+
+Correlation of Fixed Effects:
+     (Intr)
+Wave -0.364</code></pre>
+</div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">random_slope_model</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: CogTestScore ~ Wave + (Wave | ParticipantID)
+   Data: longitudinal_data
+
+REML criterion at convergence: 28296
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-4.2092 -0.4826 -0.0156  0.4657  3.0998 
+
+Random effects:
+ Groups        Name        Variance Std.Dev. Corr
+ ParticipantID (Intercept) 209.869  14.487       
+               Wave          1.947   1.395   0.11
+ Residual                   26.142   5.113       
+Number of obs: 4000, groups:  ParticipantID, 1000
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept) 97.80993    0.49908  195.98
+Wave         1.98292    0.08471   23.41
+
+Correlation of Fixed Effects:
+     (Intr)
+Wave -0.255</code></pre>
+</div>
+</div>
+<hr></section></section><section id="conclusion" class="level2"><h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Congratulations on completing this tutorial! You’ve learned how to fit and interpret linear mixed-effects models for longitudinal data, assess model fit, and visualize the results.</p>
+<p>For more advanced topics, continue exploring nested models, GLMMs, and more complex structures as you build confidence with LMMs. Keep practicing, and don’t hesitate to refer back to this guide as you progress.</p>
+<p>Happy modeling!</p>
+<!-- -->
+
+</section></section></main><!-- /main column --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb37" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Linear Mixed-Effects Models for Longitudinal Data Analysis"</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Your Name"</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-link: true</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="co">    df-print: paged</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction to Longitudinal Data</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>Welcome to this tutorial on **linear mixed-effects models** (LMM) for longitudinal data analyses! Longitudinal data involves repeated measurements over time from the same individuals, making it essential to use models that account for correlations within subjects.</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>In this tutorial, we'll cover everything you need to know about LMMs: from understanding their basic structure to fitting and interpreting them in R using the <span class="in">`lme4`</span> package. Whether you're a beginner or have some experience with modeling, you'll find examples and exercises to help you along the way.</span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>Let's dive in!</span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is Longitudinal Data?</span></span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>Longitudinal data tracks the same subjects over time. For example, you might record the height of children annually as they grow, which leads to repeated measures for each child.</span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why Use Mixed-Effects Models?</span></span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a>Traditional regression models fail to account for the fact that repeated measurements within individuals are correlated. This is where **linear mixed-effects models (LMMs)** come in handy, as they allow us to model both **fixed effects** (population-wide parameters) and **random effects** (subject-specific deviations).</span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a>To visualize this, consider the following dataset of children's growth over time:</span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-34"><a href="#cb37-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb37-35"><a href="#cb37-35" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb37-36"><a href="#cb37-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-37"><a href="#cb37-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the example dataset from the nlme package</span></span>
+<span id="cb37-38"><a href="#cb37-38" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Orthodont"</span>, <span class="at">package =</span> <span class="st">"nlme"</span>)</span>
+<span id="cb37-39"><a href="#cb37-39" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(Orthodont)</span>
+<span id="cb37-40"><a href="#cb37-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-41"><a href="#cb37-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-42"><a href="#cb37-42" aria-hidden="true" tabindex="-1"></a><span class="fu"># Linear Mixed-Effects Model Theory</span></span>
+<span id="cb37-43"><a href="#cb37-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-44"><a href="#cb37-44" aria-hidden="true" tabindex="-1"></a>Now, let’s go over some of the key concepts behind linear mixed-effects models.</span>
+<span id="cb37-45"><a href="#cb37-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-46"><a href="#cb37-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fixed vs. Random Effects</span></span>
+<span id="cb37-47"><a href="#cb37-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-48"><a href="#cb37-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Fixed effects** represent population-wide parameters. For example, you might find that, on average, all children in your study grow by 2 cm each year.</span>
+<span id="cb37-49"><a href="#cb37-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Random effects** capture individual-specific variations. One child might grow faster than another, and mixed-effects models allow each child to have their own growth trajectory.</span>
+<span id="cb37-50"><a href="#cb37-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-51"><a href="#cb37-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hierarchical Structure of LMMs</span></span>
+<span id="cb37-52"><a href="#cb37-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-53"><a href="#cb37-53" aria-hidden="true" tabindex="-1"></a>Linear mixed-effects models are hierarchical, meaning they allow for data that is nested. In our example, measurements are nested within individuals (e.g., repeated height measurements for each child).</span>
+<span id="cb37-54"><a href="#cb37-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-55"><a href="#cb37-55" aria-hidden="true" tabindex="-1"></a>The general form of an LMM is:</span>
+<span id="cb37-56"><a href="#cb37-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-57"><a href="#cb37-57" aria-hidden="true" tabindex="-1"></a><span class="sc">\[</span></span>
+<span id="cb37-58"><a href="#cb37-58" aria-hidden="true" tabindex="-1"></a>y_{ij} = eta_0 + eta_1    ext{Age}_{ij} + u_{0i} + \epsilon_{ij}</span>
+<span id="cb37-59"><a href="#cb37-59" aria-hidden="true" tabindex="-1"></a><span class="sc">\]</span></span>
+<span id="cb37-60"><a href="#cb37-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-61"><a href="#cb37-61" aria-hidden="true" tabindex="-1"></a>Where:</span>
+<span id="cb37-62"><a href="#cb37-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="sc">\(</span> y_{ij} <span class="sc">\)</span>: response variable (e.g., height for child <span class="sc">\(</span> i <span class="sc">\)</span> at time <span class="sc">\(</span> j <span class="sc">\)</span>)</span>
+<span id="cb37-63"><a href="#cb37-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="sc">\(</span> eta_0 <span class="sc">\)</span>, <span class="sc">\(</span> eta_1 <span class="sc">\)</span>: fixed effects (intercept and slope)</span>
+<span id="cb37-64"><a href="#cb37-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="sc">\(</span> u_{0i} <span class="sc">\)</span>: random intercept (individual-specific)</span>
+<span id="cb37-65"><a href="#cb37-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="sc">\(</span> \epsilon_{ij} <span class="sc">\)</span>: residual error</span>
+<span id="cb37-66"><a href="#cb37-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-67"><a href="#cb37-67" aria-hidden="true" tabindex="-1"></a><span class="fu"># Preparing Data in R</span></span>
+<span id="cb37-68"><a href="#cb37-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-69"><a href="#cb37-69" aria-hidden="true" tabindex="-1"></a>Before fitting an LMM, it’s crucial to ensure your data is properly formatted. Longitudinal data should generally be in **long format**, where each row corresponds to an observation at a specific time point for an individual.</span>
+<span id="cb37-70"><a href="#cb37-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-71"><a href="#cb37-71" aria-hidden="true" tabindex="-1"></a>Let’s reshape a dataset if needed.</span>
+<span id="cb37-72"><a href="#cb37-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-75"><a href="#cb37-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-76"><a href="#cb37-76" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshaping data into long format</span></span>
+<span id="cb37-77"><a href="#cb37-77" aria-hidden="true" tabindex="-1"></a>long_data <span class="ot">&lt;-</span> Orthodont <span class="sc">%&gt;%</span></span>
+<span id="cb37-78"><a href="#cb37-78" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather</span>(<span class="at">key =</span> <span class="st">"time"</span>, <span class="at">value =</span> <span class="st">"height"</span>, distance)</span>
+<span id="cb37-79"><a href="#cb37-79" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(long_data)</span>
+<span id="cb37-80"><a href="#cb37-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-81"><a href="#cb37-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-82"><a href="#cb37-82" aria-hidden="true" tabindex="-1"></a><span class="fu">## Handling Missing Data</span></span>
+<span id="cb37-83"><a href="#cb37-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-84"><a href="#cb37-84" aria-hidden="true" tabindex="-1"></a>Longitudinal data often have missing values. You can use functions like <span class="in">`na.omit()`</span> to drop missing data or more sophisticated methods like **multiple imputation** using the <span class="in">`mice`</span> package.</span>
+<span id="cb37-85"><a href="#cb37-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-88"><a href="#cb37-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-89"><a href="#cb37-89" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing values</span></span>
+<span id="cb37-90"><a href="#cb37-90" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(Orthodont))</span>
+<span id="cb37-91"><a href="#cb37-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-92"><a href="#cb37-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-93"><a href="#cb37-93" aria-hidden="true" tabindex="-1"></a><span class="fu"># Fitting Linear Mixed-Effects Models in R</span></span>
+<span id="cb37-94"><a href="#cb37-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-95"><a href="#cb37-95" aria-hidden="true" tabindex="-1"></a>Now, let's fit our first model! We'll start by fitting a **random intercept model**, where each individual gets their own baseline (intercept).</span>
+<span id="cb37-96"><a href="#cb37-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-99"><a href="#cb37-99" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-100"><a href="#cb37-100" aria-hidden="true" tabindex="-1"></a><span class="co"># Random intercept model</span></span>
+<span id="cb37-101"><a href="#cb37-101" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(distance <span class="sc">~</span> age <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Subject), <span class="at">data =</span> Orthodont)</span>
+<span id="cb37-102"><a href="#cb37-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-103"><a href="#cb37-103" aria-hidden="true" tabindex="-1"></a><span class="co"># Display model summary to examine fixed and random effects</span></span>
+<span id="cb37-104"><a href="#cb37-104" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span>
+<span id="cb37-105"><a href="#cb37-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-106"><a href="#cb37-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-107"><a href="#cb37-107" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model Interpretation</span></span>
+<span id="cb37-108"><a href="#cb37-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-109"><a href="#cb37-109" aria-hidden="true" tabindex="-1"></a>In the output, the fixed effects provide the population-wide average relationship between the predictors (e.g., age) and the response variable (e.g., height). The random effects show how much individual subjects deviate from this average.</span>
+<span id="cb37-110"><a href="#cb37-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-111"><a href="#cb37-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## Adding Random Slopes</span></span>
+<span id="cb37-112"><a href="#cb37-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-113"><a href="#cb37-113" aria-hidden="true" tabindex="-1"></a>You can also allow for **random slopes**, meaning that individuals can differ not only in their intercepts (baselines) but also in their trajectories (slopes).</span>
+<span id="cb37-114"><a href="#cb37-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-117"><a href="#cb37-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-118"><a href="#cb37-118" aria-hidden="true" tabindex="-1"></a><span class="co"># Random intercept and slope model</span></span>
+<span id="cb37-119"><a href="#cb37-119" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(distance <span class="sc">~</span> age <span class="sc">+</span> (age <span class="sc">|</span> Subject), <span class="at">data =</span> Orthodont)</span>
+<span id="cb37-120"><a href="#cb37-120" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span>
+<span id="cb37-121"><a href="#cb37-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-122"><a href="#cb37-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-123"><a href="#cb37-123" aria-hidden="true" tabindex="-1"></a>Now, each child has their own growth rate!</span>
+<span id="cb37-124"><a href="#cb37-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-125"><a href="#cb37-125" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model Diagnostics and Interpretation</span></span>
+<span id="cb37-126"><a href="#cb37-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-127"><a href="#cb37-127" aria-hidden="true" tabindex="-1"></a>Once we’ve fitted our models, we need to assess how well they fit the data.</span>
+<span id="cb37-128"><a href="#cb37-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-129"><a href="#cb37-129" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model Fit: AIC, BIC, and Likelihood Ratio Tests</span></span>
+<span id="cb37-130"><a href="#cb37-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-131"><a href="#cb37-131" aria-hidden="true" tabindex="-1"></a>One way to assess model fit is by comparing models using **AIC** (Akaike Information Criterion) or **BIC** (Bayesian Information Criterion). A lower AIC or BIC indicates a better model fit.</span>
+<span id="cb37-132"><a href="#cb37-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-135"><a href="#cb37-135" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-136"><a href="#cb37-136" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparing model fit</span></span>
+<span id="cb37-137"><a href="#cb37-137" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(model1, model2)</span>
+<span id="cb37-138"><a href="#cb37-138" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-139"><a href="#cb37-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-140"><a href="#cb37-140" aria-hidden="true" tabindex="-1"></a><span class="fu">## Residual Diagnostics</span></span>
+<span id="cb37-141"><a href="#cb37-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-142"><a href="#cb37-142" aria-hidden="true" tabindex="-1"></a>Check the residuals to ensure that the assumptions of normality and homoscedasticity hold.</span>
+<span id="cb37-143"><a href="#cb37-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-146"><a href="#cb37-146" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-147"><a href="#cb37-147" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot residuals</span></span>
+<span id="cb37-148"><a href="#cb37-148" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model2)</span>
+<span id="cb37-149"><a href="#cb37-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-150"><a href="#cb37-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-151"><a href="#cb37-151" aria-hidden="true" tabindex="-1"></a>If the residuals are roughly normally distributed and homoscedastic, you're in good shape!</span>
+<span id="cb37-152"><a href="#cb37-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-153"><a href="#cb37-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## Examples of Longitudinal Analyses</span></span>
+<span id="cb37-154"><a href="#cb37-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-155"><a href="#cb37-155" aria-hidden="true" tabindex="-1"></a>Let’s now explore a full example of longitudinal data analysis with a **growth curve model**.</span>
+<span id="cb37-156"><a href="#cb37-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-157"><a href="#cb37-157" aria-hidden="true" tabindex="-1"></a><span class="fu">### Growth Curve Model Example</span></span>
+<span id="cb37-158"><a href="#cb37-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-159"><a href="#cb37-159" aria-hidden="true" tabindex="-1"></a>We’ll use the <span class="in">`Orthodont`</span> dataset and model children’s growth trajectories over time, accounting for both fixed effects (age) and random effects (individual deviations).</span>
+<span id="cb37-160"><a href="#cb37-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-163"><a href="#cb37-163" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-164"><a href="#cb37-164" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit growth curve model</span></span>
+<span id="cb37-165"><a href="#cb37-165" aria-hidden="true" tabindex="-1"></a>growth_model <span class="ot">&lt;-</span> <span class="fu">lmer</span>(distance <span class="sc">~</span> age <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> age <span class="sc">|</span> Subject), <span class="at">data =</span> Orthodont)</span>
+<span id="cb37-166"><a href="#cb37-166" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(growth_model)</span>
+<span id="cb37-167"><a href="#cb37-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-168"><a href="#cb37-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-169"><a href="#cb37-169" aria-hidden="true" tabindex="-1"></a><span class="fu">## Visualization</span></span>
+<span id="cb37-170"><a href="#cb37-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-171"><a href="#cb37-171" aria-hidden="true" tabindex="-1"></a>Visualizing both the raw data and the fitted model is key for understanding your results.</span>
+<span id="cb37-172"><a href="#cb37-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-173"><a href="#cb37-173" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plotting Raw Data</span></span>
+<span id="cb37-174"><a href="#cb37-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-175"><a href="#cb37-175" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`ggplot2`</span> to visualize the data points and individual growth trajectories.</span>
+<span id="cb37-176"><a href="#cb37-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-179"><a href="#cb37-179" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-180"><a href="#cb37-180" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot raw data</span></span>
+<span id="cb37-181"><a href="#cb37-181" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Orthodont, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> distance, <span class="at">color =</span> Subject)) <span class="sc">+</span></span>
+<span id="cb37-182"><a href="#cb37-182" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb37-183"><a href="#cb37-183" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb37-184"><a href="#cb37-184" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-185"><a href="#cb37-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-186"><a href="#cb37-186" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plotting Predicted Values</span></span>
+<span id="cb37-187"><a href="#cb37-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-188"><a href="#cb37-188" aria-hidden="true" tabindex="-1"></a>Next, plot the predicted growth curves for each individual based on the model:</span>
+<span id="cb37-189"><a href="#cb37-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-192"><a href="#cb37-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-193"><a href="#cb37-193" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot predicted values</span></span>
+<span id="cb37-194"><a href="#cb37-194" aria-hidden="true" tabindex="-1"></a>Orthodont<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(growth_model)</span>
+<span id="cb37-195"><a href="#cb37-195" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Orthodont, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> pred, <span class="at">color =</span> Subject)) <span class="sc">+</span></span>
+<span id="cb37-196"><a href="#cb37-196" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span>
+<span id="cb37-197"><a href="#cb37-197" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-198"><a href="#cb37-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-199"><a href="#cb37-199" aria-hidden="true" tabindex="-1"></a><span class="fu">## Advanced Topics (Optional)</span></span>
+<span id="cb37-200"><a href="#cb37-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-201"><a href="#cb37-201" aria-hidden="true" tabindex="-1"></a><span class="fu">### Nested Models and Cross-Classified Models</span></span>
+<span id="cb37-202"><a href="#cb37-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-203"><a href="#cb37-203" aria-hidden="true" tabindex="-1"></a>In more complex cases, you might have individuals nested within larger groups (e.g., students within schools). LMMs can handle this by including random effects at multiple levels.</span>
+<span id="cb37-204"><a href="#cb37-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-205"><a href="#cb37-205" aria-hidden="true" tabindex="-1"></a><span class="fu">### Generalized LMMs (GLMMs)</span></span>
+<span id="cb37-206"><a href="#cb37-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-207"><a href="#cb37-207" aria-hidden="true" tabindex="-1"></a>For non-continuous outcomes (e.g., binary or count data), you can use **generalized linear mixed-effects models (GLMMs)** with the <span class="in">`glmer()`</span> function.</span>
+<span id="cb37-208"><a href="#cb37-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-211"><a href="#cb37-211" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-212"><a href="#cb37-212" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary library and dataset</span></span>
+<span id="cb37-213"><a href="#cb37-213" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb37-214"><a href="#cb37-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-215"><a href="#cb37-215" aria-hidden="true" tabindex="-1"></a><span class="co"># View the sleepstudy dataset</span></span>
+<span id="cb37-216"><a href="#cb37-216" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"sleepstudy"</span>)</span>
+<span id="cb37-217"><a href="#cb37-217" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sleepstudy)</span>
+<span id="cb37-218"><a href="#cb37-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-219"><a href="#cb37-219" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a binary outcome: 1 if reaction time is above 300, 0 otherwise</span></span>
+<span id="cb37-220"><a href="#cb37-220" aria-hidden="true" tabindex="-1"></a>sleepstudy<span class="sc">$</span>binary_reaction <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(sleepstudy<span class="sc">$</span>Reaction <span class="sc">&gt;</span> <span class="dv">300</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb37-221"><a href="#cb37-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-222"><a href="#cb37-222" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a GLMM with binary outcome (binary_reaction)</span></span>
+<span id="cb37-223"><a href="#cb37-223" aria-hidden="true" tabindex="-1"></a><span class="co"># Random intercept for Subject, and Days as a predictor</span></span>
+<span id="cb37-224"><a href="#cb37-224" aria-hidden="true" tabindex="-1"></a>glmm_model <span class="ot">&lt;-</span> <span class="fu">glmer</span>(binary_reaction <span class="sc">~</span> Days <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Subject), </span>
+<span id="cb37-225"><a href="#cb37-225" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> sleepstudy, <span class="at">family =</span> binomial)</span>
+<span id="cb37-226"><a href="#cb37-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-227"><a href="#cb37-227" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the model summary</span></span>
+<span id="cb37-228"><a href="#cb37-228" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmm_model)</span>
+<span id="cb37-229"><a href="#cb37-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-230"><a href="#cb37-230" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-231"><a href="#cb37-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-232"><a href="#cb37-232" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
+<span id="cb37-233"><a href="#cb37-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-234"><a href="#cb37-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-235"><a href="#cb37-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-236"><a href="#cb37-236" aria-hidden="true" tabindex="-1"></a>#####</span>
+<span id="cb37-237"><a href="#cb37-237" aria-hidden="true" tabindex="-1"></a>######</span>
+<span id="cb37-238"><a href="#cb37-238" aria-hidden="true" tabindex="-1"></a>########</span>
+<span id="cb37-239"><a href="#cb37-239" aria-hidden="true" tabindex="-1"></a>#########</span>
+<span id="cb37-240"><a href="#cb37-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-241"><a href="#cb37-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-242"><a href="#cb37-242" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 1: Random Intercept Model</span></span>
+<span id="cb37-243"><a href="#cb37-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-244"><a href="#cb37-244" aria-hidden="true" tabindex="-1"></a>Use a new dataset and fit a random intercept model. Interpret the fixed and random effects.</span>
+<span id="cb37-245"><a href="#cb37-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-248"><a href="#cb37-248" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-249"><a href="#cb37-249" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
+<span id="cb37-250"><a href="#cb37-250" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb37-251"><a href="#cb37-251" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb37-252"><a href="#cb37-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-253"><a href="#cb37-253" aria-hidden="true" tabindex="-1"></a><span class="co"># raw URL from your GitHub Gist</span></span>
+<span id="cb37-254"><a href="#cb37-254" aria-hidden="true" tabindex="-1"></a>gist_url <span class="ot">&lt;-</span> <span class="st">"https://gist.githubusercontent.com/swhawes/83345cfbf7f42b26d6922590594311f1/raw/a091b25e9d45d4d72a25705c8a2604292895ed11/longitudinal_dataset.csv"</span></span>
+<span id="cb37-255"><a href="#cb37-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-256"><a href="#cb37-256" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the dataset from GitHub Gist with the correct delimiter (tab)</span></span>
+<span id="cb37-257"><a href="#cb37-257" aria-hidden="true" tabindex="-1"></a>longitudinal_data <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(gist_url, <span class="at">delim =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
+<span id="cb37-258"><a href="#cb37-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-259"><a href="#cb37-259" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first few rows of the dataset to ensure it's read correctly</span></span>
+<span id="cb37-260"><a href="#cb37-260" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(longitudinal_data)</span>
+<span id="cb37-261"><a href="#cb37-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-262"><a href="#cb37-262" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------ Example Analyses ------------------</span></span>
+<span id="cb37-263"><a href="#cb37-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-264"><a href="#cb37-264" aria-hidden="true" tabindex="-1"></a><span class="co"># Example 1: Linear Mixed Effects Model (Growth Curve Modeling for Cognitive Score)</span></span>
+<span id="cb37-265"><a href="#cb37-265" aria-hidden="true" tabindex="-1"></a>growth_curve_model <span class="ot">&lt;-</span> <span class="fu">lmer</span>(CogTestScore <span class="sc">~</span> Wave <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> ParticipantID), <span class="at">data =</span> longitudinal_data)</span>
+<span id="cb37-266"><a href="#cb37-266" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(growth_curve_model)</span>
+<span id="cb37-267"><a href="#cb37-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-268"><a href="#cb37-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-269"><a href="#cb37-269" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-270"><a href="#cb37-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-271"><a href="#cb37-271" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 2: Compare Random Intercept vs. Random Slope</span></span>
+<span id="cb37-272"><a href="#cb37-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-273"><a href="#cb37-273" aria-hidden="true" tabindex="-1"></a>Fit both a random intercept model and a random slope model. Compare their AIC values and interpret the results.</span>
+<span id="cb37-274"><a href="#cb37-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-277"><a href="#cb37-277" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb37-278"><a href="#cb37-278" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
+<span id="cb37-279"><a href="#cb37-279" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb37-280"><a href="#cb37-280" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb37-281"><a href="#cb37-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-282"><a href="#cb37-282" aria-hidden="true" tabindex="-1"></a><span class="co"># raw URL from your GitHub Gist (ensure this is the tab-delimited dataset)</span></span>
+<span id="cb37-283"><a href="#cb37-283" aria-hidden="true" tabindex="-1"></a>gist_url <span class="ot">&lt;-</span> <span class="st">"https://gist.githubusercontent.com/swhawes/83345cfbf7f42b26d6922590594311f1/raw/a091b25e9d45d4d72a25705c8a2604292895ed11/longitudinal_dataset.csv"</span></span>
+<span id="cb37-284"><a href="#cb37-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-285"><a href="#cb37-285" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the dataset from GitHub Gist with the correct delimiter (tab)</span></span>
+<span id="cb37-286"><a href="#cb37-286" aria-hidden="true" tabindex="-1"></a>longitudinal_data <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(gist_url, <span class="at">delim =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
+<span id="cb37-287"><a href="#cb37-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-288"><a href="#cb37-288" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------ Exercise 2: Compare Random Intercept vs. Random Slope ------------------</span></span>
+<span id="cb37-289"><a href="#cb37-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-290"><a href="#cb37-290" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a random intercept model (each participant has their own intercept)</span></span>
+<span id="cb37-291"><a href="#cb37-291" aria-hidden="true" tabindex="-1"></a>random_intercept_model <span class="ot">&lt;-</span> <span class="fu">lmer</span>(CogTestScore <span class="sc">~</span> Wave <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> ParticipantID), <span class="at">data =</span> longitudinal_data)</span>
+<span id="cb37-292"><a href="#cb37-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-293"><a href="#cb37-293" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a random slope model (each participant has their own intercept and slope for Wave)</span></span>
+<span id="cb37-294"><a href="#cb37-294" aria-hidden="true" tabindex="-1"></a>random_slope_model <span class="ot">&lt;-</span> <span class="fu">lmer</span>(CogTestScore <span class="sc">~</span> Wave <span class="sc">+</span> (Wave <span class="sc">|</span> ParticipantID), <span class="at">data =</span> longitudinal_data)</span>
+<span id="cb37-295"><a href="#cb37-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-296"><a href="#cb37-296" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare the AIC values of both models</span></span>
+<span id="cb37-297"><a href="#cb37-297" aria-hidden="true" tabindex="-1"></a>aic_comparison <span class="ot">&lt;-</span> <span class="fu">AIC</span>(random_intercept_model, random_slope_model)</span>
+<span id="cb37-298"><a href="#cb37-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-299"><a href="#cb37-299" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the AIC comparison</span></span>
+<span id="cb37-300"><a href="#cb37-300" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(aic_comparison)</span>
+<span id="cb37-301"><a href="#cb37-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-302"><a href="#cb37-302" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the model summaries for interpretation</span></span>
+<span id="cb37-303"><a href="#cb37-303" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(random_intercept_model)</span>
+<span id="cb37-304"><a href="#cb37-304" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(random_slope_model)</span>
+<span id="cb37-305"><a href="#cb37-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-306"><a href="#cb37-306" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb37-307"><a href="#cb37-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-308"><a href="#cb37-308" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb37-309"><a href="#cb37-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-310"><a href="#cb37-310" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conclusion</span></span>
+<span id="cb37-311"><a href="#cb37-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-312"><a href="#cb37-312" aria-hidden="true" tabindex="-1"></a>Congratulations on completing this tutorial! You’ve learned how to fit and interpret linear mixed-effects models for longitudinal data, assess model fit, and visualize the results.</span>
+<span id="cb37-313"><a href="#cb37-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-314"><a href="#cb37-314" aria-hidden="true" tabindex="-1"></a>For more advanced topics, continue exploring nested models, GLMMs, and more complex structures as you build confidence with LMMs. Keep practicing, and don’t hesitate to refer back to this guide as you progress.</span>
+<span id="cb37-315"><a href="#cb37-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-316"><a href="#cb37-316" aria-hidden="true" tabindex="-1"></a>Happy modeling!</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>

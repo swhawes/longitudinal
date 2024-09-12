@@ -8,9 +8,12 @@ const navigation = inject<Ref<NavItem[]>>("navigation");
   <UContainer>
     <UPage>
       <template #left>
-        <UAside v-if="$route.path !== '/testcontent'">
+        <UAside v-if="!$route.path.includes('/testcontent')" class="sidebar">
           <UNavigationTree :links="mapContentNavigation(navigation)" />
         </UAside>
+        <main :class="{ 'full-width': $route.path.includes('/testcontent') }">
+          <nuxt />
+        </main>
       </template>
 
       <slot />

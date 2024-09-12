@@ -4,9 +4,11 @@ title: Overview of test content
 
 test contentzzp
 
-## Resources Sectio
+## Resources Section
+
+<div class="full-screen-wrapper">
 
 <method-card-list />
 
-
+</div>
 
