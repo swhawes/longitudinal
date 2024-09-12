@@ -11,13 +11,13 @@ format:
 ---
 
 
-### Overview
+### 🏗️ Foundations
 
 Linear mixed models (LMMs) are a versatile statistical tool used to analyze data with both fixed effects, which represent population-wide trends, and random effects, which account for individual or group-level variability. They are particularly valuable for hierarchically structured data or repeated measures, such as students within schools or patients monitored over time, where correlations between observations need to be modeled. In longitudinal analyses, LMMs are often preferred because they allow for individual-specific baselines and rates of change by incorporating random intercepts and slopes. This flexibility makes LMMs ideal for capturing both overall trends and individual variations, offering a more nuanced understanding of the data compared to simpler regression models.
 
 <div class="when-to-use-section">
 
-### 💡 When to use Linear Mixed Models (LMMs)?
+### 🤔 Why use Linear Mixed Models (LMMs)?
 
 You should consider using LMMs in the following scenarios:
 
@@ -41,7 +41,7 @@ Let's dive in!
 
 <div class="highlighted-content-header">
 
-### Basic Example 
+### 👩‍💻 Hands-On Example 
 
 </div>
 
@@ -184,7 +184,9 @@ There, you will find exercises like:
 
 Head over to **[www.playground.com](www.playground.com)** to get started!
 
-### Advanced Topics (Optional)
+---
+
+### 🧩 Advanced Topics (Optional)
 
 #### Nested Models and Cross-Classified Models
 
@@ -210,7 +212,9 @@ For non-continuous outcomes (e.g., binary, count), generalized linear mixed mode
 
 Bayesian methods for LMMs provide an alternative to frequentist approaches, allowing for more flexible modeling with prior distributions on the fixed and random effects. Packages like `brms` and `rstanarm` make it easier to fit Bayesian linear mixed models.
 
-### Conclusion
+--- 
+
+### 💭 Final Thoughts
 
 Congratulations on completing this tutorial! You’ve learned how to fit and interpret linear mixed-effects models for longitudinal data, assess model fit, and visualize the results.
 
@@ -220,7 +224,7 @@ Happy modeling!
 
 ---
 
-### Further Resources for Learning About Linear Mixed Models
+### 🔗 Further Resources for Learning About Linear Mixed Models
 
 If you're looking to deepen your understanding of Linear Mixed Models (LMMs) and explore more advanced topics, here are some excellent resources:
 
