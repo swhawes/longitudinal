@@ -110,10 +110,10 @@ h3 {
   font-size: 1.1em;
 }
 
-p {
+/* p {
   font-size: 0.9em;
   color: #555;
-}
+} */
 
 .white-text {
   color: white;
@@ -128,4 +128,31 @@ html {
   height: 100vh;
   margin: 0;
   padding: 0;
+}
+
+.when-to-use-section {
+  border: 2px solid grey;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  background-color: rgba(211, 211, 211, 0.1);
+}
+
+.getting-started-section {
+  border: 2px solid grey;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  background-color: rgba(211, 211, 211, 0);
+}
+.highlighted-content-header {
+  color: #00dc82; /* Nuxt green text */
+  text-shadow: 0 0 10px white; /* White shadow */
+  border: 2px solid #00dc82; /* Nuxt green border */
+  padding: 0.25rem; /* Adjust padding as needed */
+  display: inline-block;
+  box-shadow: 0 0 10px white; /* White box shadow */
+  border-radius: 0.25rem; /* Optional: round the corners */
 }
