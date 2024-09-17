@@ -131,8 +131,9 @@ html {
 }
 
 .when-to-use-section {
-  border: 2px solid grey;
-  border-radius: 10px;
+  border: 2px solid #00dc82; /* Nuxt green border */
+  box-shadow: 0 0 10px white; /* White box shadow */
+  border-radius: 0.25rem; /* Optional: round the corners */
   padding: 15px;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -140,8 +141,8 @@ html {
 }
 
 .getting-started-section {
-  border: 2px solid grey;
-  border-radius: 10px;
+  /* border: 2px solid grey;
+  border-radius: 10px; */
   padding: 15px;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -155,4 +156,57 @@ html {
   display: inline-block;
   box-shadow: 0 0 10px white; /* White box shadow */
   border-radius: 0.25rem; /* Optional: round the corners */
+}
+
+.hands-on-section {
+  /* Background color remains consistent with the rest of the page */
+  border: 2px solid #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 30px 0;
+  box-shadow: 0px 4px 8px rgba(176, 156, 156, 0.1);
+}
+
+/* Text and List Styling: All non-code block text in white */
+.hands-on-section p,
+.hands-on-section li {
+  color: #ffffff; /* White text for paragraphs and list items */
+  /* font-size: 16px; */
+}
+
+/* Headings with white text and slight shadow */
+.hands-on-section h3,
+.hands-on-section h4 {
+  color: #ffffff; /* White text for headings */
+  font-weight: bold;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2); /* Shadow for better readability */
+}
+
+
+/* List styling */
+.hands-on-section ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.hands-on-section ul li {
+  margin-bottom: 10px;
+}
+
+.tabcontent {
+  display: none;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+.tab-buttons button {
+  padding: 10px 15px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.tab-buttons button.active {
+  background-color: #00dc82;
+  color: #fff;
 }

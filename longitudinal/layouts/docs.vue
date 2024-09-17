@@ -14,6 +14,7 @@ const navigation = inject<Ref<NavItem[]>>("navigation");
         <main :class="{ 'full-width': $route.path.includes('/testcontent') }">
           <nuxt />
         </main>
+        zzzzzl
       </template>
 
       <slot />

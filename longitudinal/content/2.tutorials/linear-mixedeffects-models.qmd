@@ -39,11 +39,9 @@ In this tutorial, we will introduce the concept of linear mixed-effects models (
 Let's dive in!
 </div>
 
-<div class="highlighted-content-header">
+<div class="hands-on-section">
 
 ### 👩‍💻 Hands-On Example 
-
-</div>
 
 For this tutorial, we will use a simple dataset containing the following information for a group of individuals:
 
@@ -172,47 +170,22 @@ ggplot(data, aes(x = Time, y = pred, color = factor(SubjectID))) +
     )
 
 ```
+</div>
 
 ### 🛝 Playground Exercises
 
 We encourage you to explore real-world examples and experiment with models in our interactive sandbox. You can practice fitting models like random intercept models, random slope models, and compare their AIC values through the **[Playground](www.playground.com)** section of the website.
 
-There, you will find exercises like:
-
-- **Exercise 1**: Fit a random intercept model using a dataset and interpret the fixed and random effects.
-- **Exercise 2**: Compare a random intercept model vs. a random slope model, and analyze their AIC values to determine which model fits better.
-
 Head over to **[www.playground.com](www.playground.com)** to get started!
 
 ---
 
-### 🧩 Advanced Topics (Optional)
+### 🧩 Advanced Topics
+z
+<SimpleCarousel />
 
-#### Nested Models and Cross-Classified Models
 
-In more complex cases, you might have individuals nested within larger groups (e.g., students within schools). LMMs can handle this by including random effects at multiple levels, accounting for both within-group and between-group variability.
 
-#### Time-Varying Covariates
-
-LMMs can incorporate time-varying covariates—variables that change over time for each individual, such as stress levels or income. This allows you to model how changes in covariates over time influence the outcome.
-
-#### Random Slopes with Interaction Terms
-
-Incorporating interaction terms in random slope models allows you to examine how the relationship between predictors (e.g., time) and the outcome varies across individuals or groups. This is useful when you expect the effect of a predictor to differ depending on group membership or another variable.
-
-#### Model Selection and Penalization
-
-When fitting complex models, it’s important to choose the right balance of fixed and random effects. Techniques like AIC and BIC can help with model selection. Additionally, penalization methods like Lasso or Ridge regularization may be considered to prevent overfitting, especially in high-dimensional data.
-
-#### Generalized Linear Mixed Models (GLMMs)
-
-For non-continuous outcomes (e.g., binary, count), generalized linear mixed models (GLMMs) extend LMMs by incorporating different link functions and distributions. For example, the `glmer()` function in `lme4` can be used for binary logistic regression or Poisson regression in the mixed-effects framework.
-
-#### Bayesian Linear Mixed Models
-
-Bayesian methods for LMMs provide an alternative to frequentist approaches, allowing for more flexible modeling with prior distributions on the fixed and random effects. Packages like `brms` and `rstanarm` make it easier to fit Bayesian linear mixed models.
-
---- 
 
 ### 💭 Final Thoughts
 
@@ -244,4 +217,4 @@ If you're looking to deepen your understanding of Linear Mixed Models (LMMs) and
 
 These resources should help you expand your knowledge and gain more practical experience with Linear Mixed Models.
 
-
+</div>

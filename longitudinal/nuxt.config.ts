@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   ],
   hooks: {
     'components:extend': (components) => {
-      const globals = components.filter(c => ['UButton', 'UIcon', 'ArticleList', 'MethodCardList'].includes(c.pascalName))
+      const globals = components.filter(c => ['UButton', 'UIcon', 'ArticleList', 'MethodCardList', 'SimpleCarousel', 'TabComponent'].includes(c.pascalName))
       globals.forEach(c => c.global = true)
     }
   },
@@ -74,5 +74,7 @@ export default defineNuxtConfig({
         autoprefixer: {}
       }
     }
-  }
+  },
+  // Add the plugins array here
+  plugins: ['~/plugins/customDirectives.js']
 })
