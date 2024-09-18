@@ -5,7 +5,8 @@
     </header>
 
     <main>
-      <nuxt />
+      test no sidebar
+      <!-- <nuxt /> -->
     </main>
 
     <footer>
