@@ -1,0 +1,54 @@
+---
+title: "Diagnostic Plots for Longitudinal Data Models"
+---
+
+### Introduction
+
+Diagnostic plots are essential tools for evaluating the assumptions of statistical models. In longitudinal data analysis, these plots help assess model fit, check for outliers, and ensure that assumptions like normality and homoscedasticity are met. This tutorial will guide you through creating and interpreting key diagnostic plots.
+
+### Residual vs Fitted Plot
+
+This plot helps assess whether residuals are randomly distributed. If the model is correctly specified, residuals should show no systematic pattern.
+
+```r
+# Residual vs Fitted plot
+residuals <- resid(model)
+fitted_values <- fitted(model)
+plot(fitted_values, residuals, xlab = "Fitted Values", ylab = "Residuals")
+abline(h = 0, col = "red")
+```
+
+### Normal Q-Q Plot
+
+A Q-Q plot checks if the residuals are normally distributed. If the points follow the 45-degree line, then the residuals are approximately normal.
+
+```r
+# Q-Q plot
+qqnorm(residuals)
+qqline(residuals, col = "red")
+```
+
+### Scale-Location Plot
+
+This plot helps check the assumption of homoscedasticity, which means that the variance of residuals should remain constant across fitted values.
+
+```r
+# Scale-Location plot
+sqrt_residuals <- sqrt(abs(residuals))
+plot(fitted_values, sqrt_residuals, xlab = "Fitted Values", ylab = "Sqrt(|Residuals|)")
+```
+
+### Cook's Distance
+
+Cook's distance measures the influence of individual data points on the model. Large values indicate influential observations that may be distorting the model.
+
+```r
+# Cook's Distance plot
+cooks_distance <- cooks.distance(model)
+plot(cooks_distance, type = "h", ylab = "Cook's Distance")
+abline(h = 4/(nrow(longitudinal_data) - length(coef(model))), col = "red")
+```
+
+### Conclusion
+
+Diagnostic plots are invaluable for verifying model assumptions and identifying areas where the model may be improved. By using these plots, you can ensure that your longitudinal data models are both reliable and robust. Stay curious and keep experimenting with these tools—they'll help sharpen your analytic skills!

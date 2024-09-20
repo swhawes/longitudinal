@@ -1,47 +1,52 @@
 <template>
   <div>
-    <!-- Button to toggle the visibility of text -->
-    <button @click="toggleText">
-      Toggle Text
-    </button>
+    <!-- Tab navigation -->
+    <button @click="setActiveTab('tab1')">Tab 1</button>
+    <button @click="setActiveTab('tab2')">Tab 2</button>
+    <button @click="setActiveTab('tab3')">Tab 3</button>
 
-    <!-- Conditionally display the text "Hello" based on the showText variable -->
-    <p v-if="showText">Hello</p>
+    <!-- Tab contents, conditionally displayed based on the active tab -->
+    <div v-if="activeTab === 'tab1'">
+      <slot name="tab1-content"></slot>
+    </div>
 
-    <!-- Render content passed from the markdown using the slot and conditionally display it -->
-    <slot v-if="showText"></slot>
+    <div v-if="activeTab === 'tab2'">
+      <slot name="tab2-content"></slot>
+    </div>
+
+    <div v-if="activeTab === 'tab3'">
+      <slot name="tab3-content"></slot>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 
-// Create a reactive variable to track whether the text should be shown or hidden
-const showText = ref(false)
+// Create a reactive variable to track the active tab
+const activeTab = ref('tab1')
 
-// Function to toggle the visibility of the text
-const toggleText = () => {
-  showText.value = !showText.value
+// Function to change the active tab
+const setActiveTab = (tab) => {
+  activeTab.value = tab
 }
 </script>
 
 <style scoped>
-/* Add optional styles for the button and text */
 button {
   padding: 10px 20px;
+  margin-right: 10px;
   background-color: #00dc82;
   color: white;
   border: none;
   cursor: pointer;
 }
-
 button:hover {
   background-color: #00a155;
 }
-
-p {
+div {
+  margin-top: 20px;
   font-size: 18px;
-  margin-top: 10px;
   color: #333;
 }
 </style>

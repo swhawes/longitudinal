@@ -1,0 +1,144 @@
+---
+title: "Random Intercept Cross-Lagged Panel Model (RI-CLPM)"
+author: "Your Name"
+format: 
+  html:
+    code-tools: true
+    toc: true
+    toc-depth: 3
+    code-link: true
+    df-print: paged
+---
+
+### 🏗️ Foundations
+
+The Random Intercept Cross-Lagged Panel Model (RI-CLPM) is an advanced extension of the standard Cross-Lagged Panel Model (CLPM). RI-CLPM accounts for between-person differences by including random intercepts, which separate stable trait-like differences from within-person fluctuations over time. This model provides a clearer understanding of the reciprocal effects between variables by controlling for stable individual differences.
+
+RI-CLPM is widely used in psychological and social sciences research to study how variables influence each other over time while controlling for unobserved between-person differences.
+
+<div class="when-to-use-section">
+
+### 🤔 When to Use Random Intercept Cross-Lagged Panel Models?
+
+Consider using RI-CLPM when:
+
+1. You have at least two variables measured repeatedly over time.
+2. You want to examine both the reciprocal relationships between variables and stable between-person differences.
+3. You are interested in distinguishing within-person dynamics from between-person effects in your data.
+
+</div>
+
+<div class="getting-started-section">
+
+### 🚀 Getting Started with Random Intercept Cross-Lagged Panel Models
+
+In this tutorial, you will learn how to:
+
+1. Understand the structure of an RI-CLPM.
+2. Fit an RI-CLPM in R using example data.
+3. Interpret the results to distinguish between within-person and between-person effects.
+
+</div>
+
+<div class="hands-on-section">
+
+### 👩‍💻 Hands-On Example
+
+#### Dataset
+
+We will use a dataset where two variables, **X** and **Y**, are measured at three time points. RI-CLPM will help us estimate both the within-person cross-lagged relationships and the stable between-person differences.
+
+- **SubjectID**: A unique identifier for each individual.
+- **X_T1, X_T2, X_T3**: Variable X measured at times 1, 2, and 3.
+- **Y_T1, Y_T2, Y_T3**: Variable Y measured at times 1, 2, and 3.
+
+```r
+# Generate a simple dataset
+set.seed(123)
+data <- data.frame(
+  SubjectID = 1:100,
+  X_T1 = rnorm(100, mean = 50, sd = 10),
+  X_T2 = rnorm(100, mean = 52, sd = 10),
+  X_T3 = rnorm(100, mean = 54, sd = 10),
+  Y_T1 = rnorm(100, mean = 60, sd = 10),
+  Y_T2 = rnorm(100, mean = 62, sd = 10),
+  Y_T3 = rnorm(100, mean = 64, sd = 10)
+)
+
+# View the first few rows
+head(data)
+```
+
+#### Fitting a Random Intercept Cross-Lagged Panel Model in R
+
+We will use the `lavaan` package in R to fit an RI-CLPM. The model includes random intercepts for both variables to account for stable between-person differences, as well as the cross-lagged paths to estimate within-person effects.
+
+```r
+# Install and load necessary library
+if (!require(lavaan)) install.packages("lavaan")
+library(lavaan)
+
+# Define the RI-CLPM model
+riclpm_model <- '
+  # Random intercepts (between-person effects)
+  RI_X =~ 1*X_T1 + 1*X_T2 + 1*X_T3
+  RI_Y =~ 1*Y_T1 + 1*Y_T2 + 1*Y_T3
+  
+  # Within-person cross-lagged paths
+  X_T2 ~ X_T1 + Y_T1
+  X_T3 ~ X_T2 + Y_T2
+  Y_T2 ~ Y_T1 + X_T1
+  Y_T3 ~ Y_T2 + X_T2
+  
+  # Correlations between random intercepts
+  RI_X ~~ RI_Y
+'
+
+# Fit the RI-CLPM
+fit <- sem(riclpm_model, data = data)
+
+# Display the model summary
+summary(fit, fit.measures = TRUE)
+```
+
+#### Model Interpretation
+
+The random intercepts account for stable between-person differences in both variables, while the cross-lagged paths represent the within-person effects. By examining the random intercepts and cross-lagged paths, we can distinguish between stable trait-like differences and dynamic within-person changes.
+
+#### Visualizing the Random Intercepts and Cross-Lagged Paths
+
+We can plot the estimated paths to visualize both the between-person effects (random intercepts) and the within-person cross-lagged relationships.
+
+```r
+# Load semPlot for visualization
+if (!require(semPlot)) install.packages("semPlot")
+library(semPlot)
+
+# Plot the path diagram
+semPaths(fit, "std", layout = "tree", sizeMan = 7, residuals = FALSE, nCharNodes = 6)
+```
+
+</div>
+
+### 🛝 Exercises
+
+Experiment with adding more time points or additional variables to the model. You can also explore including covariates to control for other factors that may influence both the within-person and between-person effects.
+
+---
+
+### 💭 Final Thoughts
+
+Random Intercept Cross-Lagged Panel Models provide a sophisticated way to separate within-person dynamics from stable between-person differences. By including random intercepts, RI-CLPM offers deeper insights into the temporal relationships between variables while accounting for unobserved individual differences.
+
+---
+
+### 🔗 Further Resources for Learning About RI-CLPM
+
+- **Books**:
+   - *"Longitudinal Data Analysis for Social Science Researchers"* by Jason Newsom: A great resource for understanding RI-CLPM and other longitudinal models.
+   - *"Cross-Lagged Panel Models in Longitudinal Research"* by Kees van Montfort: A detailed guide to cross-lagged panel models, including the RI-CLPM.
+
+- **Online Tutorials**:
+   - [Random Intercept Cross-Lagged Panel Models in R by IDRE at UCLA](https://stats.oarc.ucla.edu/r/seminars/ri-clpm/): A step-by-step guide on fitting RI-CLPM in R.
+
+</div>
