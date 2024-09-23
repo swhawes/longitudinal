@@ -13,11 +13,13 @@ format:
 
 ### 🏗️ Foundations
 
-Linear mixed models (LMMs) are a versatile statistical tool used to analyze data with both fixed effects, which represent population-wide trends, and random effects, which account for individual or group-level variability. They are particularly valuable for hierarchically structured data or repeated measures, such as students within schools or patients monitored over time, where correlations between observations need to be modeled. In longitudinal analyses, LMMs are often preferred because they allow for individual-specific baselines and rates of change by incorporating random intercepts and slopes. This flexibility makes LMMs ideal for capturing both overall trends and individual variations, offering a more nuanced understanding of the data compared to simpler regression models.
+Linear Mixed-Effects Models, also known as linear mixed models (LMMs), are versatile statistical tools used to analyze data that involve both fixed effects and random effects. Fixed effects represent population-wide trends consistent across all observations, while random effects account for individual or group-level variability. LMMs are particularly useful for handling data with hierarchical or nested structures, such as measurements nested within individuals or individuals nested within groups. In situations where observations are correlated due to these nested structures, traditional linear regression models may not adequately account for the dependency among observations, potentially leading to biased estimates and invalid inferences.
+
+In longitudinal analyses, LMMs are often preferred because they allow for individual-specific baselines and rates of change by incorporating random intercepts and slopes. This flexibility makes LMMs ideal for capturing both overall trends and individual variations, offering a more nuanced understanding of the data compared to simpler regression models. For example, in a study measuring students’ academic performance over time, a linear mixed-effects model can include fixed effects for overall trends and random effects to account for individual differences in intercepts and slopes, modeling both the average effect and the individual deviations from that average. By partitioning the variance into components attributable to fixed and random effects, LMMs provide a flexible framework for analyzing complex data structures. They can handle unbalanced data, missing values, and varying numbers of observations, making them suitable for longitudinal studies and repeated measures designs.
 
 <div class="when-to-use-section">
 
-### 🤔 Why use Linear Mixed Models (LMMs)?
+### 🤔 When to Use Linear Mixed Models (LMMs)?
 
 You should consider using LMMs in the following scenarios:
 

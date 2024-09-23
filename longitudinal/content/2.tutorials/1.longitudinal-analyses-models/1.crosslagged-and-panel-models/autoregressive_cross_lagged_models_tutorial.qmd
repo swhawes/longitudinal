@@ -12,9 +12,11 @@ format:
 
 ### 🏗️ Foundations
 
-Autoregressive Cross-Lagged (ARCL) models are valuable tools for analyzing the reciprocal relationships between variables over time. ARCL models estimate how a variable at an earlier time point influences itself at later time points (autoregressive paths), as well as how one variable influences another variable across time (cross-lagged paths). This type of analysis is especially useful for testing the directionality of relationships over time and understanding how two variables dynamically influence each other.
+Autoregressive Cross-Lagged (ARCL) Models are statistical techniques used in longitudinal data analysis to examine the reciprocal relationships between two or more variables over time while accounting for their stability. These models combine autoregressive paths, which capture the stability of each variable by modeling its effect on itself at subsequent time points, with cross-lagged paths, which represent the influence of one variable on another at later time points. By including both types of paths, ARCL models allow researchers to assess the directionality and strength of associations between variables over time.
 
-ARCL models provide insights into whether changes in one variable predict changes in another over time and whether the relationship between two variables is reciprocal.
+In an ARCL model, the autoregressive paths control for prior levels of each variable, isolating the unique effect that one variable has on another beyond their inherent stability. This is particularly useful when exploring dynamic processes where variables may influence each other reciprocally, such as the relationship between academic achievement and self-esteem over time. By modeling these reciprocal effects, researchers can gain insights into potential causal mechanisms and temporal precedence in the relationships among variables.
+
+ARCL models are widely used in psychology, education, and social sciences to explore developmental processes and the interplay between variables across multiple time points. They offer a comprehensive framework for understanding how variables influence each other over time, accounting for both their stability and cross-influences, thereby providing a deeper understanding of the complex dynamics present in longitudinal data.
 
 <div class="when-to-use-section">
 

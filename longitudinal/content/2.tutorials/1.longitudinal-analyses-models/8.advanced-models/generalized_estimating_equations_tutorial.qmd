@@ -12,9 +12,11 @@ format:
 
 ### 🏗️ Foundations
 
-Generalized Estimating Equations (GEE) are used to analyze longitudinal and clustered data when the interest is in population-averaged effects rather than individual-level variations. GEEs account for correlations between repeated measures, offering a robust method for estimating parameters when the correlation structure is not well-defined or fully specified. Unlike mixed models, GEEs focus on the marginal (population-level) effects, rather than individual-specific trajectories.
+Generalized Estimating Equations (GEE) are a statistical method used to analyze longitudinal and clustered data where observations within clusters may be correlated. GEEs extend generalized linear models (GLMs) to accommodate correlated response data by introducing a working correlation structure among observations within the same cluster. Unlike traditional methods that focus on modeling individual-specific effects, GEEs provide population-averaged estimates, making them particularly useful for studying the average response in a population over time or across groups.
 
-GEEs are particularly useful when your data contains repeated measures or is grouped in some way, such as patients in hospitals or students in schools.
+In GEE, the primary interest is in estimating the mean response as a function of covariates while accounting for the correlation between repeated measures or clustered observations. The method specifies a link function to relate the mean of the response variable to the linear predictor, similar to GLMs, and incorporates a working correlation matrix to model the within-cluster dependencies. Importantly, GEEs provide robust standard errors that are consistent even if the working correlation structure is misspecified, as long as the mean model is correctly specified.
+
+GEEs are widely used in fields such as biostatistics, epidemiology, and social sciences, where data are often collected longitudinally or in clusters. They are particularly advantageous when the focus is on population-level effects rather than individual trajectories. By offering a flexible and robust approach to analyzing correlated data, Generalized Estimating Equations enhance the ability to draw valid inferences about the relationships between predictors and outcomes in complex data structures.
 
 <div class="when-to-use-section">
 

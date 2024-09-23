@@ -12,9 +12,9 @@ format:
 
 ### 🏗️ Foundations
 
-Latent Growth Curve Models (LGCM) are a powerful tool for modeling change over time, allowing you to estimate both an overall growth trajectory for a population and individual variations around that trajectory. LGCM is widely used in longitudinal research to study how variables evolve over time and to identify the factors that influence individual differences in growth.
+Latent Growth Curve Models (LGCMs) are a statistical technique within structural equation modeling used to analyze longitudinal data by modeling the trajectory of change over time within individuals. They focus on latent variables that represent initial status (intercept) and rates of change (slope), capturing both the average growth trajectory of a population and individual deviations from that trajectory. By incorporating these latent factors, LGCMs provide a flexible framework for understanding individual differences in growth patterns and the underlying mechanisms driving change.
 
-LGCM assumes that each individual follows a trajectory of change, and the model estimates both the average trajectory and the variability of these trajectories across individuals.
+LGCMs are particularly useful for investigating how specific factors influence developmental processes over time. They can include time-invariant covariates (variables that do not change over time) and time-varying covariates (variables that change over time) to examine their effects on growth trajectories. This allows researchers to assess complex relationships between variables across multiple time points, such as how an intervention might impact the rate of change in an outcome variable. By accounting for measurement error and capturing unobserved heterogeneity, LGCMs enhance the analysis of longitudinal data. They enable the identification of distinct growth patterns within subgroups of a population and facilitate testing theoretical models of development. Overall, latent growth curve models offer a comprehensive approach to modeling both individual and group-level changes over time.
 
 <div class="when-to-use-section">
 

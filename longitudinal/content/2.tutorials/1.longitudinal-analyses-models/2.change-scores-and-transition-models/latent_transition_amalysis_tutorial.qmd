@@ -12,9 +12,11 @@ format:
 
 ### 🏗️ Foundations
 
-Latent Transition Analysis (LTA) is a longitudinal extension of latent class analysis (LCA) that models changes in latent class membership over time. LTA identifies distinct subgroups (latent classes) at different time points and tracks transitions between these classes. It is particularly useful for understanding how individuals move between latent states (e.g., risk levels, behavioral profiles) over time and what factors influence these transitions.
+Latent Transition Analysis (LTA) is a statistical technique used to model changes in unobserved categorical states over time within a longitudinal framework. As an extension of latent class analysis (LCA), LTA identifies latent classes at each time point and estimates the probabilities of individuals transitioning between these classes across multiple time points. This approach allows researchers to examine patterns of change in categorical latent variables, such as behavioral or psychological states, and to assess how covariates may influence these transitions.
 
-LTA is ideal for researchers interested in exploring shifts in behavioral or psychological states and understanding how transitions are influenced by covariates.
+In LTA, individuals are assumed to belong to latent classes that represent unobserved subgroups within the population. By modeling the probabilities of transitioning from one latent class to another over time, LTA captures both the stability and change in these unobserved states. This provides insights into the dynamics of latent constructs, such as how certain behaviors may emerge, persist, or dissipate over time.
+
+LTA is particularly useful where understanding the progression of categorical states is essential. By incorporating covariates, researchers can explore factors that predict class membership and transition probabilities, enabling a deeper understanding of the mechanisms underlying change. Overall, Latent Transition Analysis offers a powerful framework for analyzing longitudinal categorical data, revealing complex patterns of development and change within populations.
 
 <div class="when-to-use-section">
 

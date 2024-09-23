@@ -12,9 +12,11 @@ format:
 
 ### 🏗️ Foundations
 
-Discrete-Time Survival Models are a useful tool for modeling the time until an event occurs in discrete time intervals. Unlike continuous survival models, which assume that the event can happen at any point in time, discrete-time survival models are ideal when events are observed at specific time points (e.g., yearly or monthly). These models can handle data where events such as graduation, job changes, or health outcomes are recorded in time intervals.
+Discrete-Time Survival Models are statistical techniques used to analyze time-to-event data when the timing of events is measured in discrete intervals, such as days, months, or years. Unlike continuous-time survival analysis, which assumes that events can occur at any instant, discrete-time models are appropriate when events are only observed or recorded at specific time points. This approach is particularly useful where data collection occurs at regular intervals, and exact event times are unknown or impractical to measure.
 
-Survival models are used in a variety of disciplines to understand not only *if* an event occurs, but *when* it occurs, while accounting for individuals who may not experience the event by the end of the study (i.e., censoring).
+In discrete-time survival models, the hazard function—- the probability that an event occurs at a particular time interval given that it has not occurred before—- is modeled using logistic regression or other generalized linear models. The data are typically organized in a person-period format, where each individual contributes one or more observations corresponding to each time interval they are at risk. Covariates can be included to assess their effects on the hazard probability, allowing researchers to examine how factors influence the timing of events over the discrete time periods.
+
+By accommodating the discrete nature of time measurement, these models provide a flexible framework for analyzing survival data without the need for strong assumptions about the underlying hazard function’s form. They can handle time-varying covariates and allow for the inclusion of complex patterns of hazard probabilities across time intervals. Discrete-Time Survival Models enhance the ability to understand and predict event occurrence in longitudinal studies where time is measured in distinct units, offering valuable insights into the dynamics of processes of change.
 
 <div class="when-to-use-section">
 

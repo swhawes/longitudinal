@@ -12,9 +12,11 @@ format:
 
 ### 🏗️ Foundations
 
-Time-Varying Covariates Models (TVCM) are used to examine how covariates that change over time influence an outcome variable. These models allow for the inclusion of covariates that fluctuate across different time points and assess their relationship with the growth or change of the outcome variable. By explicitly modeling these time-varying effects, TVCM can capture dynamic influences on the outcome variable across the duration of the study.
+Time-Varying Covariate Models (TVCMs) are statistical models that incorporate covariates whose values change over time to analyze their impact on an outcome of interest. Unlike models with time-invariant covariates, TVCMs recognize that the effect of predictors may vary at different time points, allowing for a more dynamic and accurate representation of real-world processes. These models are particularly useful in longitudinal studies, where repeated measurements of variables are collected over time, and the relationship between predictors and outcomes may evolve.
 
-TVCM is particularly useful in studies where the covariates of interest (e.g., stress, income, or health) vary across time and may affect the trajectory of an outcome.
+In TVCMs, time-varying covariates can influence the outcome in various ways. For instance, in survival analysis, time-varying covariates are used to model how changes in risk factors affect the hazard rate of an event occurring at specific times. Similarly, in growth modeling, time-varying predictors can explain fluctuations in individual trajectories by accounting for external factors that vary across measurement occasions. By including these covariates, researchers can assess both the immediate and cumulative effects of predictors on the outcome, providing deeper insights into the mechanisms underlying change.
+
+Time-Varying Covariate Models enhance the flexibility and explanatory power of statistical analyses by accommodating the dynamic nature of many real-world phenomena. They allow for the examination of complex interactions between predictors and outcomes over time, facilitating a more nuanced understanding of developmental processes, treatment effects, or policy impacts. By appropriately modeling time-varying covariates, researchers can improve the accuracy of their estimates and make more informed conclusions about the factors influencing change in their studies.
 
 <div class="when-to-use-section">
 

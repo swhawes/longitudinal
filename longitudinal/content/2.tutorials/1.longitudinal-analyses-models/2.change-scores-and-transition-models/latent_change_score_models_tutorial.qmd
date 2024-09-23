@@ -12,9 +12,11 @@ format:
 
 ### 🏗️ Foundations
 
-Latent Change Score Models (LCSM) are an extension of traditional latent growth models, designed to explicitly model the change between consecutive time points. LCSMs focus on how much individuals change over time and the factors that drive this change. By modeling the latent change directly, LCSMs allow researchers to assess what influences growth rates and explore individual differences in the change process.
+Latent Change Score Models (LCSM) are extensions of traditional latent growth models, designed to explicitly model the change between consecutive time points. By focusing on the latent change scores, LCSM allows researchers to assess how much individuals change over time and to explore the factors that drive this change. Unlike traditional growth models that focus on modeling trajectories using slopes and intercepts, LCSMs directly capture the change between successive time points. This approach models the change itself as a latent variable, capturing individual differences in growth rates and providing insights into the dynamics of the change process. By directly modeling these latent changes, LCSM enables the examination of relationships between changes in different variables over time.
 
-LCSM is particularly useful for researchers who are interested in understanding how change occurs over time and what variables may predict this change.
+In LCSMs, the change between measurements is treated as a latent construct, enabling the separation of true change from measurement error. This approach allows researchers to model the factors influencing change scores, such as the effect of time-varying covariates, and to examine individual differences in change processes. By specifying the relationships between initial levels, change scores, and covariates, LCSMs provide a flexible framework for testing hypotheses about the mechanisms driving change over time.
+
+Latent Change Score Models are particularly useful when the interest lies in understanding the dynamics of change itself rather than just the overall trajectory. They can accommodate non-linear patterns of change and are capable of modeling reciprocal effects between variables over time. This makes LCSMs a powerful tool in fields like psychology, education, and health sciences, where capturing the complexity of developmental processes is essential.
 
 <div class="when-to-use-section">
 

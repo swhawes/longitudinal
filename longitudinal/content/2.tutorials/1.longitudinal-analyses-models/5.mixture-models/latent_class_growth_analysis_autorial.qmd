@@ -12,9 +12,11 @@ format:
 
 ### 🏗️ Foundations
 
-Latent Class Growth Analysis (LCGA) is used to identify distinct subgroups (latent classes) within a population based on their growth trajectories over time. LCGA assumes that individuals within each class share a similar growth pattern, but the patterns can vary between classes. This method is particularly useful in identifying heterogeneity in longitudinal data, revealing underlying subgroups that may follow different developmental trajectories.
+Latent Class Growth Analysis (LCGA) is a statistical technique that extends traditional growth modeling by identifying distinct subgroups, or latent classes, within a population that share similar developmental trajectories over time. Unlike standard growth models that assume a single homogeneous population, LCGA acknowledges that the population may consist of multiple unobserved groups, each following a unique pattern of change. By partitioning individuals into these latent classes, LCGA allows researchers to explore heterogeneity in growth patterns and understand how different subgroups evolve over time.
 
-LCGA is widely applied in psychological, educational, and social research to identify subpopulations that have distinct patterns of change over time.
+In LCGA, within-class variability in growth parameters is constrained to zero, meaning that all individuals within a latent class are assumed to have the same growth trajectory. This simplification distinguishes LCGA from Growth Mixture Models (GMM), which allow for individual variability within classes. By fixing within-class variances, LCGA focuses on capturing the major differences between classes, making it a useful tool when the primary interest is in identifying distinct developmental pathways rather than individual differences within those pathways.
+
+LCGA is particularly valuable in fields such as psychology, education, and public health, where understanding the existence of qualitatively different growth patterns can inform theory and practice. For example, researchers might use LCGA to identify subgroups of patients who respond differently to a treatment over time or to uncover distinct trajectories of academic achievement among students. By revealing the presence of multiple latent classes with unique growth patterns, LCGA provides a framework for tailoring interventions and advancing knowledge about the diversity of developmental processes.
 
 <div class="when-to-use-section">
 

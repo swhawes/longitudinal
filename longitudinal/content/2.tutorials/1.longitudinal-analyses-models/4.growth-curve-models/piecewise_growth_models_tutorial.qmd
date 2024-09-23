@@ -12,9 +12,9 @@ format:
 
 ### 🏗️ Foundations
 
-Piecewise Growth Models (PGMs) allow for the estimation of growth trajectories that can change at one or more points over time. Rather than assuming a single growth trajectory across the entire time period, PGMs break the trajectory into distinct "pieces," each of which can have its own growth rate. This is particularly useful when you expect that the growth pattern changes at known times, such as after an intervention or a significant life event.
+Piecewise Latent Growth Curve Models (LGCM) are an extension of latent growth curve modeling that allow researchers to model developmental trajectories that change direction or rate at specific points in time. These models are particularly useful when the process under study is hypothesized to have different phases, each with its own distinct pattern of change. By dividing the overall time span into segments and specifying “knots” or breakpoints, piecewise models estimate separate growth parameters—such as intercepts and slopes—for each segment, providing a more accurate representation of complex longitudinal data.
 
-Piecewise growth models are widely used in longitudinal studies to capture changes in growth patterns over specific time periods.
+In a piecewise LGCM, the trajectory is modeled as a series of connected linear segments, with each segment capturing the growth rate within a specific time interval. This approach allows for the modeling of non-linear change in a linear framework by connecting these linear pieces at the specified breakpoints. Researchers can examine how growth rates differ before and after events like interventions, policy changes, or developmental milestones, testing hypotheses about shifts in the trajectory. By accommodating changes in growth patterns over time, these models offer a flexible and powerful tool for analyzing longitudinal data where the assumption of a single, continuous growth process is inadequate. Piecewise LGCMs enhance the ability to detect and interpret shifts in developmental trajectories, providing deeper insights into processes that exhibit different phases of change.
 
 <div class="when-to-use-section">
 

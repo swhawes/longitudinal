@@ -12,7 +12,11 @@ format:
 
 ### 🏗️ Foundations
 
-Residualized change scores are a useful statistical approach for measuring change over time when you are interested in isolating the unique variance of an outcome at a later time point after accounting for baseline levels. This method helps control for individual differences at baseline and allows for a more precise estimate of the relationship between predictors and change in the outcome. Residualized change scores are typically calculated by regressing a follow-up score (e.g., Time 2) on a baseline score (e.g., Time 1) and extracting the residuals. These residuals represent the amount of change unexplained by the baseline score.
+Residualized Change Scores are a statistical method used in longitudinal data analysis to measure change over time while controlling for baseline levels. This approach involves regressing a follow-up score (e.g., Time 2) on its baseline score (e.g., Time 1) and extracting the residuals from this regression. These residuals represent the portion of the follow-up score that is not explained by the baseline score, effectively isolating the unique variance in the outcome at the later time point after accounting for initial levels.
+
+By controlling for individual differences at baseline, residualized change scores allow researchers to obtain a more precise estimate of the relationship between predictors and changes in the outcome variable. This method helps adjust for regression to the mean and reduces potential biases that can occur when using simple difference scores. Residualized change scores are particularly useful when the interest lies in understanding how predictors are associated with changes over time rather than with the outcome at a single time point.
+
+This approach is straightforward to implement and interpret, making it valuable where identifying factors that contribute to change is essential. By focusing on the unexplained variance in the follow-up measure, residualized change scores provide insights into the mechanisms underlying development, progression, or the effects of interventions over time.
 
 <div class="when-to-use-section">
 

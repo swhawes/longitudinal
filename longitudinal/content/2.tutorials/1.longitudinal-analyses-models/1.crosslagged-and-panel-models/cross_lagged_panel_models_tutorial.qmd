@@ -12,9 +12,11 @@ format:
 
 ### 🏗️ Foundations
 
-Cross-lagged panel models (CLPMs) are used to examine the reciprocal relationships between two or more variables over time. They allow you to assess both the stability of each variable and the cross-lagged effects, which indicate whether changes in one variable predict subsequent changes in another. CLPMs are particularly useful when studying the dynamic interplay between variables, such as the relationship between academic achievement and motivation over time.
+Cross-Lagged Panel Models (CLPM) are a type of structural equation model used in longitudinal research to examine the reciprocal relationships between two or more variables measured at multiple time points. CLPM incorporate both autoregressive paths, which model the stability of each variable over time, and cross-lagged paths, which represent the influence of one variable on another at subsequent time points. By simultaneously estimating these paths, CLPM help disentangle the temporal ordering and potential causal relationships between variables.
 
-By including both autoregressive (within-variable) and cross-lagged (between-variable) paths, CLPMs offer a detailed view of how variables influence each other over multiple time points.
+In a CLPM, the autoregressive paths control for prior levels of each variable, allowing the cross-lagged paths to reflect the unique effect of one variable on changes in another over time. This enables researchers to assess whether changes in one variable precede and potentially contribute to changes in another, providing insights into possible directional influences. CLPM are particularly useful for testing theories about the dynamic interplay between variables and for exploring how relationships evolve over time.
+
+These models are widely used in fields such as psychology, education, and social sciences to investigate developmental processes, behavioral interactions, and other phenomena where understanding the direction and strength of relationships over time is important. By accounting for both stability and cross-lagged effects, Cross-Lagged Panel Models offer a robust framework for analyzing longitudinal data and for making inferences about the potential causal pathways between variables.
 
 <div class="when-to-use-section">
 

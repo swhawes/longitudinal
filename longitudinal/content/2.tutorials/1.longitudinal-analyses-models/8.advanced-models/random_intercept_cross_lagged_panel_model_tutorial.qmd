@@ -12,9 +12,11 @@ format:
 
 ### 🏗️ Foundations
 
-The Random Intercept Cross-Lagged Panel Model (RI-CLPM) is an advanced extension of the standard Cross-Lagged Panel Model (CLPM). RI-CLPM accounts for between-person differences by including random intercepts, which separate stable trait-like differences from within-person fluctuations over time. This model provides a clearer understanding of the reciprocal effects between variables by controlling for stable individual differences.
+The Random Intercept Cross-Lagged Panel Model (RI-CLPM) is an advanced statistical technique used in longitudinal data analysis to examine the dynamic reciprocal relationships between variables over time while accounting for stable between-person differences. Traditional Cross-Lagged Panel Models (CLPM) assess directional influences between variables across multiple time points but often conflate within-person fluctuations with between-person differences. The RI-CLPM addresses this limitation by incorporating random intercepts that capture the stable, trait-like components of each variable, effectively separating them from the state-like, within-person variations.
 
-RI-CLPM is widely used in psychological and social sciences research to study how variables influence each other over time while controlling for unobserved between-person differences.
+In the RI-CLPM, random intercepts represent time-invariant, person-specific means of the variables, reflecting individual differences consistent over time. By modeling these random intercepts, the RI-CLPM controls for between-person variance, allowing researchers to focus on the within-person processes that drive changes in the variables across time. This separation enhances the ability to understand the dynamic interplay between variables at the within-person level without the confounding influence of stable traits.
+
+The RI-CLPM is particularly useful where understanding temporal dynamics is essential. For example, researchers might use the RI-CLPM to investigate how fluctuations in stress and coping strategies influence each other over time within individuals, independent of stable individual differences. By providing a more accurate representation of longitudinal relationships, the Random Intercept Cross-Lagged Panel Model offers valuable insights into the mechanisms underlying change and development.
 
 <div class="when-to-use-section">
 

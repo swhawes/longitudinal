@@ -1,0 +1,23 @@
+---
+title: "Latent Curve Model with Structured Residuals (LCM-SR)"
+author: "Your Name"
+format: 
+  html:
+    code-tools: true
+    toc: true
+    toc-depth: 3
+    code-link: true
+    df-print: paged
+---
+
+### 🏗️ Foundations
+
+Latent Curve Models with Structured Residuals (LCM-SR) are an advanced extension of latent growth curve models used to analyze longitudinal data in structural equation modeling. While traditional latent growth models focus on capturing the overall trajectory of change over time through latent factors like intercepts and slopes, LCM-SR additionally account for patterns in the residuals of the observed variables. Specifically, they incorporate structured residuals to model autocorrelations or other dependencies among repeated measures that are not explained by the latent growth factors.
+
+In LCM-SR, the residuals of the observed variables are allowed to correlate in a structured way, often modeled using autoregressive (AR) processes or other time-series structures. This means that the residual at one time point is influenced by residuals at previous time points, capturing the idea that unmeasured factors affecting the outcome may persist or evolve over time. By explicitly modeling these residual structures, LCM-SR provide a more accurate representation of the data, improving parameter estimates and enhancing the understanding of the underlying processes influencing change.
+
+This approach is particularly useful when the assumption of independent residuals is violated, which is common in longitudinal data where measurements are taken at multiple time points. By accounting for the autocorrelation in residuals, LCM-SR help isolate the true growth trajectory from other time-dependent fluctuations. This results in a more precise estimation of the growth factors and offers deeper insights into the dynamics of change over time. Latent Curve Models with Structured Residuals thus offer researchers a powerful tool for analyzing complex longitudinal data, capturing both systematic growth patterns and the structured residual influences affecting observed variables.
+
+<div class="when-to-use-section">
+
+### 🤔 When to Use Latent Curve Model with Structured Residuals?

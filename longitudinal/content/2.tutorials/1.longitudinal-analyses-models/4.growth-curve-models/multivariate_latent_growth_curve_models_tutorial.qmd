@@ -12,9 +12,9 @@ format:
 
 ### 🏗️ Foundations
 
-Multivariate Latent Growth Curve Models (MLGCMs) are an extension of latent growth models that allow for the simultaneous modeling of change in multiple variables over time. MLGCMs not only capture the individual growth trajectories for each variable but also allow for the examination of how these trajectories are related to each other. This method is useful when you have multiple outcomes that change over time and you want to understand their shared growth dynamics.
+Multivariate Latent Growth Curve Models (LGCM), also known as parallel process latent growth curves, extend the traditional latent growth curve framework to simultaneously model the development of two or more related variables over time. By capturing the growth trajectories of multiple processes within the same model, researchers can examine how changes in one variable are associated with changes in another, providing insights into the dynamic interplay between developmental processes.
 
-By modeling multiple outcomes together, MLGCMs provide insights into the correlations between the growth factors (intercepts and slopes) of different variables.
+In these models, each variable has its own set of latent growth factors—typically intercepts and slopes—that represent initial status and rates of change. By allowing the latent factors of different variables to correlate, multivariate LGCMs assess the extent to which the trajectories of the variables are related. This approach enables the investigation of questions such as whether individuals who start higher on one variable also start higher on another, or whether the rate of change in one variable predicts the rate of change in another. Multivariate LGCMs are particularly useful in fields like psychology, education, and health sciences, where multiple developmental processes may influence each other over time. For example, researchers might use these models to explore the relationship between academic achievement and self-esteem during adolescence, assessing how changes in one domain affect changes in the other. By capturing the shared and unique aspects of growth in different variables, multivariate LGCMs offer a comprehensive view of longitudinal data.
 
 <div class="when-to-use-section">
 
