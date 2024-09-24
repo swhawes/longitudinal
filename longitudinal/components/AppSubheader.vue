@@ -23,7 +23,7 @@
         </li>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >Data Structures</a
+            >Cheat Sheets</a
           >
         </li>
         <li>
@@ -33,45 +33,9 @@
             >Linear Mixed Models</a
           >
         </li>
-        <AppDropdown>
-          <template #link>
-            <li>
-              <a
-                href="#"
-                class="text-white hover:text-gray-300 whitespace-nowrap"
-                >dropdownTabTest</a
-              >
-            </li>
-          </template>
-          <template #dropdown>
-            <ul class="py-1">
-              <li>
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  >Overview</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  >Patterns</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  >Best Practices</a
-                >
-              </li>
-            </ul>
-          </template>
-        </AppDropdown>
         <li>
-          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >SEM</a
+          <a href="/tools#ides" class="text-white hover:text-gray-300 whitespace-nowrap"
+            >IDEs</a
           >
         </li>
         <AppDropdown>
@@ -80,7 +44,7 @@
               <a
                 href="#"
                 class="text-white hover:text-gray-300 whitespace-nowrap"
-                >Data Science</a
+                >Data Wrangling</a
               >
             </li>
           </template>
@@ -155,7 +119,7 @@
         </AppDropdown>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >Practice Problems</a
+            >Workshops</a
           >
         </li>
         <li>
@@ -188,14 +152,14 @@
         </li>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >Book Clubs</a
+            >Book Club</a
           >
         </li>
         <li>
           <a
-            href="/tools#ides"
+            href="#"
             class="text-white hover:text-gray-300 whitespace-nowrap"
-            >IDEs</a
+            >Missing Data</a
           >
         </li>
         <li>
