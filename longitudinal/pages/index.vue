@@ -65,7 +65,6 @@ useSeoMeta({
       </UPageGrid>
     </ULandingSection>
 
-   
     <AcknowledgmentsSection />
 
     <!-- Add content here -->
