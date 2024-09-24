@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// import ExploreSection from "~/components/ExploreSection.vue";
 // import CoursesSection from "~/components/LongSection.vue";
 // import FetchJson from "~/components/FetchJson.vue"; // Import the FetchJson component
 
@@ -66,7 +65,7 @@ useSeoMeta({
       </UPageGrid>
     </ULandingSection>
 
-    <ExploreSection :articles="articles" />
+   
     <AcknowledgmentsSection />
 
     <!-- Add content here -->

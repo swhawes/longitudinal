@@ -18,7 +18,7 @@ const { header } = useAppConfig()
         <!-- Updated UBadge with a router-link to the /about page -->
         <router-link to="/about">
           <UBadge
-            label="Docs"
+            label="tl;dr"
             variant="subtle"
             class="mb-0.5 cursor-pointer"
           />
