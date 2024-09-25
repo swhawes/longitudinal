@@ -1,0 +1,127 @@
+---
+title: "Discrete-Time Survival Models"
+author: "Your Name"
+format: 
+  html:
+    code-tools: true
+    toc: true
+    toc-depth: 3
+    code-link: true
+    df-print: paged
+---
+
+### 🏗️ Foundations
+
+Discrete-Time Survival Models are statistical techniques used to analyze time-to-event data when the timing of events is measured in discrete intervals, such as days, months, or years. Unlike continuous-time survival analysis, which assumes that events can occur at any instant, discrete-time models are appropriate when events are only observed or recorded at specific time points. This approach is particularly useful where data collection occurs at regular intervals, and exact event times are unknown or impractical to measure.
+
+In discrete-time survival models, the hazard function—- the probability that an event occurs at a particular time interval given that it has not occurred before—- is modeled using logistic regression or other generalized linear models. The data are typically organized in a person-period format, where each individual contributes one or more observations corresponding to each time interval they are at risk. Covariates can be included to assess their effects on the hazard probability, allowing researchers to examine how factors influence the timing of events over the discrete time periods.
+
+By accommodating the discrete nature of time measurement, these models provide a flexible framework for analyzing survival data without the need for strong assumptions about the underlying hazard function’s form. They can handle time-varying covariates and allow for the inclusion of complex patterns of hazard probabilities across time intervals. Discrete-Time Survival Models enhance the ability to understand and predict event occurrence in longitudinal studies where time is measured in distinct units, offering valuable insights into the dynamics of processes of change.
+
+<div class="when-to-use-section">
+
+### 🤔 When to Use Discrete-Time Survival Models?
+
+Use Discrete-Time Survival Models when:
+
+1. You are studying time-to-event data where the event occurs in discrete intervals (e.g., years, months).
+2. You need to account for censoring, where some individuals do not experience the event by the end of the study.
+3. You want to understand the timing of events and what factors influence the hazard (or risk) of an event occurring at a specific time point.
+
+</div>
+
+<div class="getting-started-section">
+
+### 🚀 Getting Started with Discrete-Time Survival Models
+
+In this tutorial, we will guide you through:
+
+1. Understanding the structure of a Discrete-Time Survival Model.
+2. Fitting a Discrete-Time Survival Model in R using a simple dataset.
+3. Interpreting the results to understand the time-to-event process.
+
+</div>
+
+<div class="hands-on-section">
+
+### 👩‍💻 Hands-On Example
+
+#### Dataset
+
+We will work with a dataset where we observe whether an event (e.g., job loss) occurs at specific time points for each individual. Some individuals are censored, meaning that they did not experience the event by the end of the study.
+
+- **SubjectID**: A unique identifier for each individual.
+- **Time**: The time point (in years).
+- **Event**: A binary variable indicating whether the event occurred (1) or did not occur (0).
+- **Censored**: A binary variable indicating whether the individual was censored (1 = yes, 0 = no).
+
+```r
+# Generate a simple dataset
+set.seed(123)
+data <- data.frame(
+  SubjectID = rep(1:100, each = 5),
+  Time = rep(0:4, times = 100),
+  Event = rbinom(500, 1, 0.2),
+  Censored = rbinom(500, 1, 0.1)
+)
+
+# View the first few rows
+head(data)
+```
+
+#### Fitting a Discrete-Time Survival Model in R
+
+We will use the `survival` package in R to fit a Discrete-Time Survival Model. This model will estimate the hazard of experiencing the event at each time point while accounting for censoring.
+
+```r
+# Install and load necessary library
+if (!require(survival)) install.packages("survival")
+library(survival)
+
+# Define the survival object
+surv_object <- Surv(time = data$Time, event = data$Event)
+
+# Fit the discrete-time survival model
+model <- coxph(surv_object ~ Time, data = data)
+
+# Display model summary
+summary(model)
+```
+
+#### Model Interpretation
+
+The hazard ratios from the model output indicate how the risk of experiencing the event changes over time. A hazard ratio greater than 1 means that the risk increases over time, while a hazard ratio less than 1 indicates a decreasing risk.
+
+#### Visualizing the Survival Function
+
+We can plot the survival function over time to visualize how the probability of surviving (i.e., not experiencing the event) changes over time.
+
+```r
+# Plot the survival function
+plot(survfit(model), xlab = "Time", ylab = "Survival Probability", main = "Discrete-Time Survival Function")
+```
+
+</div>
+
+### 🛝 Exercises
+
+Experiment with adding covariates to the model to see how factors like age or income influence the hazard of the event. You can also explore models with time-varying covariates to account for changes in risk over time.
+
+---
+
+### 💭 Final Thoughts
+
+Discrete-Time Survival Models are a powerful tool for modeling time-to-event data in discrete intervals. By accounting for censoring and estimating the hazard of events, these models provide insights into the timing of events and the factors that influence them.
+
+---
+
+### 🔗 Further Resources for Learning About Discrete-Time Survival Models
+
+- **Books**:
+   - *"Survival Analysis: A Self-Learning Text"* by David Kleinbaum: An excellent resource for learning survival analysis techniques, including discrete-time models.
+   - *"Applied Survival Analysis"* by Terry Therneau: A comprehensive guide to survival models in R.
+
+- **Online Tutorials**:
+   - [Survival Analysis in R by IDRE at UCLA](https://stats.oarc.ucla.edu/r/seminars/survival-analysis/): A step-by-step guide to fitting survival models in R.
+
+</div>

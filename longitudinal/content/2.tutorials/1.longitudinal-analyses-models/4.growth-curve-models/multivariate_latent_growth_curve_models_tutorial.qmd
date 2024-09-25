@@ -1,0 +1,158 @@
+---
+title: "Multivariate Latent Growth Curve Models"
+author: "Your Name"
+format: 
+  html:
+    code-tools: true
+    toc: true
+    toc-depth: 3
+    code-link: true
+    df-print: paged
+---
+
+### 🏗️ Foundations
+
+Multivariate Latent Growth Curve Models (LGCM), also known as parallel process latent growth curves, extend the traditional latent growth curve framework to simultaneously model the development of two or more related variables over time. By capturing the growth trajectories of multiple processes within the same model, researchers can examine how changes in one variable are associated with changes in another, providing insights into the dynamic interplay between developmental processes.
+
+In these models, each variable has its own set of latent growth factors—typically intercepts and slopes—that represent initial status and rates of change. By allowing the latent factors of different variables to correlate, multivariate LGCMs assess the extent to which the trajectories of the variables are related. This approach enables the investigation of questions such as whether individuals who start higher on one variable also start higher on another, or whether the rate of change in one variable predicts the rate of change in another. Multivariate LGCMs are particularly useful in fields like psychology, education, and health sciences, where multiple developmental processes may influence each other over time. For example, researchers might use these models to explore the relationship between academic achievement and self-esteem during adolescence, assessing how changes in one domain affect changes in the other. By capturing the shared and unique aspects of growth in different variables, multivariate LGCMs offer a comprehensive view of longitudinal data.
+
+<div class="when-to-use-section">
+
+### 🤔 When to Use Multivariate Latent Growth Curve Models?
+
+MLGCMs are useful when:
+
+1. You have more than one outcome variable measured repeatedly over time.
+2. You want to understand how growth trajectories of different variables are related.
+3. You need to examine both individual and shared dynamics in longitudinal data.
+
+</div>
+
+<div class="getting-started-section">
+
+### 🚀 Getting Started with Multivariate Latent Growth Curve Models
+
+In this tutorial, we will guide you through fitting an MLGCM using R. By the end of this tutorial, you will:
+
+1. Understand the concept of multivariate latent growth curve models.
+2. Fit an MLGCM to longitudinal data with multiple outcomes.
+3. Interpret the results and visualize shared growth trajectories.
+
+</div>
+
+<div class="hands-on-section">
+
+### 👩‍💻 Hands-On Example
+
+#### Dataset
+
+We will create a dataset with two outcome variables, measured over three time points. These outcomes could represent different but related measures, such as cognitive performance and physical health.
+
+- **SubjectID**: A unique identifier for each participant.
+- **Outcome1_T1**: The first outcome variable at time 1.
+- **Outcome1_T2**: The first outcome variable at time 2.
+- **Outcome1_T3**: The first outcome variable at time 3.
+- **Outcome2_T1**: The second outcome variable at time 1.
+- **Outcome2_T2**: The second outcome variable at time 2.
+- **Outcome2_T3**: The second outcome variable at time 3.
+
+```r
+# Generate a simple dataset
+set.seed(123)
+data <- data.frame(
+  SubjectID = 1:10,
+  Outcome1_T1 = rnorm(10, mean = 50, sd = 10),
+  Outcome1_T2 = rnorm(10, mean = 52, sd = 10),
+  Outcome1_T3 = rnorm(10, mean = 55, sd = 10),
+  Outcome2_T1 = rnorm(10, mean = 30, sd = 5),
+  Outcome2_T2 = rnorm(10, mean = 32, sd = 5),
+  Outcome2_T3 = rnorm(10, mean = 34, sd = 5)
+)
+
+# View the first few rows of the dataset
+head(data)
+```
+
+#### Fitting a Multivariate Latent Growth Curve Model in R
+
+We will use the `lavaan` package to fit an MLGCM, where we estimate the growth trajectories for both Outcome1 and Outcome2.
+
+```r
+# Install and load necessary library
+if (!require(lavaan)) install.packages("lavaan")
+library(lavaan)
+
+# Define the multivariate latent growth curve model
+mlgcm_model <- '
+  # Growth factors for Outcome 1
+  i1 =~ 1*Outcome1_T1 + 1*Outcome1_T2 + 1*Outcome1_T3
+  s1 =~ 0*Outcome1_T1 + 1*Outcome1_T2 + 2*Outcome1_T3
+
+  # Growth factors for Outcome 2
+  i2 =~ 1*Outcome2_T1 + 1*Outcome2_T2 + 1*Outcome2_T3
+  s2 =~ 0*Outcome2_T1 + 1*Outcome2_T2 + 2*Outcome2_T3
+
+  # Covariances between intercepts and slopes
+  i1 ~~ i2
+  s1 ~~ s2
+'
+
+# Fit the MLGCM
+fit <- sem(mlgcm_model, data = data)
+
+# Display the model summary
+summary(fit, fit.measures = TRUE)
+```
+
+#### Model Interpretation
+
+The model will provide estimates for the intercepts and slopes for both outcome variables, along with the covariances between these growth factors. These covariances tell us how the growth in one outcome is related to growth in the other.
+
+#### Visualizing the Trajectories
+
+Visualizing the individual and shared trajectories can provide a clearer understanding of the relationships between the outcomes.
+
+```r
+# Load ggplot2 for visualization
+library(ggplot2)
+
+# Reshape the data for visualization
+data_long <- reshape2::melt(data, id.vars = "SubjectID", variable.name = "Outcome", value.name = "Score")
+data_long$Time <- as.numeric(sub(".*_(T)", "", data_long$Outcome))
+data_long$Variable <- sub("_T.*", "", data_long$Outcome)
+
+# Plot the trajectories
+ggplot(data_long, aes(x = Time, y = Score, color = Variable)) +
+  geom_line(aes(group = interaction(SubjectID, Variable))) +
+  facet_wrap(~SubjectID) +
+  labs(
+    title = "Growth Trajectories for Two Outcomes",
+    x = "Time",
+    y = "Score"
+  )
+```
+
+</div>
+
+### 🛝 Exercises
+
+Experiment with adding more outcomes or covariates to see how they influence the shared growth trajectories. You can also explore different correlation structures between the growth factors.
+
+---
+
+### 💭 Final Thoughts
+
+Multivariate latent growth curve models offer a flexible and powerful way to understand how multiple outcomes change over time and how their growth trajectories are related. This method is ideal when you want to explore shared dynamics in longitudinal data.
+
+---
+
+### 🔗 Further Resources for Learning About Multivariate Latent Growth Curve Models
+
+- **Books**:
+   - *"Longitudinal Structural Equation Modeling"* by Todd Little: A detailed guide for learning about latent growth curve models.
+   - *"Multivariate Analysis of Longitudinal Data"* by Fitzmaurice, Laird, and Ware: Covers advanced topics in longitudinal analysis, including multivariate models.
+
+- **Online Tutorials**:
+   - [MLGCM in R by IDRE at UCLA](https://stats.oarc.ucla.edu/r/seminars/multivariate-latent-growth-curve/): A guide on how to fit MLGCMs using R.
+
+</div>

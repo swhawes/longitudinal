@@ -1,0 +1,132 @@
+---
+title: "Piecewise Growth Models"
+author: "Your Name"
+format: 
+  html:
+    code-tools: true
+    toc: true
+    toc-depth: 3
+    code-link: true
+    df-print: paged
+---
+
+### 🏗️ Foundations
+
+Piecewise Latent Growth Curve Models (LGCM) are an extension of latent growth curve modeling that allow researchers to model developmental trajectories that change direction or rate at specific points in time. These models are particularly useful when the process under study is hypothesized to have different phases, each with its own distinct pattern of change. By dividing the overall time span into segments and specifying “knots” or breakpoints, piecewise models estimate separate growth parameters—such as intercepts and slopes—for each segment, providing a more accurate representation of complex longitudinal data.
+
+In a piecewise LGCM, the trajectory is modeled as a series of connected linear segments, with each segment capturing the growth rate within a specific time interval. This approach allows for the modeling of non-linear change in a linear framework by connecting these linear pieces at the specified breakpoints. Researchers can examine how growth rates differ before and after events like interventions, policy changes, or developmental milestones, testing hypotheses about shifts in the trajectory. By accommodating changes in growth patterns over time, these models offer a flexible and powerful tool for analyzing longitudinal data where the assumption of a single, continuous growth process is inadequate. Piecewise LGCMs enhance the ability to detect and interpret shifts in developmental trajectories, providing deeper insights into processes that exhibit different phases of change.
+
+<div class="when-to-use-section">
+
+### 🤔 When to Use Piecewise Growth Models?
+
+Piecewise Growth Models are useful when:
+
+1. You believe that growth trajectories may change at specific points in time, such as before and after an intervention.
+2. You want to estimate separate growth rates for different time intervals.
+3. You have repeated measures data with potential shifts in the rate of change over time.
+
+</div>
+
+<div class="getting-started-section">
+
+### 🚀 Getting Started with Piecewise Growth Models
+
+In this tutorial, you will:
+
+1. Understand how to set up and fit a piecewise growth model.
+2. Fit a PGM in R using a simple dataset with two growth segments.
+3. Interpret the results to understand how the growth rates change over time.
+
+</div>
+
+<div class="hands-on-section">
+
+### 👩‍💻 Hands-On Example
+
+#### Dataset
+
+We will generate a dataset where an outcome variable is measured at six time points. The first three time points will represent a pre-intervention phase, and the last three will represent a post-intervention phase. The goal is to model different growth rates before and after the intervention.
+
+- **SubjectID**: A unique identifier for each individual.
+- **Time**: Time in years (ranging from 1 to 6).
+- **Outcome**: The outcome variable measured over time.
+
+```r
+# Generate a simple dataset
+set.seed(123)
+data <- data.frame(
+  SubjectID = rep(1:50, each = 6),
+  Time = rep(1:6, times = 50),
+  Outcome = c(rep(rnorm(50, mean = 50, sd = 5), 3), rep(rnorm(50, mean = 60, sd = 5), 3))
+)
+
+# View the first few rows
+head(data)
+```
+
+#### Fitting a Piecewise Growth Model in R
+
+We will use the `lme4` package in R to fit a piecewise growth model. We will define two segments: one for time points 1-3 (pre-intervention) and one for time points 4-6 (post-intervention).
+
+```r
+# Load necessary libraries
+library(lme4)
+
+# Define time segments: 1-3 (pre) and 4-6 (post)
+data$Pre_Post <- ifelse(data$Time <= 3, 0, 1)
+
+# Fit a piecewise growth model
+model <- lmer(Outcome ~ Time + Pre_Post + Time:Pre_Post + (1 | SubjectID), data = data)
+
+# Display model summary
+summary(model)
+```
+
+#### Model Interpretation
+
+The model estimates separate growth rates for the pre-intervention and post-intervention periods. The interaction term **Time:Pre_Post** tells us how the growth rate changes after the intervention.
+
+#### Visualizing the Growth Trajectories
+
+We can plot the growth trajectories to visualize how the rate of change differs before and after the intervention.
+
+```r
+# Load ggplot2 for visualization
+library(ggplot2)
+
+# Plot individual growth trajectories and group means
+ggplot(data, aes(x = Time, y = Outcome, group = SubjectID)) +
+  geom_line(alpha = 0.4) +
+  stat_summary(fun = mean, geom = "line", color = "blue", size = 1.2) +
+  labs(
+    title = "Piecewise Growth Model: Pre- and Post-Intervention Trajectories",
+    x = "Time (Years)",
+    y = "Outcome"
+  )
+```
+
+</div>
+
+### 🛝 Exercises
+
+Experiment with changing the time point where the intervention occurs or adding more time segments to model more complex growth patterns. You can also explore adding covariates to explain variability in the growth rates between individuals.
+
+---
+
+### 💭 Final Thoughts
+
+Piecewise Growth Models are a powerful tool for modeling growth trajectories that change at specific points in time. By breaking the growth trajectory into segments, you can capture shifts in the rate of change, making these models particularly useful when studying interventions or life events.
+
+---
+
+### 🔗 Further Resources for Learning About Piecewise Growth Models
+
+- **Books**:
+   - *"Applied Longitudinal Data Analysis"* by Singer & Willett: A comprehensive guide to longitudinal data analysis, including piecewise growth models.
+   - *"Growth Curve Analysis and Visualization Using R"* by Daniel Mirman: This book covers various growth models, including piecewise approaches.
+
+- **Online Tutorials**:
+   - [Piecewise Growth Models in R by IDRE at UCLA](https://stats.oarc.ucla.edu/r/seminars/piecewise-growth-models/): A step-by-step guide on fitting piecewise growth models in R.
+
+</div>

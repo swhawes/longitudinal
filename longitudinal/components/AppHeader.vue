@@ -1,24 +1,35 @@
 <script setup lang="ts">
-import type { NavItem } from "@nuxt/content/dist/runtime/types";
-import AppSubheader from "./AppSubheader.vue"; // Import the new Subheader component
+import type { NavItem } from '@nuxt/content/dist/runtime/types'
+import AppSubheader from './AppSubheader.vue' // Import the new Subheader component
 
-const navigation = inject<NavItem[]>("navigation", []);
+const navigation = inject<NavItem[]>('navigation', [])
 
-const { header } = useAppConfig();
+const { header } = useAppConfig()
 </script>
 
 <template>
   <UHeader>
     <template #logo>
       <template v-if="header?.logo?.dark || header?.logo?.light">
-        <UColorModeImage v-bind="{ class: 'h-6 w-auto', ...header?.logo }" />
+        <!-- <UColorModeImage v-bind="{ class: 'h-6 w-auto', ...header?.logo }" /> -->
       </template>
       <template v-else>
-        <span class="highlighted-logo">Longitudinal.dev</span> <UBadge label="Docs" variant="subtle" class="mb-0.5" />
+        <span class="highlighted-logo">Longitudinal.dev</span>
+        <!-- Updated UBadge with a router-link to the /about page -->
+        <router-link to="/about">
+          <UBadge
+            label="tl;dr"
+            variant="subtle"
+            class="mb-0.5 cursor-pointer"
+          />
+        </router-link>
       </template>
     </template>
 
-    <template v-if="header?.search" #center>
+    <template
+      v-if="header?.search"
+      #center
+    >
       <UContentSearchButton class="hidden lg:flex" />
     </template>
 
@@ -51,12 +62,11 @@ const { header } = useAppConfig();
 <style scoped>
 .highlighted-logo {
   color: white; /* Adjust color if needed */
-  text-shadow: 0 0 10px #00DC82; /* Nuxt green shadow */
-  border: 2px solid #00DC82; /* Nuxt green border */
+  text-shadow: 0 0 10px #00dc82; /* Nuxt green shadow */
+  border: 2px solid #00dc82; /* Nuxt green border */
   padding: 0.25rem; /* Adjust padding as needed */
   display: inline-block;
-  box-shadow: 0 0 10px #00DC82; /* Nuxt green box shadow */
+  box-shadow: 0 0 10px #00dc82; /* Nuxt green box shadow */
   border-radius: 0.25rem; /* Optional: round the corners */
 }
 </style>
-

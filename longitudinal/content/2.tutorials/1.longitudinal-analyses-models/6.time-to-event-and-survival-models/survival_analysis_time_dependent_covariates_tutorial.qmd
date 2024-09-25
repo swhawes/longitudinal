@@ -1,0 +1,128 @@
+---
+title: "Survival Analysis with Time-Dependent Covariates"
+author: "Your Name"
+format: 
+  html:
+    code-tools: true
+    toc: true
+    toc-depth: 3
+    code-link: true
+    df-print: paged
+---
+
+### 🏗️ Foundations
+
+Survival Analysis with time-dependent covariates is a statistical approach used to model time-to-event data where explanatory variables (covariates) can change over the observation period. Traditional survival analysis methods, like the Cox proportional hazards model, often assume that covariates are fixed throughout the study. However, in many real-world situations, covariates may vary with time, influencing the hazard function at different moments. Incorporating time-dependent covariates allows for a more accurate and dynamic modeling of the hazard rate, capturing the effects of variables whose values change over time.
+
+In this framework, covariates are classified as either internal or external time-dependent covariates. Internal covariates are functions of the survival process itself (e.g., biomarkers measured repeatedly), while external covariates are independent of the survival process (e.g., changing environmental factors). The inclusion of time-dependent covariates in survival models enables researchers to assess how changes in covariates affect the risk of event occurrence at specific times, providing deeper insights into the temporal dynamics of the factors influencing survival.
+
+Survival Analysis with time-dependent covariates is particularly useful in medical research, epidemiology, and social sciences, where understanding the impact of evolving factors on the timing of events is crucial. By extending traditional survival models to account for covariate changes over time, this approach enhances the ability to make more precise predictions and to identify critical periods when interventions may be most effective. It allows for a nuanced analysis of complex longitudinal data, facilitating a better understanding of the relationships between time-varying factors and event risks.
+
+<div class="when-to-use-section">
+
+### 🤔 When to Use Survival Analysis with Time-Dependent Covariates?
+
+Use this type of analysis when:
+
+1. You have time-to-event data, and you want to model when an event happens.
+2. One or more of your covariates change over time, such as blood pressure or medication status.
+3. You need to account for how changing covariates influence the hazard rate over time.
+
+</div>
+
+<div class="getting-started-section">
+
+### 🚀 Getting Started with Survival Analysis and Time-Dependent Covariates
+
+In this tutorial, we will:
+
+1. Review how to fit a survival model with time-dependent covariates using R.
+2. Use a dataset with repeated measurements for a covariate to demonstrate how time-dependent variables are incorporated into survival models.
+
+</div>
+
+<div class="hands-on-section">
+
+### 👩‍💻 Hands-On Example
+
+#### Dataset
+
+We will create a dataset where we measure the time until an event (e.g., patient death), along with a time-dependent covariate (e.g., blood pressure). The dataset includes:
+
+- **SubjectID**: A unique identifier for each subject.
+- **StartTime**: The start of each interval.
+- **StopTime**: The end of each interval.
+- **Event**: Whether the event occurred at the stop time (1 = event, 0 = censored).
+- **TimeDependentCov**: A time-dependent covariate (e.g., blood pressure) measured at each time interval.
+
+```r
+# Generate a simple dataset
+set.seed(123)
+data <- data.frame(
+  SubjectID = rep(1:10, each = 4),
+  StartTime = rep(seq(0, 9, by = 3), times = 10),
+  StopTime = rep(seq(3, 12, by = 3), times = 10),
+  Event = rbinom(40, 1, 0.3),
+  TimeDependentCov = rnorm(40, mean = 120, sd = 10)
+)
+
+# View the first few rows
+head(data)
+```
+
+#### Fitting a Cox Proportional Hazards Model with Time-Dependent Covariates
+
+We will use the `survival` package in R to fit a Cox Proportional Hazards Model that includes time-dependent covariates.
+
+```r
+# Install and load necessary library
+if (!require(survival)) install.packages("survival")
+library(survival)
+
+# Fit a Cox model with time-dependent covariates
+cox_model <- coxph(Surv(StartTime, StopTime, Event) ~ TimeDependentCov + cluster(SubjectID), data = data)
+
+# Display the model summary
+summary(cox_model)
+```
+
+#### Model Interpretation
+
+The results of the Cox model with time-dependent covariates provide estimates of how the hazard of the event changes as the covariate changes over time. For example, a positive coefficient for the time-dependent covariate indicates that higher values of the covariate are associated with an increased hazard of the event occurring.
+
+#### Visualizing the Results
+
+We can visualize the effect of the time-dependent covariate on the hazard rate using Kaplan-Meier curves or predicted survival curves.
+
+```r
+# Fit a Kaplan-Meier survival curve for visualization
+km_fit <- survfit(Surv(StartTime, StopTime, Event) ~ TimeDependentCov, data = data)
+
+# Plot the survival curve
+plot(km_fit, xlab = "Time", ylab = "Survival Probability", main = "Kaplan-Meier Survival Curve")
+```
+
+</div>
+
+### 🛝 Exercises
+
+Try experimenting with different types of time-dependent covariates, or add more time points to see how the hazard changes with time-varying predictors.
+
+---
+
+### 💭 Final Thoughts
+
+You’ve learned how to incorporate time-dependent covariates into survival analysis, offering a dynamic way to assess how changing predictors influence the risk of an event over time. Survival analysis with time-dependent covariates is an essential tool when covariates do not remain constant throughout the study.
+
+---
+
+### 🔗 Further Resources for Learning About Survival Analysis with Time-Dependent Covariates
+
+- **Books**:
+   - *"Survival Analysis: Techniques for Censored and Truncated Data"* by Klein & Moeschberger: A comprehensive guide to survival analysis, including time-dependent covariates.
+   - *"Applied Survival Analysis"* by Hosmer, Lemeshow, and May: A practical guide for using survival analysis in research.
+
+- **Online Tutorials**:
+   - [Survival Analysis with Time-Dependent Covariates in R by IDRE at UCLA](https://stats.oarc.ucla.edu/r/survival-analysis-time-dependent/): A detailed guide on how to fit survival models with time-dependent covariates in R.
+
+</div>

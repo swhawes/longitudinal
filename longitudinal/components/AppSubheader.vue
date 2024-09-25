@@ -15,59 +15,27 @@
     >
       <ul class="flex flex-nowrap space-x-4">
         <li>
-          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+          <a
+            href="/tutorials/longitudinal-analyses-models/growth-curve-models/latent_growth_curve_models_tutorial"
+            class="text-white hover:text-gray-300 whitespace-nowrap"
             >Growth Curves</a
           >
         </li>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >Data Structures</a
+            >Cheat Sheets</a
           >
         </li>
         <li>
-          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+          <a
+            href="/tutorials/longitudinal-analyses-models/mixed-effects-and-multilevel/linear-mixedeffects-models"
+            class="text-white hover:text-gray-300 whitespace-nowrap"
             >Linear Mixed Models</a
           >
         </li>
-        <AppDropdown>
-          <template #link>
-            <li>
-              <a
-                href="#"
-                class="text-white hover:text-gray-300 whitespace-nowrap"
-                >dropdownTabTest</a
-              >
-            </li>
-          </template>
-          <template #dropdown>
-            <ul class="py-1">
-              <li>
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  >Overview</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  >Patterns</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                  >Best Practices</a
-                >
-              </li>
-            </ul>
-          </template>
-        </AppDropdown>
         <li>
-          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >SEM</a
+          <a href="/tools#ides" class="text-white hover:text-gray-300 whitespace-nowrap"
+            >IDEs</a
           >
         </li>
         <AppDropdown>
@@ -76,7 +44,7 @@
               <a
                 href="#"
                 class="text-white hover:text-gray-300 whitespace-nowrap"
-                >Data Science</a
+                >Data Wrangling</a
               >
             </li>
           </template>
@@ -110,7 +78,7 @@
           <template #link>
             <li>
               <a
-                href="#"
+                href="/tools#programming-languages"
                 class="text-white hover:text-gray-300 whitespace-nowrap"
                 >Programming Languages</a
               >
@@ -151,52 +119,67 @@
         </AppDropdown>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >Practice Problems</a
+            >Workshops</a
           >
         </li>
         <li>
-          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+          <a
+            href="/tutorials"
+            class="text-white hover:text-gray-300 whitespace-nowrap"
             >Tutorials</a
           >
         </li>
         <li>
-          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+          <a
+            href="/tutorials/data-visualization/viz_customizing-plots-ggplot2"
+            class="text-white hover:text-gray-300 whitespace-nowrap"
             >Visualizations</a
           >
         </li>
         <li>
-          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+          <a
+            href="/tools#notebooks"
+            class="text-white hover:text-gray-300 whitespace-nowrap"
             >Quarto</a
           >
         </li>
         <li>
-          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+          <a
+            href="/tools/6.data-formats"
+            class="text-white hover:text-gray-300 whitespace-nowrap"
             >Markdown</a
           >
         </li>
         <li>
           <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >Book Clubs</a
+            >Book Club</a
           >
         </li>
         <li>
-          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >IDEs</a
+          <a
+            href="#"
+            class="text-white hover:text-gray-300 whitespace-nowrap"
+            >Missing Data</a
           >
         </li>
         <li>
-          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >Tailwind/Vue</a
-          >
-        </li>
-        <li />
-        <li>
-          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
-            >ADD slack/github instructions/info</a
+          <a
+            href="https://longitudinaldev.slack.com"
+            class="text-white hover:text-gray-300 whitespace-nowrap"
+            >Slack Channel</a
           >
         </li>
         <li>
-          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
+          <a
+            href="https://github.com/OpenDevSci/LongDev-ABCD"
+            class="text-white hover:text-gray-300 whitespace-nowrap"
+            >Github</a
+          >
+        </li>
+        <li>
+          <a
+            href="/playground"
+            class="text-white hover:text-gray-300 whitespace-nowrap"
             >Playground</a
           >
         </li>

@@ -1,21 +1,23 @@
 <script setup lang="ts">
 import { withoutTrailingSlash } from "ufo";
-import { useRoute, useFetch } from "#app";
+import { useRoute } from "#app"; // Removing useFetch since it's not used below
+
+const route = useRoute();
+const { toc, seo } = useAppConfig(); // Keeping both 'toc' and 'seo'
 
 definePageMeta({
   layout: "docs",
 });
 
-const route = useRoute();
-const { toc, seo } = useAppConfig();
-
+// Fetch page data
 const { data: page, error } = await useAsyncData(route.path, () =>
   queryContent(route.path).findOne()
 );
 console.log("Requested Path:", route.path);
 console.log("Fetched Page:", page);
-if (error.value) {
-  console.error("Error fetching page:", error.value);
+
+if (error.value || !page.value) {
+  console.error("Error fetching page:", error?.value); // Merged both error-handling approaches
   throw createError({
     statusCode: 404,
     statusMessage: "Page not found",
@@ -23,6 +25,7 @@ if (error.value) {
   });
 }
 
+// Fetch surrounding content for navigation
 const { data: surround } = await useAsyncData(`${route.path}-surround`, () =>
   queryContent()
     .where({ _extension: "md", navigation: { $ne: false } })
@@ -30,6 +33,7 @@ const { data: surround } = await useAsyncData(`${route.path}-surround`, () =>
     .findSurround(withoutTrailingSlash(route.path))
 );
 
+// SEO Metadata
 useSeoMeta({
   title: page.value.title,
   ogTitle: `${page.value.title} - ${seo?.siteName}`,
@@ -37,12 +41,14 @@ useSeoMeta({
   ogDescription: page.value.description,
 });
 
+// Define OG image for social sharing
 defineOgImage({
   component: "Docs",
   title: page.value.title,
   description: page.value.description,
 });
 
+// Computed values for headline and links
 const headline = computed(() => findPageHeadline(page.value));
 
 const links = computed(() =>

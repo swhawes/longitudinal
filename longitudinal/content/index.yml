@@ -6,6 +6,10 @@ hero:
     label: Looking for ABCD Examples?
     to: /abcd-study
     icon: i-heroicons-arrow-top-right-on-square-20-solid
+  subheadline:
+    label: Page Under Construction
+    description: "XXxxxx"
+    icon: i-heroicons-arrow-top-right-on-square-20-solid
   links:
     - label: Get started
       icon: i-heroicons-arrow-right-20-solid
@@ -56,42 +60,43 @@ hero:
   linkClasses: "mt-6 hero-links"
 features:
   title: "Explore Content"
-  links:
-    - label: "Discover xxxxx"
-      icon: "i-simple-icons-nuxtdotjs"
-      trailingIcon: "i-heroicons-arrow-right-20-solid"
-      color: "gray"
-      to: "https://github.com/OpenDevSci/LongDev-ABCD"
-      target: "_blank"
-      size: lg
+  # links:
+  #   - label: "Discover xxxxx"
+  #     icon: "i-simple-icons-nuxtdotjs"
+  #     trailingIcon: "i-heroicons-arrow-right-20-solid"
+  #     color: "gray"
+  #     to: "https://github.com/OpenDevSci/LongDev-ABCD"
+  #     target: "_blank"
+  #     size: lg
   items:
     - title: "Contribute"
       description: "How to contribute to the project."
       icon: "i-heroicons-information-circle-solid"
-      to: "/resources"
-      target: "_blank"
-    - title: "ABCD Study Examples"
-      description: "xxxxxx."
+      to: "https://github.com/OpenDevSci/LongDev-ABCD/blob/main/docs/Contributing.md"
+      target: "_self"
+    - title: "ABCD Examples"
+      description: "Code-driven examples using data from the ABCD Study."
       icon: "i-heroicons-sparkles-20-solid"
       to: "/abcd-study"
       target: "_blank"
     - title: "Tutorials"
-      description: "add content here"
+      description: "Longitudinal methods and analysis"
       icon: "i-heroicons-sparkles-20-solid"
-      to: "https://github.com/OpenDevSci/LongDev-ABCD"
-      target: "_blank"
-    - title: "Resources"
-      description: "Resources for R."
+      to: "/tutorials"
+      target: "_self"
+    - title: "Statistics Learning Resources"
+      description: "Resources for Stats Learning."
       icon: "i-simple-icons-r"
       to: "/resources"
       target: "_blank"
     - title: "Github"
-      description: "add content here"
+      description: "Go to the project's Github page."
       icon: "i-simple-icons-github"
       to: "https://github.com/OpenDevSci/LongDev-ABCD"
       target: "_blank"
-    - title: "Tools"
+    - title: "Open Source Tools"
       description: "Tools for researchers."
       icon: "i-heroicons-magnifying-glass-20-solid"
-      to: "https://www.google.com"
-      target: "_blank"
+      to: "/tools"
+      target: "_self" # Optional, "_self" is the default and opens the link in the same tab
+

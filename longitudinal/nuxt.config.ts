@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   ],
   hooks: {
     'components:extend': (components) => {
-      const globals = components.filter(c => ['UButton', 'UIcon', 'ArticleList', 'MethodCardList'].includes(c.pascalName))
+      const globals = components.filter(c => ['UButton', 'UIcon', 'ArticleList', 'MethodCardList', 'SimpleCarousel', 'TabComponent', 'TestComponent'].includes(c.pascalName))
       globals.forEach(c => c.global = true)
     }
   },
@@ -55,7 +55,9 @@ export default defineNuxtConfig({
         'md',
         'yaml',
         'r'
-      ]
+      ],
+      // Enable Document-Driven Mode
+      documentDriven: true // Add this line to enable Document-Driven Mode
     }
   },
   vite: {
@@ -74,5 +76,7 @@ export default defineNuxtConfig({
         autoprefixer: {}
       }
     }
-  }
+  },
+  // Add the plugins array here
+  plugins: ['~/plugins/customDirectives.js']
 })

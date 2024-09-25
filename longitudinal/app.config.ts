@@ -24,11 +24,21 @@ export default defineAppConfig({
       'icon': 'i-simple-icons-github',
       'to': 'https://github.com/OpenDevSci/LongDev-ABCD',
       'target': '_blank',
-      'aria-label': 'Docs on GitHub'
+      'aria-label': 'Longitudinal.dev on GitHub'
+    }, {
+      'icon': 'i-simple-icons-discord',
+      'to': 'https://discord.com/channels/1288111827649171456/1288111940820013139',
+      'target': '_blank',
+      'aria-label': 'Longitudinal.dev on Discord'
+    }, {
+      'icon': 'i-simple-icons-slack',
+      'to': 'https://longitudinaldev.slack.com',
+      'target': '_blank',
+      'aria-label': 'Longitudinal.dev on Slack'
     }]
   },
   footer: {
-    credits: 'credits to add ',
+    // credits: 'credits to add ',
     colorMode: false,
     links: [{
       'icon': 'i-simple-icons-github',
@@ -37,14 +47,14 @@ export default defineAppConfig({
       'aria-label': 'Longitudinal.dev on GitHub'
     }, {
       'icon': 'i-simple-icons-discord',
-      'to': 'https://discord.com/',
+      'to': 'https://discord.com/channels/1288111827649171456/1288111940820013139',
       'target': '_blank',
       'aria-label': 'Longitudinal.dev on Discord'
     }, {
       'icon': 'i-simple-icons-slack',
-      'to': 'https://slack.com/',
+      'to': 'https://longitudinaldev.slack.com',
       'target': '_blank',
-      'aria-label': 'Longitudinal.dev on Discord'
+      'aria-label': 'Longitudinal.dev on Slack'
     }]
   },
   toc: {

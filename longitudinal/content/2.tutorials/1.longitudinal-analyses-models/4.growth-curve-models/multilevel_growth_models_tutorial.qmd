@@ -1,0 +1,131 @@
+---
+title: "Multilevel Growth Models"
+author: "Your Name"
+format: 
+  html:
+    code-tools: true
+    toc: true
+    toc-depth: 3
+    code-link: true
+    df-print: paged
+---
+
+### 🏗️ Foundations
+
+Multilevel Growth Models are an extension of traditional growth models designed to account for nested data structures, such as students within schools or patients within hospitals. These models allow researchers to analyze growth at multiple levels, capturing both individual-level trajectories and group-level effects. By incorporating hierarchical data, multilevel growth models can partition variance into within-group and between-group components, providing a more accurate and nuanced understanding of developmental processes.
+
+In longitudinal research where observations are clustered within higher-level units, multilevel growth modelss are particularly useful. They enable the examination of how individual growth trajectories are influenced not only by individual characteristics but also by group-level factors, such as classroom environments or institutional policies. This approach allows for the assessment of cross-level interactions, revealing how higher-level contexts can impact individual change over time. By accommodating the complexity of nested data, multilevel growth models offer a flexible framework for analyzing longitudinal data that respects the dependency among observations.
+
+<div class="when-to-use-section">
+
+### 🤔 When to Use Multilevel Growth Models?
+
+Consider using Multilevel Growth Models when:
+
+1. You have repeated measures data nested within higher-level units (e.g., students within classrooms).
+2. You are interested in modeling both individual growth trajectories and group-level effects.
+3. You want to account for correlations between observations within the same group (e.g., within a classroom or hospital).
+
+</div>
+
+<div class="getting-started-section">
+
+### 🚀 Getting Started with Multilevel Growth Models
+
+In this tutorial, you will learn how to:
+
+1. Understand the structure of a Multilevel Growth Model.
+2. Fit a Multilevel Growth Model in R using example data.
+3. Interpret the results to understand individual and group-level growth trajectories.
+
+</div>
+
+<div class="hands-on-section">
+
+### 👩‍💻 Hands-On Example
+
+#### Dataset
+
+We will use a dataset where individual growth is measured across three time points, and individuals are nested within groups. Multilevel Growth Models will help us estimate both the individual-level trajectories and the group-level effects.
+
+- **GroupID**: A unique identifier for each group.
+- **SubjectID**: A unique identifier for each individual within the group.
+- **Time**: The time variable, measured at three time points.
+- **Outcome**: The outcome variable, measured repeatedly over time.
+
+```r
+# Generate a simple dataset
+set.seed(123)
+data <- data.frame(
+  GroupID = rep(1:10, each = 10),
+  SubjectID = rep(1:100, each = 3),
+  Time = rep(0:2, times = 100),
+  Outcome = rnorm(300, mean = rep(seq(50, 55, length.out = 100), each = 3), sd = 5)
+)
+
+# View the first few rows
+head(data)
+```
+
+#### Fitting a Multilevel Growth Model in R
+
+We will use the `lme4` package in R to fit a multilevel growth model. The model will include random intercepts and random slopes at the group level, allowing us to capture both individual and group-level growth trajectories.
+
+```r
+# Load necessary libraries
+library(lme4)
+
+# Fit a multilevel growth model
+model <- lmer(Outcome ~ Time + (Time | GroupID/SubjectID), data = data)
+
+# Display the model summary
+summary(model)
+```
+
+#### Model Interpretation
+
+The model estimates both the fixed effects (average growth trajectory) and the random effects (variability in growth trajectories between groups and individuals). By examining the random intercepts and slopes, we can understand how much individual and group trajectories deviate from the overall growth pattern.
+
+#### Visualizing the Growth Trajectories
+
+We can visualize both the individual-level and group-level growth trajectories using `ggplot2`.
+
+```r
+# Load ggplot2 for visualization
+library(ggplot2)
+
+# Plot individual and group-level growth trajectories
+ggplot(data, aes(x = Time, y = Outcome, group = SubjectID)) +
+  geom_line(alpha = 0.4) +
+  stat_summary(aes(group = GroupID), fun = mean, geom = "line", color = "blue", size = 1.2) +
+  labs(
+    title = "Multilevel Growth Model: Individual and Group-Level Growth Trajectories",
+    x = "Time",
+    y = "Outcome"
+  )
+```
+
+</div>
+
+### 🛝 Exercises
+
+Experiment with adding additional group-level predictors (e.g., group size or group characteristics) to the model. You can also explore fitting models with random slopes to capture differences in growth rates between groups.
+
+---
+
+### 💭 Final Thoughts
+
+Multilevel Growth Models are an essential tool for analyzing growth trajectories in nested data. By modeling both individual-level and group-level changes, these models provide a nuanced understanding of growth patterns in hierarchical data structures.
+
+---
+
+### 🔗 Further Resources for Learning About Multilevel Growth Models
+
+- **Books**:
+   - *"Applied Longitudinal Analysis"* by Garrett Fitzmaurice: A comprehensive guide to growth modeling, including multilevel growth models.
+   - *"Multilevel Modeling in R"* by Douglas Bates: A detailed resource on multilevel modeling using the `lme4` package in R.
+
+- **Online Tutorials**:
+   - [Multilevel Growth Models in R by IDRE at UCLA](https://stats.oarc.ucla.edu/r/seminars/multilevel-growth-models/): A step-by-step guide to fitting multilevel growth models in R.
+
+</div>

@@ -1,0 +1,139 @@
+---
+title: "Latent Class Growth Analysis (LCGA)"
+author: "Your Name"
+format: 
+  html:
+    code-tools: true
+    toc: true
+    toc-depth: 3
+    code-link: true
+    df-print: paged
+---
+
+### 🏗️ Foundations
+
+Latent Class Growth Analysis (LCGA) is a statistical technique that extends traditional growth modeling by identifying distinct subgroups, or latent classes, within a population that share similar developmental trajectories over time. Unlike standard growth models that assume a single homogeneous population, LCGA acknowledges that the population may consist of multiple unobserved groups, each following a unique pattern of change. By partitioning individuals into these latent classes, LCGA allows researchers to explore heterogeneity in growth patterns and understand how different subgroups evolve over time.
+
+In LCGA, within-class variability in growth parameters is constrained to zero, meaning that all individuals within a latent class are assumed to have the same growth trajectory. This simplification distinguishes LCGA from Growth Mixture Models (GMM), which allow for individual variability within classes. By fixing within-class variances, LCGA focuses on capturing the major differences between classes, making it a useful tool when the primary interest is in identifying distinct developmental pathways rather than individual differences within those pathways.
+
+LCGA is particularly valuable in fields such as psychology, education, and public health, where understanding the existence of qualitatively different growth patterns can inform theory and practice. For example, researchers might use LCGA to identify subgroups of patients who respond differently to a treatment over time or to uncover distinct trajectories of academic achievement among students. By revealing the presence of multiple latent classes with unique growth patterns, LCGA provides a framework for tailoring interventions and advancing knowledge about the diversity of developmental processes.
+
+<div class="when-to-use-section">
+
+### 🤔 When to Use Latent Class Growth Analysis?
+
+LCGA is useful when:
+
+1. You believe there are unobserved subgroups in the population with distinct growth trajectories.
+2. You want to identify and describe these latent classes based on their growth patterns.
+3. You have repeated measures data and wish to model heterogeneity in growth over time.
+
+</div>
+
+<div class="getting-started-section">
+
+### 🚀 Getting Started with Latent Class Growth Analysis
+
+In this tutorial, you will:
+
+1. Understand how LCGA identifies latent subgroups based on growth trajectories.
+2. Fit an LCGA model in R using example data.
+3. Interpret the results to identify distinct latent classes.
+
+</div>
+
+<div class="hands-on-section">
+
+### 👩‍💻 Hands-On Example
+
+#### Dataset
+
+We will use a dataset where an outcome variable is measured at three time points. LCGA will help us identify distinct latent classes based on how individuals' outcomes change over time.
+
+- **SubjectID**: A unique identifier for each individual.
+- **Outcome_T1**: The outcome variable measured at time 1.
+- **Outcome_T2**: The outcome variable measured at time 2.
+- **Outcome_T3**: The outcome variable measured at time 3.
+
+```r
+# Generate a simple dataset
+set.seed(123)
+data <- data.frame(
+  SubjectID = 1:100,
+  Outcome_T1 = c(rnorm(50, mean = 50, sd = 10), rnorm(50, mean = 70, sd = 10)),
+  Outcome_T2 = c(rnorm(50, mean = 52, sd = 10), rnorm(50, mean = 72, sd = 10)),
+  Outcome_T3 = c(rnorm(50, mean = 55, sd = 10), rnorm(50, mean = 75, sd = 10))
+)
+
+# View the first few rows
+head(data)
+```
+
+#### Fitting a Latent Class Growth Analysis Model in R
+
+We will use the `lcmm` package in R to fit an LCGA model, where we estimate growth trajectories for distinct latent classes.
+
+```r
+# Install and load necessary library
+if (!require(lcmm)) install.packages("lcmm")
+library(lcmm)
+
+# Fit an LCGA model with 2 latent classes
+lcga_model <- hlme(fixed = Outcome_T1 + Outcome_T2 + Outcome_T3 ~ 1, subject = "SubjectID", ng = 2, data = data)
+
+# Display the model summary
+summary(lcga_model)
+```
+
+#### Model Interpretation
+
+The model will estimate the growth trajectories for each latent class. Based on the class membership probabilities, we can identify which individuals are most likely to belong to each class. The differences in the growth patterns between classes will reveal the heterogeneity in the population.
+
+#### Visualizing the Latent Classes
+
+Visualizing the growth trajectories for each latent class can help us understand how the classes differ over time.
+
+```r
+# Load ggplot2 for visualization
+library(ggplot2)
+
+# Plot the mean growth trajectories for each latent class
+class_assignments <- predict(lcga_model, class = TRUE)
+data$class <- factor(class_assignments$class)
+
+ggplot(data, aes(x = factor(c(1, 2, 3)), y = Outcome_T1, group = SubjectID, color = class)) +
+  geom_line(aes(y = Outcome_T1)) +
+  geom_line(aes(y = Outcome_T2)) +
+  geom_line(aes(y = Outcome_T3)) +
+  labs(
+    title = "Latent Class Growth Trajectories",
+    x = "Time",
+    y = "Outcome",
+    color = "Latent Class"
+  )
+```
+
+</div>
+
+### 🛝 Exercises
+
+Try modifying the number of latent classes or adding covariates to the model. Explore how different numbers of classes change the interpretation of the growth trajectories.
+
+---
+
+### 💭 Final Thoughts
+
+Latent Class Growth Analysis is a powerful tool for uncovering hidden subgroups within a population based on their growth patterns. By identifying distinct latent classes, you can gain insights into heterogeneity that may be masked when looking at the population as a whole.
+
+---
+
+### 🔗 Further Resources for Learning About Latent Class Growth Analysis
+
+- **Books**:
+   - *"Latent Class and Latent Transition Analysis"* by Linda Collins and Stephanie Lanza: A great resource for understanding latent class analysis and its applications.
+   - *"Handbook of Quantitative Methods for Detecting Measurement Bias"* by Timothy Church: A helpful guide that covers LCGA and other related methods.
+
+- **Online Tutorials**:
+   - [Latent Class Growth Analysis by IDRE at UCLA](https://stats.oarc.ucla.edu/r/seminars/latent-class-growth-analysis/): A guide on how to fit LCGA models using R.
+
+</div>

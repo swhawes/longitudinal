@@ -1,0 +1,145 @@
+---
+title: "Latent Growth Curve Models (LGCM)"
+author: "Your Name"
+format: 
+  html:
+    code-tools: true
+    toc: true
+    toc-depth: 3
+    code-link: true
+    df-print: paged
+---
+
+### 🏗️ Foundations
+
+Latent Growth Curve Models (LGCMs) are a statistical technique within structural equation modeling used to analyze longitudinal data by modeling the trajectory of change over time within individuals. They focus on latent variables that represent initial status (intercept) and rates of change (slope), capturing both the average growth trajectory of a population and individual deviations from that trajectory. By incorporating these latent factors, LGCMs provide a flexible framework for understanding individual differences in growth patterns and the underlying mechanisms driving change.
+
+LGCMs are particularly useful for investigating how specific factors influence developmental processes over time. They can include time-invariant covariates (variables that do not change over time) and time-varying covariates (variables that change over time) to examine their effects on growth trajectories. This allows researchers to assess complex relationships between variables across multiple time points, such as how an intervention might impact the rate of change in an outcome variable. By accounting for measurement error and capturing unobserved heterogeneity, LGCMs enhance the analysis of longitudinal data. They enable the identification of distinct growth patterns within subgroups of a population and facilitate testing theoretical models of development. Overall, latent growth curve models offer a comprehensive approach to modeling both individual and group-level changes over time.
+
+<div class="when-to-use-section">
+
+### 🤔 When to Use Latent Growth Curve Models?
+
+LGCM is useful when:
+
+1. You are interested in understanding how an outcome variable changes over time.
+2. You want to model individual differences in growth trajectories.
+3. You have repeated measures data and want to explore both group-level and individual-level changes over time.
+
+</div>
+
+<div class="getting-started-section">
+
+### 🚀 Getting Started with Latent Growth Curve Models
+
+In this tutorial, you will learn how to:
+
+1. Understand the structure of a latent growth curve model.
+2. Fit an LGCM in R using a simple dataset.
+3. Interpret the results to identify growth trajectories and individual differences.
+
+</div>
+
+<div class="hands-on-section">
+
+### 👩‍💻 Hands-On Example
+
+#### Dataset
+
+We will use a dataset where an outcome variable is measured at four time points. LGCM will help us estimate the overall growth trajectory and individual differences in growth.
+
+- **SubjectID**: A unique identifier for each individual.
+- **Outcome_T1**: The outcome variable measured at time 1.
+- **Outcome_T2**: The outcome variable measured at time 2.
+- **Outcome_T3**: The outcome variable measured at time 3.
+- **Outcome_T4**: The outcome variable measured at time 4.
+
+```r
+# Generate a simple dataset
+set.seed(123)
+data <- data.frame(
+  SubjectID = 1:100,
+  Outcome_T1 = rnorm(100, mean = 50, sd = 10),
+  Outcome_T2 = rnorm(100, mean = 52, sd = 10),
+  Outcome_T3 = rnorm(100, mean = 54, sd = 10),
+  Outcome_T4 = rnorm(100, mean = 56, sd = 10)
+)
+
+# View the first few rows
+head(data)
+```
+
+#### Fitting a Latent Growth Curve Model in R
+
+We will use the `lavaan` package in R to fit an LGCM. The model will estimate both the intercept (starting point) and slope (rate of change) for the growth trajectory.
+
+```r
+# Install and load necessary library
+if (!require(lavaan)) install.packages("lavaan")
+library(lavaan)
+
+# Define the LGCM model
+lgcm_model <- '
+  # Intercept and slope
+  i =~ 1*Outcome_T1 + 1*Outcome_T2 + 1*Outcome_T3 + 1*Outcome_T4
+  s =~ 0*Outcome_T1 + 1*Outcome_T2 + 2*Outcome_T3 + 3*Outcome_T4
+'
+
+# Fit the LGCM
+fit <- growth(lgcm_model, data = data)
+
+# Display the model summary
+summary(fit, fit.measures = TRUE)
+```
+
+#### Model Interpretation
+
+The intercept represents the estimated value of the outcome at the first time point, while the slope represents the rate of change over time. The model will also estimate individual-level variability in both the intercept and slope, allowing us to understand how much individuals differ from the average growth trajectory.
+
+#### Visualizing the Growth Trajectories
+
+We can plot both the average growth trajectory and individual trajectories to visualize the overall pattern of change and the variability among individuals.
+
+```r
+# Load ggplot2 for visualization
+library(ggplot2)
+
+# Reshape data for visualization
+data_long <- reshape2::melt(data, id.vars = "SubjectID", variable.name = "Time", value.name = "Outcome")
+data_long$Time <- as.numeric(sub("Outcome_T", "", data_long$Time))
+
+# Plot individual and average growth trajectories
+ggplot(data_long, aes(x = Time, y = Outcome, group = SubjectID)) +
+  geom_line(alpha = 0.4) +
+  stat_summary(fun = mean, geom = "line", color = "blue", size = 1.2) +
+  labs(
+    title = "Latent Growth Curve Model: Individual and Average Growth Trajectories",
+    x = "Time",
+    y = "Outcome"
+  )
+```
+
+</div>
+
+### 🛝 Exercises
+
+Experiment with adding covariates to the model to explain individual differences in growth. You can also explore more complex growth patterns by adding quadratic or cubic terms to the model.
+
+---
+
+### 💭 Final Thoughts
+
+Latent Growth Curve Models are a flexible and powerful tool for modeling change over time. By estimating both the overall growth trajectory and individual differences in growth, LGCM provides insights into how populations change over time and what factors influence these changes.
+
+---
+
+### 🔗 Further Resources for Learning About Latent Growth Curve Models
+
+- **Books**:
+   - *"Latent Growth Curve Modeling"* by Kenneth Bollen: A comprehensive resource for understanding latent growth curve models.
+   - *"Longitudinal Structural Equation Modeling"* by Todd Little: A great resource for learning about LGCM and other longitudinal SEM techniques.
+
+- **Online Tutorials**:
+   - [Latent Growth Curve Models in R by IDRE at UCLA](https://stats.oarc.ucla.edu/r/seminars/latent-growth-curve-models/): A detailed guide on how to fit LGCMs in R.
+
+</div>

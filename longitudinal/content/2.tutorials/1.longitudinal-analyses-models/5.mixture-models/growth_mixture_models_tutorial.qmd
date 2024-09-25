@@ -1,0 +1,139 @@
+---
+title: "Growth Mixture Models (GMM)"
+author: "Your Name"
+format: 
+  html:
+    code-tools: true
+    toc: true
+    toc-depth: 3
+    code-link: true
+    df-print: paged
+---
+
+### 🏗️ Foundations
+
+Growth Mixture Models (GMMs) are an extension of latent growth curve models that allow researchers to identify distinct subgroups, or classes, within a population that share similar developmental trajectories over time. Unlike traditional growth models that assume a single homogeneous population, GMMs acknowledge that individuals may follow different patterns of change. By integrating latent class analysis into the growth modeling framework, GMMs simultaneously estimate growth parameters for each class and assign individuals to these latent classes based on their observed data.
+
+In GMMs, each latent class has its own set of growth parameters—such as intercepts and slopes—capturing unique growth trajectories for different subgroups within the data. This approach enables the exploration of heterogeneity in developmental processes, revealing unobserved subpopulations that may differ in their initial status and rates of change. GMMs are particularly useful when there is reason to believe that the population is not uniform in its development, such as when studying diverse responses to an intervention or varying progression of a condition.
+
+By uncovering distinct growth patterns and estimating the proportion of the population belonging to each class, growth mixture models provide a powerful tool for understanding complex longitudinal data. They allow for the examination of how individual characteristics or covariates influence class membership and growth trajectories within classes. This facilitates more tailored interpretations and interventions by recognizing and modeling the diversity inherent in developmental processes.
+
+<div class="when-to-use-section">
+
+### 🤔 When to Use Growth Mixture Models?
+
+Consider using GMMs when:
+
+1. You want to identify distinct latent classes with different growth patterns, but also allow for individual variability within classes.
+2. You have repeated measures data and expect both between-class and within-class heterogeneity.
+3. You are interested in both the group-level and individual-level differences in growth trajectories.
+
+</div>
+
+<div class="getting-started-section">
+
+### 🚀 Getting Started with Growth Mixture Models
+
+In this tutorial, you will learn how to:
+
+1. Understand the structure of a Growth Mixture Model (GMM).
+2. Fit a GMM in R using example data.
+3. Interpret the results to identify latent classes and individual growth trajectories.
+
+</div>
+
+<div class="hands-on-section">
+
+### 👩‍💻 Hands-On Example
+
+#### Dataset
+
+We will generate a dataset where an outcome variable is measured at three time points for several individuals. GMM will help us identify distinct latent classes based on growth trajectories, while accounting for individual-level variation within each class.
+
+- **SubjectID**: A unique identifier for each participant.
+- **Outcome_T1**: The outcome variable measured at time 1.
+- **Outcome_T2**: The outcome variable measured at time 2.
+- **Outcome_T3**: The outcome variable measured at time 3.
+
+```r
+# Generate a simple dataset
+set.seed(123)
+data <- data.frame(
+  SubjectID = 1:100,
+  Outcome_T1 = c(rnorm(50, mean = 50, sd = 10), rnorm(50, mean = 70, sd = 10)),
+  Outcome_T2 = c(rnorm(50, mean = 52, sd = 10), rnorm(50, mean = 72, sd = 10)),
+  Outcome_T3 = c(rnorm(50, mean = 55, sd = 10), rnorm(50, mean = 75, sd = 10))
+)
+
+# View the first few rows
+head(data)
+```
+
+#### Fitting a Growth Mixture Model in R
+
+We will use the `lcmm` package to fit a GMM. This model will estimate the growth trajectories for distinct latent classes while also modeling the individual variation within each class.
+
+```r
+# Install and load necessary library
+if (!require(lcmm)) install.packages("lcmm")
+library(lcmm)
+
+# Fit a GMM model with 2 latent classes
+gmm_model <- hlme(fixed = Outcome_T1 + Outcome_T2 + Outcome_T3 ~ 1, random = ~ 1, subject = "SubjectID", ng = 2, data = data)
+
+# Display the model summary
+summary(gmm_model)
+```
+
+#### Model Interpretation
+
+The model will estimate both the class-specific growth trajectories and the individual-level variability within each class. Based on the class membership probabilities, we can identify which individuals are most likely to belong to each latent class and observe their individual growth patterns.
+
+#### Visualizing the Latent Classes and Individual Growth Trajectories
+
+We can visualize both the mean growth trajectories for each latent class and the individual trajectories within each class.
+
+```r
+# Load ggplot2 for visualization
+library(ggplot2)
+
+# Plot the mean growth trajectories for each latent class
+class_assignments <- predict(gmm_model, class = TRUE)
+data$class <- factor(class_assignments$class)
+
+ggplot(data, aes(x = factor(c(1, 2, 3)), y = Outcome_T1, group = SubjectID, color = class)) +
+  geom_line(aes(y = Outcome_T1)) +
+  geom_line(aes(y = Outcome_T2)) +
+  geom_line(aes(y = Outcome_T3)) +
+  labs(
+    title = "Growth Mixture Model: Individual and Latent Class Trajectories",
+    x = "Time",
+    y = "Outcome",
+    color = "Latent Class"
+  )
+```
+
+</div>
+
+### 🛝 Exercises
+
+Experiment with changing the number of latent classes or adding covariates to the model. Explore how individual-level variability within each class changes the interpretation of the growth trajectories.
+
+---
+
+### 💭 Final Thoughts
+
+Growth Mixture Models offer a flexible way to model both group-level and individual-level differences in growth trajectories. By allowing for individual variability within latent classes, GMM provides more nuanced insights into how individuals change over time within distinct subgroups.
+
+---
+
+### 🔗 Further Resources for Learning About Growth Mixture Models
+
+- **Books**:
+   - *"Growth Mixture Modeling: Advances in Research and Practice"* by Linda Muthén: A comprehensive resource on growth mixture modeling and its applications.
+   - *"Longitudinal Structural Equation Modeling"* by Todd Little: A great resource for understanding latent class and growth mixture models.
+
+- **Online Tutorials**:
+   - [Growth Mixture Models in R by IDRE at UCLA](https://stats.oarc.ucla.edu/r/seminars/growth-mixture-models/): A detailed guide on how to fit GMMs in R.
+
+</div>

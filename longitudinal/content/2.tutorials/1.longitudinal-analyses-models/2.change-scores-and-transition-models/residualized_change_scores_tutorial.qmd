@@ -1,0 +1,164 @@
+---
+title: "Residualized Change Scores"
+author: "Your Name"
+format: 
+  html:
+    code-tools: true
+    toc: true
+    toc-depth: 3
+    code-link: true
+    df-print: paged
+---
+
+### 🏗️ Foundations
+
+Residualized Change Scores are a statistical method used in longitudinal data analysis to measure change over time while controlling for baseline levels. This approach involves regressing a follow-up score (e.g., Time 2) on its baseline score (e.g., Time 1) and extracting the residuals from this regression. These residuals represent the portion of the follow-up score that is not explained by the baseline score, effectively isolating the unique variance in the outcome at the later time point after accounting for initial levels.
+
+By controlling for individual differences at baseline, residualized change scores allow researchers to obtain a more precise estimate of the relationship between predictors and changes in the outcome variable. This method helps adjust for regression to the mean and reduces potential biases that can occur when using simple difference scores. Residualized change scores are particularly useful when the interest lies in understanding how predictors are associated with changes over time rather than with the outcome at a single time point.
+
+This approach is straightforward to implement and interpret, making it valuable where identifying factors that contribute to change is essential. By focusing on the unexplained variance in the follow-up measure, residualized change scores provide insights into the mechanisms underlying development, progression, or the effects of interventions over time.
+
+<div class="when-to-use-section">
+
+### 🤔 Why Use Residualized Change Scores?
+
+You should consider using residualized change scores in the following scenarios:
+
+1. You are interested in understanding the change in an outcome variable while accounting for baseline levels.
+2. You want to control for individual differences at baseline to better assess the effect of predictors on the change over time.
+3. You are working with longitudinal data where a single predictor variable measured at Time 1 may influence a subsequent outcome at Time 2, and you wish to isolate its unique effect on the change.
+
+</div>
+
+<div class="getting-started-section">
+
+### 🚀 Getting Started with Residualized Change Scores
+
+In this tutorial, we will introduce the concept of residualized change scores and walk through an example using a simple dataset. By the end of this tutorial, you will be able to:
+
+1. Understand the basic structure and purpose of residualized change scores.
+2. Calculate residualized change scores using linear regression in R.
+3. Interpret the results of a residualized change score analysis.
+
+Let's get started!
+
+</div>
+
+<div class="hands-on-section">
+
+### 👩‍💻 Hands-On Example 
+
+For this tutorial, we will use a small dataset with two time points (Time 1 and Time 2) and a predictor variable:
+
+- Subject ID
+- Time 1 Score (baseline)
+- Time 2 Score (follow-up)
+- Predictor Variable (e.g., a treatment condition)
+
+```r
+# Generate a simple dataset
+set.seed(123)
+data <- data.frame(
+  SubjectID = 1:10,
+  Time1 = rnorm(10, mean = 50, sd = 10),
+  Time2 = rnorm(10, mean = 55, sd = 10),
+  Predictor = rbinom(10, 1, 0.5)
+)
+
+# View the first few rows
+head(data)
+```
+
+#### Calculating Residualized Change Scores
+
+The next step is to calculate the residualized change scores by regressing the Time 2 scores on the Time 1 scores and extracting the residuals.
+
+```r
+# Fit a linear model regressing Time 2 scores on Time 1 scores
+residual_model <- lm(Time2 ~ Time1, data = data)
+
+# Extract residuals (the residualized change scores)
+data$residualized_change <- residuals(residual_model)
+
+# View the first few rows with residualized change scores
+head(data)
+```
+
+These residuals represent the amount of change in Time 2 that is not explained by Time 1, effectively isolating the change in the outcome.
+
+#### Fitting a Model with Residualized Change Scores
+
+Once you have the residualized change scores, you can use them as the dependent variable in a new regression model to test the effect of a predictor variable (e.g., treatment condition).
+
+```r
+# Fit a regression model with the residualized change scores as the outcome
+final_model <- lm(residualized_change ~ Predictor, data = data)
+
+# Display the model summary
+summary(final_model)
+```
+
+#### Model Interpretation
+
+In the output, the coefficient for the predictor variable represents its effect on the change in the outcome, after accounting for the baseline score. This allows you to assess the unique effect of the predictor on change over time.
+
+#### Visualizing Residualized Change Scores
+
+Visualizing the residualized change scores can help you better understand how different subjects or groups changed over time.
+
+```r
+# Load ggplot2 library
+library(ggplot2)
+
+# Plot residualized change scores by predictor group
+ggplot(data, aes(x = Predictor, y = residualized_change)) +
+  geom_boxplot() +
+  labs(
+    title = "Residualized Change Scores by Predictor Group",
+    x = "Predictor Group",
+    y = "Residualized Change"
+  )
+```
+
+</div>
+
+### 🛝 Playground Exercises
+
+Explore further by testing residualized change scores with more complex datasets, such as those with additional covariates or multiple time points. Experiment in our **[Playground](www.playground.com)** to practice calculating and interpreting residualized change scores.
+
+Head over to **[www.playground.com](www.playground.com)** to try it out!
+
+---
+
+### 🧩 Advanced Topics
+
+Residualized change scores are just one approach to analyzing change over time. Consider exploring other methods like latent growth curve models (LGCM), latent change score models, or difference scores to compare their effectiveness in your data.
+
+### 💭 Final Thoughts
+
+Congratulations on completing this tutorial! You’ve learned how to calculate and interpret residualized change scores, apply them to longitudinal data, and assess how a predictor influences change over time. Keep experimenting and building your knowledge in longitudinal data analysis!
+
+Happy modeling!
+
+---
+
+### 🔗 Further Resources for Learning About Residualized Change Scores
+
+For further reading and resources on residualized change scores and longitudinal data analysis:
+
+- **Books**:
+  - *"Applied Longitudinal Data Analysis"* by Singer & Willett: A great introduction to methods for studying change, including residualized change scores.
+  - *"Longitudinal Data Analysis"* by Jason Newsom: A helpful resource for understanding various techniques for analyzing longitudinal data.
+
+- **Online Tutorials**:
+  - [Residualized Change Scores in R by IDRE at UCLA](https://stats.oarc.ucla.edu/r/dae/residualized-change-scores/): A step-by-step guide on calculating and interpreting residualized change scores in R.
+  
+- **Courses**:
+  - [Coursera's "Longitudinal Data Analysis" Course](https://www.coursera.org/learn/longitudinal-data): A course that covers various methods for analyzing longitudinal data, including residualized change scores.
+  
+- **Video Tutorials**:
+  - [YouTube: Residualized Change Score Tutorial](https://www.youtube.com/watch?v=GDLdY3bKxaw): A video tutorial explaining the concept and application of residualized change scores.
+
+These resources will help you gain a deeper understanding of residualized change scores and their application to longitudinal data.
+
+</div>

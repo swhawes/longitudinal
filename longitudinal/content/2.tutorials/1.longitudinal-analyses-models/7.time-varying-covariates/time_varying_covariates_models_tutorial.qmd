@@ -1,0 +1,147 @@
+---
+title: "Time-Varying Covariates Models (TVCM)"
+author: "Your Name"
+format: 
+  html:
+    code-tools: true
+    toc: true
+    toc-depth: 3
+    code-link: true
+    df-print: paged
+---
+
+### 🏗️ Foundations
+
+Time-Varying Covariate Models (TVCMs) are statistical models that incorporate covariates whose values change over time to analyze their impact on an outcome of interest. Unlike models with time-invariant covariates, TVCMs recognize that the effect of predictors may vary at different time points, allowing for a more dynamic and accurate representation of real-world processes. These models are particularly useful in longitudinal studies, where repeated measurements of variables are collected over time, and the relationship between predictors and outcomes may evolve.
+
+In TVCMs, time-varying covariates can influence the outcome in various ways. For instance, in survival analysis, time-varying covariates are used to model how changes in risk factors affect the hazard rate of an event occurring at specific times. Similarly, in growth modeling, time-varying predictors can explain fluctuations in individual trajectories by accounting for external factors that vary across measurement occasions. By including these covariates, researchers can assess both the immediate and cumulative effects of predictors on the outcome, providing deeper insights into the mechanisms underlying change.
+
+Time-Varying Covariate Models enhance the flexibility and explanatory power of statistical analyses by accommodating the dynamic nature of many real-world phenomena. They allow for the examination of complex interactions between predictors and outcomes over time, facilitating a more nuanced understanding of developmental processes, treatment effects, or policy impacts. By appropriately modeling time-varying covariates, researchers can improve the accuracy of their estimates and make more informed conclusions about the factors influencing change in their studies.
+
+<div class="when-to-use-section">
+
+### 🤔 When to Use Time-Varying Covariates Models?
+
+Consider using TVCM when:
+
+1. You have covariates that vary across time.
+2. You are interested in how changes in these covariates affect an outcome variable over time.
+3. You are analyzing longitudinal data where the influence of covariates is not static but changes across different time points.
+
+</div>
+
+<div class="getting-started-section">
+
+### 🚀 Getting Started with Time-Varying Covariates Models
+
+In this tutorial, you will learn how to:
+
+1. Understand the structure of a Time-Varying Covariates Model.
+2. Fit a TVCM in R using example data.
+3. Interpret the results to understand the effects of time-varying covariates on an outcome variable.
+
+</div>
+
+<div class="hands-on-section">
+
+### 👩‍💻 Hands-On Example
+
+#### Dataset
+
+We will use a dataset where the outcome variable and covariate are measured at three time points. TVCM will help us model how the time-varying covariate influences the outcome at different points in time.
+
+- **SubjectID**: A unique identifier for each individual.
+- **Outcome_T1, Outcome_T2, Outcome_T3**: The outcome variable measured at times 1, 2, and 3.
+- **Covariate_T1, Covariate_T2, Covariate_T3**: The time-varying covariate measured at times 1, 2, and 3.
+
+```r
+# Generate a simple dataset
+set.seed(123)
+data <- data.frame(
+  SubjectID = 1:100,
+  Outcome_T1 = rnorm(100, mean = 50, sd = 10),
+  Outcome_T2 = rnorm(100, mean = 52, sd = 10),
+  Outcome_T3 = rnorm(100, mean = 54, sd = 10),
+  Covariate_T1 = rnorm(100, mean = 30, sd = 5),
+  Covariate_T2 = rnorm(100, mean = 32, sd = 5),
+  Covariate_T3 = rnorm(100, mean = 34, sd = 5)
+)
+
+# View the first few rows
+head(data)
+```
+
+#### Fitting a Time-Varying Covariates Model in R
+
+We will use the `lavaan` package in R to fit a TVCM. The model will include the time-varying covariate as a predictor of the outcome variable at each time point.
+
+```r
+# Install and load necessary library
+if (!require(lavaan)) install.packages("lavaan")
+library(lavaan)
+
+# Define the TVCM model
+tvcm_model <- '
+  # Time-varying covariate effects
+  Outcome_T2 ~ Outcome_T1 + Covariate_T1
+  Outcome_T3 ~ Outcome_T2 + Covariate_T2
+'
+
+# Fit the TVCM
+fit <- lavaan::sem(tvcm_model, data = data)
+
+# Display the model summary
+summary(fit, fit.measures = TRUE)
+```
+
+#### Model Interpretation
+
+The model estimates the effects of the time-varying covariate at each time point. By examining these effects, we can understand how changes in the covariate influence the outcome variable over time.
+
+#### Visualizing the Effect of the Time-Varying Covariate
+
+We can plot both the outcome and covariate trajectories to visualize how changes in the covariate are associated with changes in the outcome.
+
+```r
+# Load ggplot2 for visualization
+library(ggplot2)
+
+# Reshape data for visualization
+data_long <- reshape2::melt(data, id.vars = "SubjectID", variable.name = "Time", value.name = "Value")
+data_long$Time <- as.numeric(sub(".*_T", "", data_long$Time))
+
+# Plot individual trajectories for outcome and covariate
+ggplot(data_long, aes(x = Time, y = Value, group = SubjectID, color = variable)) +
+  geom_line(alpha = 0.4) +
+  labs(
+    title = "Time-Varying Covariates Model: Outcome and Covariate Trajectories",
+    x = "Time",
+    y = "Value",
+    color = "Variable"
+  )
+```
+
+</div>
+
+### 🛝 Exercises
+
+Experiment with adding additional time-varying covariates or modeling interactions between covariates. You can also explore fitting more complex models with non-linear effects of covariates on the outcome.
+
+---
+
+### 💭 Final Thoughts
+
+Time-Varying Covariates Models are a valuable tool for modeling the dynamic influence of covariates on an outcome variable over time. By incorporating time-varying effects, TVCM allows researchers to capture more nuanced relationships between covariates and outcomes in longitudinal studies.
+
+---
+
+### 🔗 Further Resources for Learning About Time-Varying Covariates Models
+
+- **Books**:
+   - *"Applied Longitudinal Analysis"* by Garrett Fitzmaurice: A comprehensive guide to modeling time-varying covariates and other longitudinal effects.
+   - *"Multilevel Modeling in R"* by Douglas Bates: A detailed resource for modeling time-varying covariates in multilevel data structures.
+
+- **Online Tutorials**:
+   - [Time-Varying Covariates Models in R by IDRE at UCLA](https://stats.oarc.ucla.edu/r/seminars/time-varying-covariates/): A step-by-step guide to fitting TVCM in R.
+
+</div>

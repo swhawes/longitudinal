@@ -1,0 +1,5 @@
+---
+title: 'Bootstrapping and Resampling'
+---
+
+This tutorial explains bootstrapping and resampling techniques for longitudinal data.

@@ -1,0 +1,152 @@
+---
+title: "Growth Mixture Models"
+author: "Biostatistics Working Group"
+---
+
+```r  [codeBlock.r]
+
+#| echo: FALSE # The content of this code block will not be shown when rendered
+#| output: FALSE # Output from this code block will not be shown when rendered
+#| cache: FALSE
+
+# This code loads the data to be used for the example
+
+library(tidyverse) # Collection of R packages for data science
+library(tidySEM) # Structural equation modeling in R
+library(lcmm) # estimates statistical models based on the linear mixed model theory
+library(lavaan) # Latent variable modeling
+
+# Set the data path
+data_path <- "/Users/shawes/ABCD/data/rds/abcd_5.0_rds/core-rds-5.0/non-imaging_excluding_nt_5.0.rds"
+
+# Set the data path
+data_path <- "/Users/shawes/ABCD/data/rds/abcd_5.0_rds/core-rds-5.0/non-imaging_excluding_nt_5.0.rds"
+
+# Read the data
+df <- readRDS(data_path)
+
+# Create and mutate the dataframe
+df_selected <- df %>%
+    select(src_subject_id, eventname, anthroweightcalc, site_id_l, rel_family_id.x) %>%
+    filter(eventname %in% c("baseline_year_1_arm_1", "1_year_follow_up_y_arm_1", "2_year_follow_up_y_arm_1", "3_year_follow_up_y_arm_1")) %>%
+    # drop_na(anthroheightcalc) %>%
+    arrange(src_subject_id, eventname) %>%
+    mutate(
+        src_subject_id = factor(src_subject_id),
+        eventname = factor(eventname, levels = c("baseline_year_1_arm_1", "1_year_follow_up_y_arm_1", "2_year_follow_up_y_arm_1", "3_year_follow_up_y_arm_1"), labels = c("Baseline", "Year_1", "Year_2", "Year_3")),
+        anthroheightcalc = round(as.numeric(anthroweightcalc), 2),
+        site_id_l = factor(site_id_l),
+        rel_family_id.x = as.factor(rel_family_id.x)
+    ) %>%
+    rename(
+        id = src_subject_id,
+        event = eventname,
+        weight = anthroweightcalc,
+        site = site_id_l,
+        family = rel_family_id.x
+    ) %>%
+    group_by(id) %>%
+    filter(all(c("Baseline", "Year_1", "Year_2", "Year_3") %in% event)) %>%
+    fill(family, .direction = "downup") %>%
+    ungroup()
+
+# Remove duplicate family members
+
+set.seed(123) # For reproducibility
+
+# Filter to baseline event
+df_baseline <- df_selected %>%
+    filter(event == "Baseline")
+
+# Identify families with multiple members at baseline
+multi_member_families <- df_baseline %>%
+    group_by(family) %>%
+    filter(n() > 1) %>%
+    ungroup()
+
+# Randomly select one member per family with multiple members at baseline
+selected_multi_members <- multi_member_families %>%
+    group_by(family) %>%
+    sample_n(1) %>%
+    ungroup()
+
+# Identify families with a single member at baseline
+single_member_families <- df_baseline %>%
+    group_by(family) %>%
+    filter(n() == 1) %>%
+    ungroup()
+
+# Combine the selected single members and randomly selected multi-members
+selected_families <- bind_rows(single_member_families, selected_multi_members)
+
+# Extract the ids of the selected individuals
+selected_ids <- selected_families$id
+
+# Filter the original dataset to include only the selected individuals
+df_long <- df_selected %>%
+    filter(id %in% selected_ids)
+
+```
+
+## Overview
+
+Growth Mixture Models (GMM) is a specialized form of growth modeling that identifies distinct subgroups within a population based on their trajectory patterns over time. Unlike traditional growth models that assume a single underlying growth trajectory for all individuals, GMM allows for the identification of multiple latent classes, each characterized by its own unique growth path. This method is particularly useful for uncovering heterogeneous patterns of change that might be obscured in an overall population analysis.
+
+This example focuses on exploring the developmental trajectories of height across several annual assessments in a cohort from the ABCD Study. Employing GMM provides the ability to categorize participants into distinct groups based on their growth patterns in height from baseline to subsequent follow-ups. The analysis will determine the number of latent classes that best fit the data, describe the characteristic growth trajectory of each class, and interpret the developmental implications of these findings. Visualizations such as trajectory plots for each class will be used to illustrate the distinct growth patterns.
+
+## Results 
+### Compute Growth Mixture Model
+Growth Mixture Models (GMM) are utilized to identify distinct subgroups within the sample based on their growth trajectories of height over four time points. This approach models latent classes that capture varying patterns of growth, potentially reflecting different developmental processes or intervention outcomes.
+
+The resulting growth mixture model helps delineate classes that show distinct growth patterns. Each class's trajectory can be characterized by its initial status (intercept), rate of growth (slope), and pattern changes over time (step and shape), providing a nuanced understanding of how height progresses differently across subgroups. This analysis is particularly valuable in understanding heterogeneity in developmental outcomes.
+
+```r  [codeBlock.r]
+
+## winsorizing to limit extreme values of the weight variable
+df_long$weight_adjusted <- with(df_long, pmin(pmax(weight, quantile(weight, 0.05, na.rm = TRUE)), quantile(weight, 0.95, na.rm = TRUE)))
+
+set.seed(2002)
+
+df_long <- na.omit(df_long) # Remove rows with NA values
+
+# Convert the id variable to numeric
+df_long$id_numeric <- as.numeric(df_long$id)
+df_long$event <- as.numeric(df_long$event)
+df_long$weight_adjusted <- as.numeric(df_long$weight_adjusted)
+
+# Fit the model using hlme with the numeric id variable
+gmm1 <- hlme(weight_adjusted ~ event, subject = "id_numeric", random = ~1, ng = 1, data = df_long)
+
+gmm2 <- gridsearch(
+    rep = 50, maxiter = 5, minit = gmm1,
+    hlme(weight_adjusted ~ event,
+        subject = "id_numeric", random = ~1,
+        ng = 2, data = df_long, mixture = ~event,
+        nwg = T
+    )
+)
+
+gmm3 <- gridsearch(
+    rep = 50, maxiter = 10, minit = gmm1,
+    hlme(weight_adjusted ~ event,
+        subject = "id_numeric", random = ~1,
+        ng = 3, data = df_long, mixture = ~event,
+        nwg = T
+    )
+)
+
+# make table with results for the 4 models:
+summarytable(gmm1, gmm2, gmm3)
+
+```
+
+The results from the growth mixture model (GMM) analysis indicate a substantial improvement in model fit as the number of classes increases from one to three, as evidenced by lower Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC) values. Specifically, the three-class model shows a log-likelihood (LL) of -95568.72, with an entropy value suggesting good classification accuracy. The distribution of the sample across the classes is as follows: 38.6% (n = 871) in the first class, 57.1% (n = 1287) in the second class, and 4.4% (n = 99) in the third class.
+
+Notably, each class exhibits distinct growth parameters, primarily differing in their intercepts while showing largely consistent slope patterns. The first class shows a mean intercept (i) and slope (s) indicating a particular growth trajectory; the second class has a different intercept and slope, suggesting a distinct growth pattern; and the third class, although much smaller in size, presents another unique growth trajectory. The differences in intercepts across classes highlight the variability in initial weight, while the similarities in slopes suggest consistent growth rates across the sample.
+
+The variances across time points also differ significantly between classes, highlighting the variability in growth patterns across the sample. This variability emphasizes the importance of considering different subgroups within the population when analyzing growth trajectories. The GMM approach is particularly valuable in understanding heterogeneous population subgroups that follow distinct developmental trajectories over time, allowing for a more nuanced interpretation of growth patterns.
+
+## Wrapping Up
+This analysis assessed how participants' weights change across multiple time points, revealing improved model fit with an increase in the number of classes from one to three. This is supported by reductions in the Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC) values, suggesting that more precise class specifications enhance model accuracy. The best-fitting three-class model attained a log-likelihood of -95568.72, indicating good classification accuracy. Distinct growth patterns emerged across classes, with notable variances in intercepts and consistent slopes across classes, emphasizing the variability of developmental patterns within the population.
+
+GMM's are particularly advantageous for exploring heterogeneous population subgroups that follow distinct developmental trajectories over time. This method effectively identifies and categorizes latent classes within the data based on differing patterns of change, without the assumption of normally distributed growth within each class. By classifying individuals into discrete groups that share similar growth patterns, GMM provides clearer insights into how subgroups differ in their developmental trajectories. This approach is especially valuable in contexts where understanding diverse patterns of change trajectories is important, offering robust insights that reflect subgroup-specific trends rather than mere population averages. This makes GMM ideal for studies where baseline characteristics and their influence on subsequent outcomes vary significantly across individuals.

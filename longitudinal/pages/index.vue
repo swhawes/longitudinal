@@ -62,9 +62,9 @@ useSeoMeta({
       </UPageGrid>
     </ULandingSection>
 
-    <ExploreSection :articles="articles" />
-    <FetchJson />
-    <!-- Add FetchJson component here -->
+    <AcknowledgmentsSection />
+
+    <!-- Add content here -->
   </div>
 </template>
 

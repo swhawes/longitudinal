@@ -49,6 +49,7 @@ content folder
               <iframe
                 :src="video.link"
                 frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
                 class="w-full h-64"
               />
@@ -203,12 +204,12 @@ const videos = ref([
   },
   {
     title: "Advanced R Programming",
-    link: "https://www.youtube.com/embed/example2",
+    link: "https://www.youtube.com/embed/videoseries?list=PLm-R300a1uRfH-cy2-KuOD7gHzSRFnX-h",
     description: "A deep dive into advanced R programming topics.",
   },
   {
     title: "Data Wrangling with R",
-    link: "https://www.youtube.com/embed/example3",
+    link: "https://www.youtube.com/embed/videoseries?si=dNM2v87Ri3byUhe-&amp;list=PLEiEAq2VkUUKAw0aAJ1W4jpZ1q9LpX4yG",
     description: "Learn the essentials of data wrangling with R.",
   },
 ]);

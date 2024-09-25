@@ -1,0 +1,137 @@
+---
+title: "Generalized Estimating Equations (GEE)"
+author: "Your Name"
+format: 
+  html:
+    code-tools: true
+    toc: true
+    toc-depth: 3
+    code-link: true
+    df-print: paged
+---
+
+### 🏗️ Foundations
+
+Generalized Estimating Equations (GEE) are a statistical method used to analyze longitudinal and clustered data where observations within clusters may be correlated. GEEs extend generalized linear models (GLMs) to accommodate correlated response data by introducing a working correlation structure among observations within the same cluster. Unlike traditional methods that focus on modeling individual-specific effects, GEEs provide population-averaged estimates, making them particularly useful for studying the average response in a population over time or across groups.
+
+In GEE, the primary interest is in estimating the mean response as a function of covariates while accounting for the correlation between repeated measures or clustered observations. The method specifies a link function to relate the mean of the response variable to the linear predictor, similar to GLMs, and incorporates a working correlation matrix to model the within-cluster dependencies. Importantly, GEEs provide robust standard errors that are consistent even if the working correlation structure is misspecified, as long as the mean model is correctly specified.
+
+GEEs are widely used in fields such as biostatistics, epidemiology, and social sciences, where data are often collected longitudinally or in clusters. They are particularly advantageous when the focus is on population-level effects rather than individual trajectories. By offering a flexible and robust approach to analyzing correlated data, Generalized Estimating Equations enhance the ability to draw valid inferences about the relationships between predictors and outcomes in complex data structures.
+
+<div class="when-to-use-section">
+
+### 🤔 When to Use Generalized Estimating Equations?
+
+Consider using GEE in the following cases:
+
+1. You are interested in estimating population-averaged effects in longitudinal or clustered data.
+2. You want to account for correlations between repeated measures without specifying random effects.
+3. You are working with non-Gaussian data, such as binary or count outcomes, where typical linear models are inappropriate.
+
+</div>
+
+<div class="getting-started-section">
+
+### 🚀 Getting Started with Generalized Estimating Equations
+
+In this tutorial, you will:
+
+1. Learn the concept behind GEEs.
+2. Fit a GEE to longitudinal data using R.
+3. Interpret the model results and make sense of the population-averaged effects.
+
+</div>
+
+<div class="hands-on-section">
+
+### 👩‍💻 Hands-On Example
+
+#### Dataset
+
+For this tutorial, we will use a dataset that contains repeated binary measurements of a health outcome (e.g., whether a patient experienced an adverse event) over time for a group of individuals. The variables include:
+
+- **SubjectID**: A unique identifier for each subject.
+- **Time**: The time points for each observation.
+- **Outcome**: A binary variable (0 or 1) indicating whether the event occurred.
+- **Predictor**: A continuous variable (e.g., age) influencing the outcome.
+
+```r
+# Generate a simple dataset
+set.seed(123)
+data <- data.frame(
+  SubjectID = rep(1:10, each = 4),
+  Time = rep(1:4, times = 10),
+  Outcome = rbinom(40, 1, 0.3),
+  Predictor = rnorm(40, mean = 50, sd = 10)
+)
+
+# View the first few rows of the dataset
+head(data)
+```
+
+#### Fitting a Generalized Estimating Equation in R
+
+To fit a GEE, we will use the `geepack` package in R. In this example, we are modeling a binary outcome using a logit link function, and we will account for the correlation within individuals.
+
+```r
+# Install and load necessary library
+if (!require(geepack)) install.packages("geepack")
+library(geepack)
+
+# Fit a GEE model
+gee_model <- geeglm(Outcome ~ Time + Predictor, id = SubjectID, family = binomial, data = data)
+
+# Display the model summary
+summary(gee_model)
+```
+
+#### Model Interpretation
+
+The coefficients from the GEE model provide estimates of the population-averaged effects. For binary outcomes, the coefficients represent the log-odds of the outcome occurring, and you can exponentiate these to obtain odds ratios.
+
+#### Visualizing the Results
+
+Visualizing the predicted probabilities of the outcome can help interpret the effects of predictors over time.
+
+```r
+# Add predicted probabilities to the dataset
+data$predicted <- predict(gee_model, type = "response")
+
+# Load ggplot2 for visualization
+library(ggplot2)
+
+# Plot the predicted probabilities over time
+ggplot(data, aes(x = Time, y = predicted, color = factor(SubjectID))) +
+  geom_line() +
+  labs(
+    title = "Predicted Probabilities of Outcome Over Time",
+    x = "Time",
+    y = "Predicted Probability",
+    color = "Subject ID"
+  )
+```
+
+</div>
+
+### 🛝 Exercises
+
+Practice with different types of outcome variables (e.g., continuous or count data) and experiment with the correlation structures (e.g., independence, exchangeable) to observe how they affect model performance.
+
+---
+
+### 💭 Final Thoughts
+
+Generalized Estimating Equations are a flexible method for analyzing longitudinal or clustered data when you are more interested in population-averaged effects than individual-level variations. GEEs can handle a wide range of data types, making them particularly useful in health and social sciences.
+
+---
+
+### 🔗 Further Resources for Learning About GEEs
+
+- **Books**:
+   - *"Generalized Estimating Equations"* by Hardin and Hilbe: A great resource for understanding the theory behind GEEs.
+   - *"Longitudinal Data Analysis"* by Hedeker and Gibbons: This text covers a variety of methods for longitudinal data, including GEEs.
+
+- **Online Tutorials**:
+   - [GEE in R by IDRE at UCLA](https://stats.oarc.ucla.edu/r/dae/gee/): A detailed guide on how to fit GEEs using R.
+
+</div>

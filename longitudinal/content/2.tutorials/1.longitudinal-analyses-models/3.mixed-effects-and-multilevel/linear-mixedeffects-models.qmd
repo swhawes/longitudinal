@@ -1,0 +1,222 @@
+---
+title: "Linear Mixed-Effects Models"
+author: "Your Name"
+format: 
+  html:
+    code-tools: true
+    toc: true
+    toc-depth: 3
+    code-link: true
+    df-print: paged
+---
+
+
+### 🏗️ Foundations
+
+Linear Mixed-Effects Models, also known as linear mixed models (LMMs), are versatile statistical tools used to analyze data that involve both fixed effects and random effects. Fixed effects represent population-wide trends consistent across all observations, while random effects account for individual or group-level variability. LMMs are particularly useful for handling data with hierarchical or nested structures, such as measurements nested within individuals or individuals nested within groups. In situations where observations are correlated due to these nested structures, traditional linear regression models may not adequately account for the dependency among observations, potentially leading to biased estimates and invalid inferences.
+
+In longitudinal analyses, LMMs are often preferred because they allow for individual-specific baselines and rates of change by incorporating random intercepts and slopes. This flexibility makes LMMs ideal for capturing both overall trends and individual variations, offering a more nuanced understanding of the data compared to simpler regression models. For example, in a study measuring students’ academic performance over time, a linear mixed-effects model can include fixed effects for overall trends and random effects to account for individual differences in intercepts and slopes, modeling both the average effect and the individual deviations from that average. By partitioning the variance into components attributable to fixed and random effects, LMMs provide a flexible framework for analyzing complex data structures. They can handle unbalanced data, missing values, and varying numbers of observations, making them suitable for longitudinal studies and repeated measures designs.
+
+<div class="when-to-use-section">
+
+### 🤔 When to Use Linear Mixed Models (LMMs)?
+
+You should consider using LMMs in the following scenarios:
+
+1. You want to understand both overall population trends and individual variations over time.
+2. Your outcome variable is measured repeatedly for the same subjects across multiple time points.
+3. You have data with a hierarchical or nested data and need to account for correlated observations.
+</div>
+
+<div class="getting-started-section">
+
+### 🚀 Getting Started with Longitudinal Linear Mixed Models
+
+In this tutorial, we will introduce the concept of linear mixed-effects models (LMMs) and guide you through a simple example using a small dataset. By the end of this tutorial, you will be able to:
+
+1. Understand the basic structure of linear mixed models.
+2. Fit a longitudinal linear mixed model using example data in R.
+3. Interpret the results of the LMM analysis.
+
+Let's dive in!
+</div>
+
+<div class="hands-on-section">
+
+### 👩‍💻 Hands-On Example 
+
+For this tutorial, we will use a simple dataset containing the following information for a group of individuals:
+
+- Subject ID
+- Time (in years)
+- Outcome variable (e.g., a measure of cognitive performance)
+
+```r
+# Generate a simple dataset
+set.seed(123)
+data <- data.frame(
+  SubjectID = rep(1:5, each = 4),
+  Time = rep(0:3, times = 5),
+  Outcome = c(100, 105, 110, 115, 95, 100, 105, 110, 90, 95, 100, 105, 85, 90, 95, 100, 80, 85, 90, 95)
+)
+
+# View the first few rows
+head(data)
+```
+
+#### Fitting Linear Mixed-Effects Models in R
+
+We'll start by using the `lme4` package in R to fit a **random intercept model**, where each individual has their own baseline (intercept).
+
+```r
+
+# Load necessary libraries
+library(lme4)
+
+# Fit a random intercept model
+model1 <- lmer(Outcome ~ Time + (1 | SubjectID), data = data)
+
+# Display model summary to examine fixed and random effects
+summary(model1)
+
+```
+
+#### Model Interpretation
+
+In the output, the fixed effects provide the population-wide average relationship between the predictors (e.g., age) and the response variable (e.g., height). The random effects show how much individual subjects deviate from this average.
+
+#### Adding Random Slopes
+
+You can also allow for **random slopes**, meaning that individuals can differ not only in their intercepts (baselines) but also in their rate of change over time.
+
+```r
+
+# Load necessary libraries
+library(lme4)
+
+# Fit a random slope model
+model2 <- lmer(Outcome ~ Time + (Time | SubjectID), data = data)
+
+# Display model summary to examine fixed and random effects
+summary(model2)
+
+```
+
+Now, each child has their own growth rate!
+
+#### Model Diagnostics and Visualization
+
+Once we’ve fitted our models, we need to assess how well they fit the data.
+
+##### Model Fit: AIC, BIC, and Likelihood Ratio Tests
+
+One way to assess model fit is by comparing models using **AIC** (Akaike Information Criterion) or **BIC** (Bayesian Information Criterion). A lower AIC or BIC indicates a better model fit.
+
+```r
+# Comparing model fit
+AIC(model1, model2)
+```
+
+#### Residual Diagnostics
+
+Check the residuals to ensure that the assumptions of normality and homoscedasticity hold.
+
+```r
+# Plot residuals
+plot(model2)
+```
+
+If the residuals are roughly normally distributed and homoscedastic, the model is well-fitted.
+
+#### Visualization
+
+Visualizing both the raw data and the fitted model is key for understanding your results.
+
+##### Plotting Raw Data
+
+Use `ggplot2` to visualize the data points and individual growth trajectories.
+
+```r
+# Load ggplot2 library
+library(ggplot2)
+
+# Plot raw data
+ggplot(data, aes(x = Time, y = Outcome, color = factor(SubjectID))) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE) +
+    labs(
+        title = "Raw Data: Individual Growth Trajectories",
+        x = "Time (years)",
+        y = "Outcome",
+        color = "Subject ID"
+    )
+
+```
+
+##### Plotting Predicted Values
+
+Next, plot the predicted growth curves for each individual based on the model:
+
+```r
+# Add predicted values to the dataset
+data$pred <- predict(model2)
+
+# Plot predicted values
+ggplot(data, aes(x = Time, y = pred, color = factor(SubjectID))) +
+    geom_line() +
+    labs(
+        title = "Predicted Growth Curves by Subject",
+        x = "Time (years)",
+        y = "Predicted Outcome",
+        color = "Subject ID"
+    )
+
+```
+</div>
+
+### 🛝 Playground Exercises
+
+We encourage you to explore real-world examples and experiment with models in our interactive sandbox. You can practice fitting models like random intercept models, random slope models, and compare their AIC values through the **[Playground](www.playground.com)** section of the website.
+
+Head over to **[www.playground.com](www.playground.com)** to get started!
+
+---
+
+### 🧩 Advanced Topics
+z
+<SimpleCarousel />
+
+
+
+
+### 💭 Final Thoughts
+
+Congratulations on completing this tutorial! You’ve learned how to fit and interpret linear mixed-effects models for longitudinal data, assess model fit, and visualize the results.
+
+For more advanced topics, continue exploring nested models, GLMMs, and more complex structures as you build confidence with LMMs. Keep practicing, and don’t hesitate to refer back to this guide as you progress.
+
+Happy modeling!
+
+---
+
+### 🔗 Further Resources for Learning About Linear Mixed Models
+
+If you're looking to deepen your understanding of Linear Mixed Models (LMMs) and explore more advanced topics, here are some excellent resources:
+
+- **Books**:
+  - *"Linear Mixed-Effects Models using R"* by Douglas Bates: A comprehensive guide on LMMs using the `lme4` package in R.
+  - *"Applied Longitudinal Analysis"* by Garrett Fitzmaurice: An excellent resource for learning about mixed models in the context of longitudinal data.
+  
+- **Online Tutorials**:
+  - [RStudio LMM Documentation](https://lme4.r-forge.r-project.org/): Documentation for the `lme4` package, which is widely used for fitting linear mixed models in R.
+  - [Mixed Models in R by UCLA](https://stats.oarc.ucla.edu/r/dae/mixed-effects-models/): A beginner-friendly online tutorial that provides step-by-step guidance on how to fit mixed models in R.
+
+- **Courses**:
+  - [Coursera's "Linear Mixed-Effects Models" Course](https://www.coursera.org/learn/linear-mixed-models): A course that covers mixed-effects models with practical applications in R.
+  
+- **Video Tutorials**:
+  - [YouTube: Linear Mixed Models Tutorial](https://www.youtube.com/watch?v=Qcojb2HhxJY): A comprehensive video tutorial that explains LMMs and how to apply them in R.
+
+These resources should help you expand your knowledge and gain more practical experience with Linear Mixed Models.
+
+</div>

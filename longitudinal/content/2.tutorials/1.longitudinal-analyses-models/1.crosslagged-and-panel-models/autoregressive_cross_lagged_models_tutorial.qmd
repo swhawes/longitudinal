@@ -1,0 +1,155 @@
+---
+title: "Autoregressive Cross-Lagged Models"
+author: "Your Name"
+format: 
+  html:
+    code-tools: true
+    toc: true
+    toc-depth: 3
+    code-link: true
+    df-print: paged
+---
+
+### 🏗️ Foundations
+
+Autoregressive Cross-Lagged (ARCL) Models are statistical techniques used in longitudinal data analysis to examine the reciprocal relationships between two or more variables over time while accounting for their stability. These models combine autoregressive paths, which capture the stability of each variable by modeling its effect on itself at subsequent time points, with cross-lagged paths, which represent the influence of one variable on another at later time points. By including both types of paths, ARCL models allow researchers to assess the directionality and strength of associations between variables over time.
+
+In an ARCL model, the autoregressive paths control for prior levels of each variable, isolating the unique effect that one variable has on another beyond their inherent stability. This is particularly useful when exploring dynamic processes where variables may influence each other reciprocally, such as the relationship between academic achievement and self-esteem over time. By modeling these reciprocal effects, researchers can gain insights into potential causal mechanisms and temporal precedence in the relationships among variables.
+
+ARCL models are widely used in psychology, education, and social sciences to explore developmental processes and the interplay between variables across multiple time points. They offer a comprehensive framework for understanding how variables influence each other over time, accounting for both their stability and cross-influences, thereby providing a deeper understanding of the complex dynamics present in longitudinal data.
+
+<div class="when-to-use-section">
+
+### 🤔 When to Use Autoregressive Cross-Lagged Models?
+
+You might consider using ARCL models when:
+
+1. You have two or more variables measured repeatedly over time.
+2. You are interested in understanding reciprocal or bidirectional relationships between variables.
+3. You want to assess how one variable influences another at future time points.
+
+</div>
+
+<div class="getting-started-section">
+
+### 🚀 Getting Started with Autoregressive Cross-Lagged Models
+
+In this tutorial, we will guide you through a simple example of how to apply ARCL models in R. By the end of this tutorial, you will:
+
+1. Understand the basic concept of ARCL models.
+2. Fit an ARCL model to longitudinal data using R.
+3. Interpret the results and visualize the cross-lagged relationships.
+
+</div>
+
+<div class="hands-on-section">
+
+### 👩‍💻 Hands-On Example
+
+#### Dataset
+
+We will use a dataset with two variables, **Variable A** and **Variable B**, measured over three time points. The dataset includes:
+
+- **SubjectID**: A unique identifier for each individual.
+- **Variable A**: Measured at three time points.
+- **Variable B**: Measured at three time points.
+
+```r
+# Generate a simple dataset
+set.seed(123)
+data <- data.frame(
+  SubjectID = 1:10,
+  A_T1 = rnorm(10, mean = 50, sd = 10),
+  A_T2 = rnorm(10, mean = 52, sd = 10),
+  A_T3 = rnorm(10, mean = 54, sd = 10),
+  B_T1 = rnorm(10, mean = 30, sd = 5),
+  B_T2 = rnorm(10, mean = 31, sd = 5),
+  B_T3 = rnorm(10, mean = 32, sd = 5)
+)
+
+# View the first few rows of the dataset
+head(data)
+```
+
+#### Fitting an Autoregressive Cross-Lagged Model in R
+
+We will use the `lavaan` package to specify and fit the ARCL model. In this example, we estimate autoregressive paths for **Variable A** and **Variable B** and cross-lagged paths between them.
+
+```r
+# Install and load necessary library
+if (!require(lavaan)) install.packages("lavaan")
+library(lavaan)
+
+# Define the ARCL model
+arcl_model <- '
+  # Autoregressive paths
+  A_T2 ~ A_T1
+  A_T3 ~ A_T2
+  B_T2 ~ B_T1
+  B_T3 ~ B_T2
+
+  # Cross-lagged paths
+  B_T2 ~ A_T1
+  B_T3 ~ A_T2
+  A_T2 ~ B_T1
+  A_T3 ~ B_T2
+'
+
+# Fit the ARCL model
+fit <- sem(arcl_model, data = data)
+
+# Display model summary
+summary(fit, fit.measures = TRUE)
+```
+
+#### Model Interpretation
+
+The autoregressive paths represent the stability of each variable over time, while the cross-lagged paths capture how one variable influences the other at later time points. A significant cross-lagged path suggests that changes in one variable predict changes in the other.
+
+#### Visualizing the Relationships
+
+Visualizing the estimated relationships can help illustrate how the variables influence each other across time points.
+
+```r
+# Load ggplot2 library for visualization
+library(ggplot2)
+
+# Plot the time-series data for Variable A and Variable B
+data_long <- reshape2::melt(data, id.vars = "SubjectID", variable.name = "Time_Variable", value.name = "Score")
+data_long$Time <- as.numeric(sub(".*_(T)", "", data_long$Time_Variable))
+data_long$Variable <- sub("_T.*", "", data_long$Time_Variable)
+
+ggplot(data_long, aes(x = Time, y = Score, color = Variable)) +
+  geom_line(aes(group = interaction(SubjectID, Variable))) +
+  facet_wrap(~SubjectID) +
+  labs(
+    title = "Time-Series Data for Variable A and Variable B",
+    x = "Time",
+    y = "Score"
+  )
+```
+
+</div>
+
+### 🛝 Exercises
+
+Try adding more time points or additional variables to the ARCL model and explore how the relationships change.
+
+---
+
+### 💭 Final Thoughts
+
+You’ve now learned how to apply autoregressive cross-lagged models to examine bidirectional relationships over time. ARCL models provide insights into how variables influence each other across different time points, helping you better understand dynamic systems.
+
+---
+
+### 🔗 Further Resources for Learning About Autoregressive Cross-Lagged Models
+
+- **Books**:
+   - *"Introduction to Structural Equation Modeling"* by Joop Hox: A detailed guide for understanding SEM and cross-lagged models.
+   - *"Longitudinal Data Analysis Using Structural Equation Models"* by Bollen & Curran: A focused resource on SEM applications in longitudinal data.
+
+- **Online Tutorials**:
+   - [ARCL Models in R by IDRE at UCLA](https://stats.oarc.ucla.edu/r/seminars/autoregressive-cross-lagged/): A step-by-step guide on fitting ARCL models in R.
+
+</div>

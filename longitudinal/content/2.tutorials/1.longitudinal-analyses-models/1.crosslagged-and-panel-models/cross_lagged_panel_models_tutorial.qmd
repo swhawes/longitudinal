@@ -1,0 +1,151 @@
+---
+title: "Cross-Lagged Panel Models (CLPM)"
+author: "Your Name"
+format: 
+  html:
+    code-tools: true
+    toc: true
+    toc-depth: 3
+    code-link: true
+    df-print: paged
+---
+
+### 🏗️ Foundations
+
+Cross-Lagged Panel Models (CLPM) are a type of structural equation model used in longitudinal research to examine the reciprocal relationships between two or more variables measured at multiple time points. CLPM incorporate both autoregressive paths, which model the stability of each variable over time, and cross-lagged paths, which represent the influence of one variable on another at subsequent time points. By simultaneously estimating these paths, CLPM help disentangle the temporal ordering and potential causal relationships between variables.
+
+In a CLPM, the autoregressive paths control for prior levels of each variable, allowing the cross-lagged paths to reflect the unique effect of one variable on changes in another over time. This enables researchers to assess whether changes in one variable precede and potentially contribute to changes in another, providing insights into possible directional influences. CLPM are particularly useful for testing theories about the dynamic interplay between variables and for exploring how relationships evolve over time.
+
+These models are widely used in fields such as psychology, education, and social sciences to investigate developmental processes, behavioral interactions, and other phenomena where understanding the direction and strength of relationships over time is important. By accounting for both stability and cross-lagged effects, Cross-Lagged Panel Models offer a robust framework for analyzing longitudinal data and for making inferences about the potential causal pathways between variables.
+
+<div class="when-to-use-section">
+
+### 🤔 When to Use Cross-Lagged Panel Models?
+
+Consider using CLPMs when:
+
+1. You have at least two variables measured at multiple time points.
+2. You are interested in examining the reciprocal relationships between these variables over time.
+3. You want to assess both the stability of the variables and the cross-lagged effects between them.
+
+</div>
+
+<div class="getting-started-section">
+
+### 🚀 Getting Started with Cross-Lagged Panel Models
+
+In this tutorial, you will learn how to:
+
+1. Understand the structure of a cross-lagged panel model.
+2. Fit a CLPM using R with two variables measured at two time points.
+3. Interpret the results, including autoregressive and cross-lagged effects.
+
+</div>
+
+<div class="hands-on-section">
+
+### 👩‍💻 Hands-On Example
+
+#### Dataset
+
+We will generate a dataset where two variables (e.g., academic performance and motivation) are measured at two time points. This allows us to examine both the stability of each variable and their reciprocal relationships over time.
+
+- **SubjectID**: A unique identifier for each participant.
+- **Var1_T1**: The first variable measured at time 1 (e.g., academic performance).
+- **Var1_T2**: The first variable measured at time 2.
+- **Var2_T1**: The second variable measured at time 1 (e.g., motivation).
+- **Var2_T2**: The second variable measured at time 2.
+
+```r
+# Generate a simple dataset
+set.seed(123)
+data <- data.frame(
+  SubjectID = 1:20,
+  Var1_T1 = rnorm(20, mean = 50, sd = 10),
+  Var1_T2 = rnorm(20, mean = 52, sd = 10),
+  Var2_T1 = rnorm(20, mean = 30, sd = 5),
+  Var2_T2 = rnorm(20, mean = 32, sd = 5)
+)
+
+# View the first few rows
+head(data)
+```
+
+#### Fitting a Cross-Lagged Panel Model in R
+
+We will use the `lavaan` package to fit a cross-lagged panel model. This model will include both autoregressive paths (the effect of each variable on itself across time) and cross-lagged paths (the effect of each variable on the other variable across time).
+
+```r
+# Install and load necessary library
+if (!require(lavaan)) install.packages("lavaan")
+library(lavaan)
+
+# Define the CLPM
+clpm_model <- '
+  # Autoregressive paths
+  Var1_T2 ~ Var1_T1
+  Var2_T2 ~ Var2_T1
+
+  # Cross-lagged paths
+  Var2_T2 ~ Var1_T1
+  Var1_T2 ~ Var2_T1
+'
+
+# Fit the CLPM
+fit <- sem(clpm_model, data = data)
+
+# Display the model summary
+summary(fit, fit.measures = TRUE)
+```
+
+#### Model Interpretation
+
+The autoregressive paths estimate the stability of each variable over time, while the cross-lagged paths provide information about the reciprocal effects between the two variables. For example, a significant cross-lagged path from Var1_T1 to Var2_T2 would suggest that academic performance at time 1 influences motivation at time 2.
+
+#### Visualizing the Results
+
+We can plot the results to visualize the relationships between the variables over time.
+
+```r
+# Load ggplot2 for visualization
+library(ggplot2)
+
+# Reshape the data for visualization
+data_long <- reshape2::melt(data, id.vars = "SubjectID", variable.name = "Variable", value.name = "Score")
+data_long$Time <- as.numeric(sub(".*_(T)", "", data_long$Variable))
+data_long$Variable <- sub("_T.*", "", data_long$Variable)
+
+# Plot the trajectories
+ggplot(data_long, aes(x = Time, y = Score, color = Variable)) +
+  geom_line(aes(group = interaction(SubjectID, Variable))) +
+  labs(
+    title = "Cross-Lagged Panel Model: Variable Trajectories",
+    x = "Time",
+    y = "Score"
+  )
+```
+
+</div>
+
+### 🛝 Exercises
+
+Experiment with adding more time points or additional variables to the model. Explore how different cross-lagged effects influence the relationship between variables over time.
+
+---
+
+### 💭 Final Thoughts
+
+Cross-lagged panel models are a powerful tool for examining reciprocal relationships between variables over time. They allow you to assess both the stability of each variable and how they dynamically influence each other. This approach is particularly useful in longitudinal research where understanding these interactions is crucial.
+
+---
+
+### 🔗 Further Resources for Learning About Cross-Lagged Panel Models
+
+- **Books**:
+   - *"Principles and Practice of Structural Equation Modeling"* by Rex B. Kline: A great resource for understanding the theory and application of cross-lagged panel models.
+   - *"Longitudinal Structural Equation Modeling"* by Todd Little: Another excellent resource on structural equation modeling, including CLPMs.
+
+- **Online Tutorials**:
+   - [Cross-Lagged Panel Models in R by IDRE at UCLA](https://stats.oarc.ucla.edu/r/seminars/cross-lagged-panel-models/): A detailed guide on how to fit CLPMs in R.
+
+</div>
