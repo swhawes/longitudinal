@@ -3,6 +3,7 @@ const { footer } = useAppConfig(); // Import the data
 </script>
 
 <template>
+  test
   <UFooter>
     <template #left>
       {{ footer.credits }}
