@@ -29,7 +29,7 @@
     </div>
   </div>
 </template>
-
+<!--
 <script setup lang="ts">
 import MethodCard from "./MethodCard.vue";
 
@@ -159,4 +159,4 @@ const linearMixedEffectsModels: MethodCard[] = [
   overflow: hidden;
   text-overflow: ellipsis;
 }
-</style>
+</style> -->

@@ -8,7 +8,7 @@
     >
       <!-- The background tree image -->
       <image
-        href="/public/images/tree.svg"
+        href="/images/tree.svg"
         width="800"
         height="800"
       />
@@ -19,7 +19,7 @@
         target="_blank"
       >
         <image
-          href="/public/images/linux-logo.svg"
+          href="/images/linux-logo.svg"
           x="200"
           y="300"
           width="100"
@@ -33,7 +33,7 @@
         target="_blank"
       >
         <image
-          href="/public/images/python-logo.svg"
+          src="/images/python-logo.svg"
           x="500"
           y="300"
           width="100"

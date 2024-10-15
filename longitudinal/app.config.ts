@@ -70,7 +70,7 @@ export default defineAppConfig({
       }, {
         icon: 'i-heroicons-book-open',
         label: 'Project docs',
-        to: 'https://github.com/OpenDevSci/LongDev-ABCD/docs',
+        to: 'https://github.com/OpenDevSci/LongDev-ABCD/',
         target: '_blank'
       }]
     }

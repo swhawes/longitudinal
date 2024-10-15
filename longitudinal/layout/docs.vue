@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { NavItem } from "@nuxt/content/dist/runtime/types";
+import type { NavItem } from "@nuxt/content";
 
 const navigation = inject<Ref<NavItem[]>>("navigation");
 </script>
@@ -8,12 +8,9 @@ const navigation = inject<Ref<NavItem[]>>("navigation");
   <UContainer>
     <UPage>
       <template #left>
-        <UAside v-if="!$route.path.includes('/testcontent')" class="sidebar">
+        <UAside>
           <UNavigationTree :links="mapContentNavigation(navigation)" />
         </UAside>
-        <main :class="{ 'full-width': $route.path.includes('/testcontent') }">
-          <nuxt />
-        </main>
       </template>
 
       <slot />

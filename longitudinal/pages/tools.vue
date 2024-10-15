@@ -6,7 +6,7 @@
         <div class="relative overflow-hidden rounded-lg lg:h-96">
           <div class="absolute inset-0">
             <img
-              src="/public/images/opensource_logos.png"
+              src="/images/opensource_logos.png"
               alt="Open source tools"
               class="h-full w-full object-cover object-center"
             />
@@ -213,7 +213,7 @@
               <div class="relative">
                 <a href="https://www.python.org/" target="_blank">
                   <img
-                    src="public/images/python-logo.svg"
+                    src="/images/python-logo.svg"
                     alt="Python Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -229,7 +229,7 @@
               <div class="relative">
                 <a href="https://www.r-project.org/" target="_blank">
                   <img
-                    src="public/images/r-logo.png"
+                    src="/images/r-logo.png"
                     alt="R Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -241,7 +241,7 @@
               <div class="relative">
                 <a href="https://julialang.org/" target="_blank">
                   <img
-                    src="public/images/julia-logo.svg"
+                    src="/images/julia-logo.svg"
                     alt="Julia Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -255,7 +255,7 @@
               <div class="relative">
                 <a href="https://www.mysql.com/" target="_blank">
                   <img
-                    src="public/images/sql-logo.svg"
+                    src="/images/sql-logo.svg"
                     alt="SQL Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -267,7 +267,7 @@
               <div class="relative">
                 <a href="https://isocpp.org/" target="_blank">
                   <img
-                    src="public/images/cpp-logo.svg"
+                    src="/images/cpp-logo.svg"
                     alt="C++ Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -320,7 +320,7 @@
             <a href="https://code.visualstudio.com/" target="_blank">
               <img
                 class="max-h-12 w-full object-contain"
-                src="public/images/vscodelogo.png"
+                src="/images/vscodelogo.png"
                 alt="VS Code Logo"
                 width="158"
                 height="48"
@@ -331,7 +331,7 @@
             <a href="https://www.rstudio.com/" target="_blank">
               <img
                 class="max-h-12 w-full object-contain"
-                src="public/images/rstudiologo.svg"
+                src="/images/rstudiologo.svg"
                 alt="RStudio Logo"
                 width="158"
                 height="48"
@@ -342,7 +342,7 @@
             <a href="https://neovim.io/" target="_blank">
               <img
                 class="max-h-12 w-full object-contain"
-                src="public/images/neovimlogo.svg"
+                src="/images/neovimlogo.svg"
                 alt="Neovim Logo"
                 width="158"
                 height="48"
@@ -353,7 +353,7 @@
             <a href="https://docs.conda.io/" target="_blank">
               <img
                 class="max-h-12 w-full object-contain"
-                src="public/images/condalogo.svg"
+                src="/images/condalogo.svg"
                 alt="Conda Logo"
                 width="158"
                 height="48"
@@ -364,7 +364,7 @@
             <a href="https://www.gnu.org/software/emacs/" target="_blank">
               <img
                 class="max-h-12 w-full object-contain"
-                src="public/images/emacslogo.svg"
+                src="/images/emacslogo.svg"
                 alt="Emacs Logo"
                 width="158"
                 height="48"
@@ -375,7 +375,7 @@
             <a href="https://zed.dev/" target="_blank">
               <img
                 class="max-h-12 w-full object-contain"
-                src="public/images/zed-logo.png"
+                src="/images/zed-logo.png"
                 alt="Zed IDE Logo"
                 width="158"
                 height="48"
@@ -429,7 +429,7 @@
               <div class="relative">
                 <a href="https://git-scm.com/" target="_blank">
                   <img
-                    src="public/images/git-logo.svg"
+                    src="/images/git-logo.svg"
                     alt="Git Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -445,7 +445,7 @@
               <div class="relative">
                 <a href="https://github.com/" target="_blank">
                   <img
-                    src="public/images/github-logo.webp"
+                    src="/images/github-logo.webp"
                     alt="GitHub Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -457,7 +457,7 @@
               <div class="relative">
                 <a href="https://about.gitlab.com/" target="_blank">
                   <img
-                    src="public/images/gitlab_logo.svg"
+                    src="/images/gitlab_logo.svg"
                     alt="GitLab Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -472,7 +472,7 @@
               <div class="relative">
                 <a href="https://www.gitkraken.com/" target="_blank">
                   <img
-                    src="public/images/gitkraken-logo.svg"
+                    src="/images/gitkraken-logo.svg"
                     alt="GitKraken Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -484,7 +484,7 @@
               <div class="relative">
                 <a href="https://gitea.io/en-us/" target="_blank">
                   <img
-                    src="public/images/gitea-logo.svg"
+                    src="/images/gitea-logo.svg"
                     alt="Gitea Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -535,7 +535,7 @@
             <a href="https://www.markdownguide.org/" target="_blank">
               <img
                 class="max-h-12 w-full object-contain"
-                src="public/images/markdown-logo.png"
+                src="/images/markdown-logo.png"
                 alt="Markdown Logo"
                 width="158"
                 height="48"
@@ -549,7 +549,7 @@
             >
               <img
                 class="max-h-12 w-full object-contain"
-                src="public/images/csv-logo.jpeg"
+                src="/images/csv-logo.jpeg"
                 alt="CSV Logo"
                 width="158"
                 height="48"
@@ -560,7 +560,7 @@
             <a href="https://parquet.apache.org/" target="_blank">
               <img
                 class="max-h-12 w-full object-contain"
-                src="public/images/parquet-logo.svg"
+                src="/images/parquet-logo.svg"
                 alt="Apache Parquet Logo"
                 width="158"
                 height="48"
@@ -571,7 +571,7 @@
             <a href="https://www.json.org/" target="_blank">
               <img
                 class="max-h-12 w-full object-contain"
-                src="public/images/json-logo.svg"
+                src="/images/json-logo.svg"
                 alt="JSON Logo"
                 width="158"
                 height="48"
@@ -582,7 +582,7 @@
             <a href="https://arrow.apache.org/" target="_blank">
               <img
                 class="max-h-12 w-full object-contain"
-                src="public/images/arrow-logo.png"
+                src="/images/arrow-logo.png"
                 alt="Apache Arrow Logo"
                 width="158"
                 height="48"
@@ -593,7 +593,7 @@
             <a href="https://en.wikipedia.org/wiki/XML" target="_blank">
               <img
                 class="max-h-12 w-full object-contain"
-                src="public/images/xml-logo.webp"
+                src="/images/xml-logo.webp"
                 alt="xml Logo"
                 width="158"
                 height="48"
@@ -654,7 +654,7 @@
               <div class="relative">
                 <a href="https://quarto.org/" target="_blank">
                   <img
-                    src="public/images/quarto-logo.png"
+                    src="/images/quarto-logo.png"
                     alt="Quarto Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -670,7 +670,7 @@
               <div class="relative">
                 <a href="https://jupyter.org/" target="_blank">
                   <img
-                    src="public/images/jupyter-logo.svg"
+                    src="/images/jupyter-logo.svg"
                     alt="Jupyter Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -682,7 +682,7 @@
               <div class="relative">
                 <a href="https://observablehq.com/" target="_blank">
                   <img
-                    src="public/images/observable-logo.webp"
+                    src="/images/observable-logo.webp"
                     alt="Observable HQ Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -739,7 +739,7 @@
               <div class="relative">
                 <a href="https://www.postgresql.org/" target="_blank">
                   <img
-                    src="public/images/postgresql-logo.svg"
+                    src="/images/postgresql-logo.svg"
                     alt="PostgreSQL Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -755,7 +755,7 @@
               <div class="relative">
                 <a href="https://www.mysql.com/" target="_blank">
                   <img
-                    src="public/images/mysql-logo.svg"
+                    src="/images/mysql-logo.svg"
                     alt="MySQL Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -767,7 +767,7 @@
               <div class="relative">
                 <a href="https://duckdb.org/" target="_blank">
                   <img
-                    src="public/images/duckdb-logo.svg"
+                    src="/images/duckdb-logo.svg"
                     alt="DuckDB Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -781,7 +781,7 @@
               <div class="relative">
                 <a href="https://www.mongodb.com/" target="_blank">
                   <img
-                    src="public/images/mongodb-logo.svg"
+                    src="/images/mongodb-logo.svg"
                     alt="MongoDB Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />
@@ -793,7 +793,7 @@
               <div class="relative">
                 <a href="https://redis.io/" target="_blank">
                   <img
-                    src="public/images/redis-logo.svg"
+                    src="/images/redis-logo.svg"
                     alt="Redis Logo"
                     class="aspect-[2/3] w-full h-full rounded-xl bg-gray-900/5 object-contain shadow-lg"
                   />

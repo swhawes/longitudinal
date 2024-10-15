@@ -20,52 +20,52 @@ interface Article {
 const articles: Article[] = [
   {
     title: "Data Wrangling",
-    link: "abcd-study/data-wrangling",
+    link: "/abcd-study/data-wrangling",
     background: "linear-gradient(180deg, #4CAF97 0%, #51C6AB 100%)",
   },
   {
     title: "Models for Two Time Points",
-    // link: "abcd-study/",
+    // link: "/abcd-study/",
     background: "linear-gradient(180deg, #5A5EB7 0%, #7075EA 100%)",
   },
   {
     title: "Traditional Linear Models",
-    link: "abcd-study/traditional-linear-models",
+    link: "/abcd-study/traditional-linear-models",
     background: "linear-gradient(180deg, #AF6160 0%, #CA8A89 100%)",
   },
   {
     title: "Traditional Nonlinear Models",
-    link: "abcd-study/traditional-nonlinear-models",
+    link: "/abcd-study/traditional-nonlinear-models",
     background: "linear-gradient(180deg, #674A98 0%, #A594C3 100%)",
   },
   {
     title: "Structural Equation Models",
-    link: "abcd-study/sem-models",
+    link: "/abcd-study/sem-models",
     background: "linear-gradient(180deg, #25879C 0%, #54C3DB 100%)",
   },
   {
     title: "Advanced Structural Equation Models",
-    link: "abcd-study/advanced-sem-models",
+    link: "/abcd-study/advanced-sem-models",
     background: "linear-gradient(180deg, #4572B6 0%, #789EDA 100%)",
   },
   {
     title: "Neuroimaging Models",
-    link: "abcd-study/neuroimaging-models",
+    link: "/abcd-study/neuroimaging-models",
     background: "linear-gradient(180deg, #CC733E 0%, #EAA378 100%)",
   },
   {
     title: "Twin and Genetics Models",
-    link: "abcd-study/twin-genetics-models",
+    link: "/abcd-study/twin-genetics-models",
     background: "linear-gradient(180deg, #F1637C 0%, #E399A6 100%)",
   },
   {
     title: "Additional Model Set to be Added",
-    // link: "abcd-study/",
+    // link: "/abcd-study/",
     background: "linear-gradient(180deg, #4572B6 0%, #789EDA 100%)",
   },
   {
     title: "Additional Model Set to be Added",
-    // link: "abcd-study/",
+    // link: "/abcd-study/",
     background: "linear-gradient(180deg, #CC733E 0%, #EAA378 100%)",
   },
 ];

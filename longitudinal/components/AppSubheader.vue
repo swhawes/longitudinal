@@ -34,7 +34,9 @@
           >
         </li>
         <li>
-          <a href="/tools#ides" class="text-white hover:text-gray-300 whitespace-nowrap"
+          <a
+            href="/tools#ides"
+            class="text-white hover:text-gray-300 whitespace-nowrap"
             >IDEs</a
           >
         </li>
@@ -145,7 +147,7 @@
         </li>
         <li>
           <a
-            href="/tools/6.data-formats"
+            href="/tools#data-formats"
             class="text-white hover:text-gray-300 whitespace-nowrap"
             >Markdown</a
           >
@@ -156,9 +158,7 @@
           >
         </li>
         <li>
-          <a
-            href="#"
-            class="text-white hover:text-gray-300 whitespace-nowrap"
+          <a href="#" class="text-white hover:text-gray-300 whitespace-nowrap"
             >Missing Data</a
           >
         </li>
