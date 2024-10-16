@@ -26,19 +26,20 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       routes: [
-        '/' // Home page
-        // '/about', // Example additional route (add more routes as necessary)
-        // '/longit/tools', // Example
-        // '/longit/tutorials' // Example
+        '/' // Home page, you can add more important routes here
       ],
-      crawlLinks: true, // Enable crawling to find more links automatically
+      crawlLinks: true, // Enable crawling to discover other routes
       ignore: [
         // '/tools/6.data-formats',
-        // '/api/_content/query/JPfzfXpE83.1728957996020.json',
+        // '/api/_content/query/JPfzfXpE83.1728957996020.json'
         '/plotly-view',
         '/contribute',
         '/sandbox',
         '/longitudinal/about',
+        '/about',
+        '/resources_seenote',
+        '/longitudinal/resources_seenote',
+        '/test',
         '/longitudinal/getting-started',
         '/tutorials/data-visualization/viz_customizing-plots-ggplot2',
         '/longitudinal/tutorials/data-visualization/viz_customizing-plots-ggplot2',
@@ -71,18 +72,17 @@ export default defineNuxtConfig({
     '/api/search.json': { prerender: true }
   },
   app: {
-    baseURL: process.env.NUXT_APP_BASE_URL || '/longitudinal/' // Set this to your GitHub repo slug
+    baseURL: process.env.NUXT_APP_BASE_URL || '/longitudinal/' // Ensure correct base URL, especially for GitHub Pages
   },
   devtools: {
     enabled: true
   },
   typescript: {
-    strict: false
+    strict: false // Depending on your requirements, you might consider enabling strict mode
   },
   future: {
     compatibilityVersion: 4
   },
-
   eslint: {
     config: {
       stylistic: {
@@ -92,22 +92,9 @@ export default defineNuxtConfig({
     }
   },
   content: {
+    documentDriven: true, // Ensuring document-driven mode is correctly enabled
     highlight: {
-      langs: [
-        'json',
-        'js',
-        'ts',
-        'html',
-        'css',
-        'vue',
-        'shell',
-        'mdc',
-        'md',
-        'yaml',
-        'r'
-      ],
-      // Enable Document-Driven Mode
-      documentDriven: true // Add this line to enable Document-Driven Mode
+      langs: ['json', 'js', 'ts', 'html', 'css', 'vue', 'shell', 'md', 'yaml', 'r']
     }
   },
   vite: {
@@ -127,7 +114,6 @@ export default defineNuxtConfig({
       }
     }
   },
-  // Add the plugins array here
   plugins: ['~/plugins/customDirectives.js'],
   compatibilityDate: '2024-07-11'
 })
